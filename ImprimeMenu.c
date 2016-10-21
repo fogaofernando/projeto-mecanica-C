@@ -18,9 +18,9 @@
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
 #define TAM_HORIZONTAL 60			//Tem que ser par
-#define ESP_BRANCO   3		  		//Valor dado + os caracteres jÃ¡ impressos
+#define ESP_BRANCO   3		  		//Valor dado + os caracteres já impressos
 
-//ProtÃ³tipo
+//Protótipo
 int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
 void tabelaHorizontal(int op);
 void imprimeApresentacaoMenu(char *apMenu);
@@ -47,25 +47,25 @@ int main(){
 	opMenu = menu(4,menuTeste,"Menu Principal");	
 	printf("%d",opMenu);	
 
-	//finalizaÃ§Ã£o
+	//finalização
 	printf("\n");
 	system("pause");
 	return 0;
 }
-//FunÃ§Ãµes
+//Funções
 
 
 
-//Imprime e informa opÃ§Ã£o escolhida de um menu de opÃ§Ãµes
-//Recebe a quantidade de opÃ§Ãµes do menu, o endereÃ§amento de uma matriz com as opÃ§Ãµes armazenadas e endereÃ§amento da string com o tÃ­tulo do menu;
-//Retorna a opÃ§Ã£o escolhida, 0 em caso de finalizaÃ§Ã£o do programa pelo ESC;
+//Imprime e informa opção escolhida de um menu de opções
+//Recebe a quantidade de opções do menu, o endereçamento de uma matriz com as opções armazenadas e endereçamento da string com o título do menu;
+//Retorna a opção escolhida, 0 em caso de finalização do programa pelo ESC;
 int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
-	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeraÃ§Ã£o do botÃ£o clicado de acordo com a  tabela ASCII
+	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeração do botão clicado de acordo com a  tabela ASCII
 	
 	//desenvolvimento
 	do{
-		//ImpressÃ£o inicial do menu
+		//Impressão inicial do menu
 		
 		if(tecla == -1){
 			
@@ -74,7 +74,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			imprimeApresentacaoMenu(apresentaMenu);
 			for(cont = 0;cont<qtOp;cont++){
 				
-				//imprimir opÃ§Ãµes
+				//imprimir opções
 				if(opAtual == cont+1){
 					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
 					addEspacoBarraLateral(opcoes[cont],5);
@@ -97,7 +97,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 		
 		//imprimindo menu
 		if(tecla == ACIMA){
-			//Informar posiÃ§Ã£o atual do cursor
+			//Informar posição atual do cursor
 			if(opAtual > 1){
 				opAtual--;
 			}
@@ -118,7 +118,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			espacosBranco();
 			tabelaHorizontal(2);
 		}else if(tecla == ABAIXO){
-			//informar posiÃ§Ã£o atual do cursor
+			//informar posição atual do cursor
 			if(opAtual < qtOp){
 				opAtual++;
 			}
@@ -154,7 +154,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 }
 
 //Imprime o topo ou a base da tabela.
-//Recebe a opÃ§Ã£o de impressao desejada: 1 para o topo e x != 1 para a base;
+//Recebe a opção de impressao desejada: 1 para o topo e x != 1 para a base;
 void tabelaHorizontal(int op){
 	//Variaveis
 	int cont;
@@ -184,7 +184,7 @@ void tabelaHorizontal(int op){
 	
 }
 
-//Imprime o tÃ³pico do menu
+//Imprime o tópico do menu
 //Recebe a string com o nome 
 void imprimeApresentacaoMenu(char *apMenu){
 	//Variaveis
@@ -196,19 +196,19 @@ void imprimeApresentacaoMenu(char *apMenu){
 	//barra lateral
 	printf("\n%c",BARRA_LATERAL);
 	
-	//espaÃ§os anteriores
+	//espaços anteriores
 	for(cont = 0 ; cont< (qtEspaco-1) ; cont++){
 			printf(" ");
 	}
-		//espaÃ§o extra para impar
+		//espaço extra para impar
 	if( strlen(apMenu)%2 != 0){
 		printf(" ");
 	}
 	
-	//tÃ³pico
+	//tópico
 	printf("%s",apMenu);
 	
-	//espaÃ§os posteriores
+	//espaços posteriores
 	for(cont = 0 ; cont< qtEspaco ; cont++){
 		printf(" ");
 	}
@@ -216,31 +216,31 @@ void imprimeApresentacaoMenu(char *apMenu){
 	//barra lateral
 	printf("%c\n%c",BARRA_LATERAL,BARRA_LATERAL);
 	
-	//espaÃ§os anteriores
+	//espaços anteriores
 	for(cont = 0 ; cont < TAM_HORIZONTAL-1 ; cont++){
 			printf(" ");
 	}
-		//espaÃ§o extra para impar
+		//espaço extra para impar
 
 	
 	printf("%c\n",BARRA_LATERAL);
 }
 
-//Imprime os espaÃ§os laterais apÃ³s a string e a barra lateral
-//Recebe uma string, e a quantidade de espaÃ§os anteriores a ela 
+//Imprime os espaços laterais após a string e a barra lateral
+//Recebe uma string, e a quantidade de espaços anteriores a ela 
 void addEspacoBarraLateral(char *texto, int espAnterior){
 	//Variaveis
 	int cont,espaco = 0;
 		
 	//Desenvolvimento
-		//recebendo os espaÃ§os
+		//recebendo os espaços
 	espaco = strlen(texto);
 	espaco += espAnterior ;
 	espaco = TAM_HORIZONTAL - espaco;
 	
 	//printf("%d",espaco);
 	
-	//imprimindo espaÃ§os e barra lateral
+	//imprimindo espaços e barra lateral
 	for(cont = 0 ;cont<espaco;cont++){
 		printf(" ");
 	}
@@ -249,7 +249,7 @@ void addEspacoBarraLateral(char *texto, int espAnterior){
 }
 
 
-//Imnprime os espaÃ§os em branco da tabela
+//Imnprime os espaços em branco da tabela
 void espacosBranco(){
 	//Variaveis
 	int cont,i;
@@ -264,5 +264,3 @@ void espacosBranco(){
 		printf("%c\n",BARRA_LATERAL);
 	}
 }
-
-
