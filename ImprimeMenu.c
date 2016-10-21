@@ -1,4 +1,3 @@
-//teste 123
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -19,9 +18,9 @@
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
 #define TAM_HORIZONTAL 60			//Tem que ser par
-#define TAM_VERTICAL   20  		//Valor dado + os caracteres já impressos
+#define TAM_VERTICAL   20  		//Valor dado + os caracteres jÃ¡ impressos
 
-//Protótipo
+//ProtÃ³tipo
 int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
 void tabelaHorizontal(int op);
 void imprimeApresentacaoMenu(char *apMenu);
@@ -44,25 +43,25 @@ int main(){
 	opMenu = menu(3,menuTeste,"Menu Principal");	
 	printf("%d",opMenu);	
 
-	//finalização
+	//finalizaÃ§Ã£o
 	printf("\n");
 	system("pause");
 	return 0;
 }
-//Funções
+//FunÃ§Ãµes
 
 
 
-//Imprime e informa opção escolhida de um menu de opções
-//Recebe a quantidade de opções do menu, o endereçamento de uma matriz com as opções armazenadas e endereçamento da string com o título do menu;
-//Retorna a opção escolhida, 0 em caso de finalização do programa pelo ESC;
+//Imprime e informa opÃ§Ã£o escolhida de um menu de opÃ§Ãµes
+//Recebe a quantidade de opÃ§Ãµes do menu, o endereÃ§amento de uma matriz com as opÃ§Ãµes armazenadas e endereÃ§amento da string com o tÃ­tulo do menu;
+//Retorna a opÃ§Ã£o escolhida, 0 em caso de finalizaÃ§Ã£o do programa pelo ESC;
 int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
-	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeração do botão clicado de acordo com a  tabela ASCII
+	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeraÃ§Ã£o do botÃ£o clicado de acordo com a  tabela ASCII
 	
 	//desenvolvimento
 	do{
-		//Impressão inicial do menu
+		//ImpressÃ£o inicial do menu
 		
 		if(tecla == -1){
 			
@@ -71,7 +70,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			imprimeApresentacaoMenu(apresentaMenu);
 			for(cont = 0;cont<qtOp;cont++){
 				
-				//imprimir opções
+				//imprimir opÃ§Ãµes
 				if(opAtual == cont+1){
 					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
 				}else{
@@ -89,7 +88,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 		
 		//imprimindo menu
 		if(tecla == ACIMA){
-			//Informar posição atual do cursor
+			//Informar posiÃ§Ã£o atual do cursor
 			if(opAtual > 1){
 				opAtual--;
 			}
@@ -107,7 +106,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			}	
 			
 		}else if(tecla == ABAIXO){
-			//informar posição atual do cursor
+			//informar posiÃ§Ã£o atual do cursor
 			if(opAtual < qtOp){
 				opAtual++;
 			}
@@ -141,7 +140,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 }
 
 //Imprime o topo ou a base da tabela.
-//Recebe a opção de impressao desejada: 1 para o topo e x != 1 para a base;
+//Recebe a opÃ§Ã£o de impressao desejada: 1 para o topo e x != 1 para a base;
 void tabelaHorizontal(int op){
 	//Variaveis
 	int cont;
@@ -171,7 +170,7 @@ void tabelaHorizontal(int op){
 	
 }
 
-//Imprime o tópico do menu
+//Imprime o tÃ³pico do menu
 //Recebe a string com o nome 
 void imprimeApresentacaoMenu(char *apMenu){
 	//Variaveis
@@ -183,19 +182,19 @@ void imprimeApresentacaoMenu(char *apMenu){
 	//barra lateral
 	printf("\n%c",BARRA_LATERAL);
 	
-	//espaços anteriores
+	//espaÃ§os anteriores
 	for(cont = 0 ; cont< (qtEspaco-1) ; cont++){
 			printf(" ");
 	}
-		//espaço extra para impar
+		//espaÃ§o extra para impar
 	if( strlen(apMenu)%2 != 0){
 		printf(" ");
 	}
 	
-	//tópico
+	//tÃ³pico
 	printf("%s",apMenu);
 	
-	//espaços posteriores
+	//espaÃ§os posteriores
 	for(cont = 0 ; cont< qtEspaco ; cont++){
 		printf(" ");
 	}
@@ -203,11 +202,11 @@ void imprimeApresentacaoMenu(char *apMenu){
 	//barra lateral
 	printf("%c\n%c",BARRA_LATERAL,BARRA_LATERAL);
 	
-	//espaços anteriores
+	//espaÃ§os anteriores
 	for(cont = 0 ; cont < TAM_HORIZONTAL-1 ; cont++){
 			printf(" ");
 	}
-		//espaço extra para impar
+		//espaÃ§o extra para impar
 
 	
 	printf("%c\n",BARRA_LATERAL);
