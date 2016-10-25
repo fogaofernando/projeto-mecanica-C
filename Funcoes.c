@@ -1,11 +1,10 @@
-
-
 #include <stdio.h>
 #include <ctype.h>
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-//Teclados
+
+//Menu Grafico
 #define ACIMA 72
 #define ABAIXO 80
 #define ESC 27
@@ -20,14 +19,13 @@
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
 #define TAM_HORIZONTAL 60			//Tem que ser par
-#define ESP_BRANCO   3		  		//Valor dado + os caracteres já impressos
+#define ESP_BRANCO   3		  		//Valor dado + os caracteres ja impressos
 
-//Protótipos
+//Prototipos________________________________________________________________________________________________
 
-void leInt (int *valor);
+void removeQuebraLinha(char *valString);
 void leValidaInt(char *titulo,char *msgErro,int valorMin, int valorMax, int *valor);
-void leFloat (float *valor);
-void leValidaFloat(char *titulo,char *msgErro,int valorMin, int valorMax, float *valor);
+void leValidaFloat(char *titulo,char *msgErro,int min, int max, float *valorF);
 void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
@@ -38,26 +36,61 @@ void imprimeApresentacaoMenu(char *apMenu);
 void addEspacoBarraLateral(char *texto, int espAnterior);
 void espacosBranco();
 
-// objeitvo : ler e validar uma string
-// paramentros : referencia ao titulo , a string , tamanho minimo e tamanho maximo
-// retorno : nenhum
+
+//Funcoes_____________________________________________________________________________________________________
+
+
+// Objeitvo : Ler e validar uma string
+// Paramentros : Referencia ao titulo , a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores)
+// Retorno : Nenhum;
 void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax){
+	//variaveis
+	int flag,cont,tamTxt;
+	
+	//desenvolvimento
 	do{
+		flag = 1;
+		//leitura de dados
+		system("cls");
 		printf(titulo);
 		fflush(stdin);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
-		if(texto[strlen(texto)-1]=='\n'){
-			texto[strlen(texto)-1]='\0';
-		}		
-		if(strlen(texto)<tamanhoMin){
-			printf("Erro , Informe novamente \n");
+		
+		//tirando '\n'
+		removeQuebraLinha(texto);	
+		
+		tamTxt = strlen(texto);
+		
+		//verificando tamanho e validade de espacos do texto	
+		if(tamTxt<tamanhoMin){
+			flag = 0;
+			printf(">>> ERRO: O tamanho do texto esta em desacordo com o permitido...\n");
+			system("pause");
+		}else{
+			for(cont = 0;cont < tamTxt;cont++){
+				if(texto[cont] == ' '){
+					//erro caso so haja espacamento
+					if(cont == tamTxt-1){
+						printf(">>> ERRO: O texto nao pode ser composto somente de espaco...\n");
+						system("pause");
+						flag = 0;
+					}
+				}else{
+					flag = 1 ;
+					break;
+				}
+			}
 		}
-	}while(strlen(texto)<tamanhoMin);
+		
+		
+	}while(flag == 0);
 }
-// Objetivo : ler e validar uma opção
-// Paramentros : referencia ao vetor das opções
-// Retorno : opção validada
+
+
+// Objetivo : ler e validar uma opcao
+// Paramentros : referencia ao vetor das opcoes
+// Retorno : opcvalidada;
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 	printf(titulo);
 	do{
@@ -66,78 +99,57 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 	}while(strchr(opcoes,*opcao)==NULL);
 }
 
-//Objetivo: Ler e validar um número inteiro.
-//Parâmetros: Referência ao título, referência à mensagem de erro, valor mínimo, valor máximo e endereço de valor.
-//Retorno: Nenhum.
-void leValidaInt(char *titulo,char *msgErro,int valorMin, int valorMax, int *valor){
+//Objetivo: Ler e validar um numero inteiro;
+//Parametros: Referencia ao titulo e a mensagem de erro, valor e minimo permitido e endereco de valor;
+//Retorno: Nenhum;
+void leValidaInt(char *titulo,char *msgErro,int min, int max, int *valor){
+	//Variaveis
 	int flag;
+	
+	//Desenvolvimento
 	do{
-		flag=0;
+		//leitura de dados
+		system("cls");
 		printf(titulo);
-		leInt(valor);
-		if(*valor<valorMin || *valor>valorMax){
-			system("cls");
+		fflush(stdin);
+		flag = scanf("%d",valor);
+		fflush(stdin);
+		
+		//Verificando dados
+		if(*valor< min || *valor > max || flag ==0){
 			printf(msgErro);
-			flag=1;
+			system("pause");
+			flag = 0;
 		}
-	}while(flag==1);
-	system("cls");
-}
-//Objetivo: Ler um número inteiro.
-//Parâmetros: Endereço de valor.
-//Retorno: Nenhum.
-void leInt (int *valor){
-	int flag,ret;
-	do{
-		flag=0;
-		fflush(stdin);
-		ret=scanf("%d",valor);
-		fflush(stdin);
-		if(ret==0){
-			system("cls");
-			printf("Informe um número: ");
-			flag=1;
-		}
-	}while(flag==1);
-	system("cls");
+	}while(flag == 0);
 }
 
-//Objetivo: Ler um número real.
-//Parâmetros: Endereço de valor.
-//Retorno: Nenhum.
-void leFloat (float *valor){
-	int flag,ret;
+
+//Objetivo: Ler e validar um numero real;
+//Parametros: Referencia ao titulo e a mensagem de erro, valor e minimo permitido e endereco de valor real;
+//Retorno: Nenhum;
+void leValidaFloat(char *titulo,char *msgErro,int min, int max, float *valorF){
+	//Variaveis
+	int flag;
+	
+	//Desenvolvimento
 	do{
-		flag=0;
+		//leitura de dados
+		system("cls");
+		printf(titulo);
 		fflush(stdin);
-		ret=scanf("%f",valor);
+		flag = scanf("%f",valorF);
 		fflush(stdin);
-		if(ret==0){
-			system("cls");
-			printf("Informe um número: ");
-			flag=1;
+		
+		//Verificando dados
+		if(*valorF< min || *valorF > max || flag == 0){
+			printf(msgErro);
+			system("pause");
+			flag = 0;
 		}
-	}while(flag==1);
-	system("cls");
+	}while(flag == 0);
 }
 
-//Objetivo: Ler e validar um número real.
-//Parâmetros: Referência ao título, referência à mensagem de erro, valor mínimo, valor máximo e endereço de valor.
-//Retorno: Nenhum.
-void leValidaFloat(char *titulo,char *msgErro,int valorMin, int valorMax, float *valor){
-	int flag;
-	do{
-		flag=0;
-		printf(titulo);
-		leFloat(valor);
-		if(*valor<valorMin || *valor>valorMax){
-			system("cls");
-			printf(msgErro);
-			flag=1;
-		}
-	}while(flag==1);
-	system("cls");
-}
 /**************************************************************
 *  Nome      : validaCPF                                      *  
 *  Descricao : Valida um CPF                                  *
@@ -238,14 +250,15 @@ static char cpfFormatado[15];
 //}
 
 
-//Imprime e informa opção escolhida de um menu de opções
-//Recebe a quantidade de opções do menu, o endereçamento de uma matriz com as opções armazenadas e endereçamento da string com o título do menu;
-//Retorna a opção escolhida, 0 em caso de finalização do programa pelo ESC;
+//Imprime e informa opcoes escolhida de um menu 
+//Recebe a quantidade de opcoes do menu, o enderecaamento de uma matriz com as opcoes armazenadas e endereco da string com o titulo do menu;
+//Retorna a opcoes escolhida, 0 em caso de finalizacoes do programa pelo ESC;
 int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
 	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeração do botão clicado de acordo com a  tabela ASCII
 	
 	//desenvolvimento
+	system("cls");
 	do{
 		//Impressão inicial do menu
 		
@@ -336,7 +349,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 }
 
 //Imprime o topo ou a base da tabela.
-//Recebe a opção de impressao desejada: 1 para o topo e x != 1 para a base;
+//Recebe a opcao de impressao desejada: 1 para o topo e x != 1 para a base;
 void tabelaHorizontal(int op){
 	//Variaveis
 	int cont;
@@ -366,7 +379,7 @@ void tabelaHorizontal(int op){
 	
 }
 
-//Imprime o tópico do menu
+//Imprime o topico do menu
 //Recebe a string com o nome 
 void imprimeApresentacaoMenu(char *apMenu){
 	//Variaveis
@@ -408,8 +421,8 @@ void imprimeApresentacaoMenu(char *apMenu){
 	printf("%c\n",BARRA_LATERAL);
 }
 
-//Imprime os espaços laterais após a string e a barra lateral
-//Recebe uma string, e a quantidade de espaços anteriores a ela 
+//Imprime os espacos laterais do menu apos a string e a barra lateral
+//Recebe uma string, e a quantidade de espacos anteriores a ela 
 void addEspacoBarraLateral(char *texto, int espAnterior){
 	//Variaveis
 	int cont,espaco = 0;
@@ -422,7 +435,7 @@ void addEspacoBarraLateral(char *texto, int espAnterior){
 	
 	//printf("%d",espaco);
 	
-	//imprimindo espaços e barra lateral
+	//imprimindo espacos e barra lateral
 	for(cont = 0 ;cont<espaco;cont++){
 		printf(" ");
 	}
@@ -431,7 +444,7 @@ void addEspacoBarraLateral(char *texto, int espAnterior){
 }
 
 
-//Imnprime os espaços em branco da tabela
+//Imnprime os espacos em branco da tabela do menu
 void espacosBranco(){
 	//Variaveis
 	int cont,i;
@@ -445,6 +458,18 @@ void espacosBranco(){
 		}
 		printf("%c\n",BARRA_LATERAL);
 	}
+}
+
+
+//Remove o \n da string;
+//Entrada: Referencia a string;
+//Retorno: NULO;
+void removeQuebraLinha(char *valString){
+	
+	if(valString[strlen(valString)-1]=='\n'){
+		valString[strlen(valString)-1] = '\0';
+	}
+	
 }
 
 

@@ -27,8 +27,8 @@ CommandLine=
 Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
-CompilerSet=0
-CompilerSettings=0000000000000000000000000
+CompilerSet=5
+CompilerSettings=0000000100000000100000000
 UnitCount=3
 
 [VersionInfo]
@@ -51,16 +51,6 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=ImprimeMenu.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
 FileName=Funcoes.c
 CompileCpp=0
 Folder=
@@ -70,8 +60,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit3]
+[Unit2]
 FileName=structs.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=NovaImprimeMenu.c
 CompileCpp=0
 Folder=
 Compile=1
