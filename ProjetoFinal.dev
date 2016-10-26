@@ -1,5 +1,5 @@
 [Project]
-FileName=ProfetoFinal.dev
+FileName=ProjetoFinal.dev
 Name=ProfetoFinal
 Type=1
 Ver=2
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=5
 CompilerSettings=0000000100000000100000000
-UnitCount=3
+UnitCount=4
 
 [VersionInfo]
 Major=1
@@ -71,7 +71,17 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=NovaImprimeMenu.c
+FileName=Principal.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
+FileName=FuncoesdeMenu.c
 CompileCpp=0
 Folder=
 Compile=1
