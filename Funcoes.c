@@ -19,7 +19,7 @@
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
 #define TAM_HORIZONTAL 60			//Tem que ser par
-#define ESP_BRANCO   3		  		//Valor dado + os caracteres ja impressos
+#define ESP_BRANCO   1		  		//Valor dado + os caracteres ja impressos
 
 //Prototipos________________________________________________________________________________________________
 
@@ -34,7 +34,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
 void tabelaHorizontal(int op);
 void imprimeApresentacaoMenu(char *apMenu);
 void addEspacoBarraLateral(char *texto, int espAnterior);
-void espacosBranco();
+void espacosBranco(int qtEsp);
 
 
 //Funcoes_____________________________________________________________________________________________________
@@ -260,16 +260,17 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//desenvolvimento
 	system("cls");
 	do{
-		//Impressão inicial do menu
+		// inicio do menu
 		
 		if(tecla == -1){
 			
-			//imprimir topo
+			//Imprimindo o menu
 			tabelaHorizontal(1);
 			imprimeApresentacaoMenu(apresentaMenu);
+			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				
-				//imprimir opções
+				//imprimir opcoes
 				if(opAtual == cont+1){
 					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
 					addEspacoBarraLateral(opcoes[cont],5);
@@ -280,12 +281,12 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 				}
 				
 			}	
-			espacosBranco();
+			espacosBranco(1);
 			tabelaHorizontal(2);
 		}
 		
 		//leitura do teclado
-		fflush(stdin);
+		//fflush(stdin);
 		tecla = getch();
 		fflush(stdin);
 		system("cls");
@@ -300,6 +301,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			//Imprimindo o menu
 			tabelaHorizontal(1);
 			imprimeApresentacaoMenu(apresentaMenu);
+			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				if(opAtual == cont+1){
 					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
@@ -310,7 +312,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 				}
 				
 			}	
-			espacosBranco();
+			espacosBranco(1);
 			tabelaHorizontal(2);
 		}else if(tecla == ABAIXO){
 			//informar posição atual do cursor
@@ -321,6 +323,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			//Imprimindo o menu
 			tabelaHorizontal(1);
 			imprimeApresentacaoMenu(apresentaMenu);
+			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				if(opAtual == cont+1){
 					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
@@ -331,7 +334,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 				}
 				
 			}	
-		espacosBranco();
+		espacosBranco(1);
 		tabelaHorizontal(2);
 		}else if(tecla != ESC && tecla != ENTER){
 			tecla = -1;
@@ -372,7 +375,7 @@ void tabelaHorizontal(int op){
 	}
 	
 	if(op == 1){
-		printf("%c",BARRA_DIG02);	
+		printf("%c\n",BARRA_DIG02);	
 	}else{
 		printf("%c",BARRA_DIG04);	
 	}
@@ -384,79 +387,78 @@ void tabelaHorizontal(int op){
 void imprimeApresentacaoMenu(char *apMenu){
 	//Variaveis
 	int qtEspaco,cont;
+	char espacos[TAM_HORIZONTAL];
 	
 	//Desenvolvimento
 	qtEspaco = (TAM_HORIZONTAL- strlen(apMenu) )/2;
 	
 	//barra lateral
-	printf("\n%c",BARRA_LATERAL);
+	printf("%c",BARRA_LATERAL);
 	
-	//espaços anteriores
+	//espacos anteriores
 	for(cont = 0 ; cont< (qtEspaco-1) ; cont++){
-			printf(" ");
+			espacos[cont] = ' ';
 	}
-		//espaço extra para impar
+	
+	espacos[cont] = '\0';
+	
+	//topico
+	printf("%s%s%s",espacos,apMenu,espacos);
+	
+	//espaco extra para impar
 	if( strlen(apMenu)%2 != 0){
 		printf(" ");
 	}
 	
-	//tópico
-	printf("%s",apMenu);
-	
-	//espaços posteriores
-	for(cont = 0 ; cont< qtEspaco ; cont++){
-		printf(" ");
-	}
-	
 	//barra lateral
-	printf("%c\n%c",BARRA_LATERAL,BARRA_LATERAL);
-	
-	//espaços anteriores
-	for(cont = 0 ; cont < TAM_HORIZONTAL-1 ; cont++){
-			printf(" ");
-	}
-		//espaço extra para impar
-
-	
-	printf("%c\n",BARRA_LATERAL);
+	printf(" %c\n",BARRA_LATERAL);
 }
 
 //Imprime os espacos laterais do menu apos a string e a barra lateral
 //Recebe uma string, e a quantidade de espacos anteriores a ela 
 void addEspacoBarraLateral(char *texto, int espAnterior){
 	//Variaveis
-	int cont,espaco = 0;
+	int cont,qtEspaco = 0;
+	char espacos[TAM_HORIZONTAL];
 		
 	//Desenvolvimento
-		//recebendo os espaços
-	espaco = strlen(texto);
-	espaco += espAnterior ;
-	espaco = TAM_HORIZONTAL - espaco;
+		//recebendo a quantidade de espacos
+	qtEspaco = strlen(texto);
+	qtEspaco += espAnterior ;
+	qtEspaco = TAM_HORIZONTAL - qtEspaco;
 	
 	//printf("%d",espaco);
 	
 	//imprimindo espacos e barra lateral
-	for(cont = 0 ;cont<espaco;cont++){
-		printf(" ");
+fflush(stdin);
+	for(cont = 0 ;cont<qtEspaco;cont++){
+			
+		espacos[cont] = ' ';
 	}
-	printf("%c\n",BARRA_LATERAL);
+	espacos[cont] = '\0';
+	printf("%s%c\n",espacos,BARRA_LATERAL);
 	
 }
 
 
 //Imnprime os espacos em branco da tabela do menu
-void espacosBranco(){
+//Entrada: Recebe a quantidade de linhas que ser�o impressos
+//Sa�da: NULL;
+void espacosBranco(int qtEsp){
 	//Variaveis
 	int cont,i;
+	char espacos[TAM_HORIZONTAL];
 	
 	//Desenvolvimento
-	for(i=0;i<ESP_BRANCO;i++){
+	for(i=0;i<qtEsp;i++){
 		
+		fflush(stdin);
 		printf("%c",BARRA_LATERAL);
 		for(cont = 0;cont < (TAM_HORIZONTAL - 1);cont++){
-			printf(" ");
+			espacos[cont] = ' ';	
 		}
-		printf("%c\n",BARRA_LATERAL);
+		espacos[cont] = '\0';
+		printf("%s%c\n",espacos,BARRA_LATERAL);
 	}
 }
 
