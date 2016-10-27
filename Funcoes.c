@@ -4,13 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-
+#define SETA01 26
+#define SETA02 175
 
 //Prototipos________________________________________________________________________________________________
 
 void removeQuebraLinha(char *valString);
-void leValidaInt(char *titulo,char *msgErro,int valorMin, int valorMax, int *valor);
-void leValidaFloat(char *titulo,char *msgErro,int min, int max, float *valorF);
+void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor);
+void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
 void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
@@ -82,24 +83,38 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 }
 
 //Objetivo: Ler e validar um numero inteiro;
-//Parametros: Referencia ao titulo e a mensagem de erro, valor e minimo permitido e endereco de valor;
+//Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
 //Retorno: Nenhum;
-void leValidaInt(char *titulo,char *msgErro,int min, int max, int *valor){
+void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor){
 	//Variaveis
 	int flag;
 	
 	//Desenvolvimento
 	do{
+		//Mensagem de leitura e tabela
+		system("cls"); 
+		tabelaHorizontal(1);
+		imprimeTxtTabela(topo,1);
+		espacosBranco(2);
+		imprimeTxtTabela(mens,0);
+		tabelaHorizontal(2);
+		printf("\n %c%c ",SETA01,SETA02);
+		
 		//leitura de dados
-//		system("cls"); Comentado
-		printf(titulo);
 		fflush(stdin);
 		flag = scanf("%d",valor);
 		fflush(stdin);
 		
 		//Verificando dados
 		if(*valor< min || *valor > max || flag ==0){
-			printf(msgErro);
+			system("cls"); 
+			tabelaHorizontal(1);
+			imprimeTxtTabela(topo,1);
+			espacosBranco(2);
+			imprimeTxtTabela(msgErro,0);
+			tabelaHorizontal(2);
+			printf("\n %c%c ",SETA01,SETA02);
+		
 			system("pause");
 			flag = 0;
 		}
@@ -108,24 +123,38 @@ void leValidaInt(char *titulo,char *msgErro,int min, int max, int *valor){
 
 
 //Objetivo: Ler e validar um numero real;
-//Parametros: Referencia ao titulo e a mensagem de erro, valor e minimo permitido e endereco de valor real;
+//Parametros: Referencia a mensagem de leitura,ao topo e a mensagem de erro, valor e minimo permitido e endereco de valor real;
 //Retorno: Nenhum;
-void leValidaFloat(char *titulo,char *msgErro,int min, int max, float *valorF){
+void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF){
 	//Variaveis
 	int flag;
 	
 	//Desenvolvimento
 	do{
+		//Mensagem de leitura e tabela
+		system("cls"); 
+		tabelaHorizontal(1);
+		imprimeTxtTabela(topo,1);
+		espacosBranco(2);
+		imprimeTxtTabela(mens,0);
+		tabelaHorizontal(2);
+		printf("\n %c%c ",SETA01,SETA02);
+		
 		//leitura de dados
-		system("cls");
-		printf(titulo);
 		fflush(stdin);
 		flag = scanf("%f",valorF);
 		fflush(stdin);
 		
 		//Verificando dados
 		if(*valorF< min || *valorF > max || flag == 0){
-			printf(msgErro);
+			system("cls"); 
+			tabelaHorizontal(1);
+			imprimeTxtTabela(topo,1);
+			espacosBranco(2);
+			imprimeTxtTabela(msgErro,0);
+			tabelaHorizontal(2);
+			printf("\n %c%c ",SETA01,SETA02);
+		
 			system("pause");
 			flag = 0;
 		}

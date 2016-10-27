@@ -9,7 +9,7 @@
 #define ENTER 13
 #define MAX_OPCOES 10
 #define NOME_OPCOES 100
-#define IMG_OP 62
+#define IMG_OP 16
 #define BARRA_HORIZONTAL 205
 #define BARRA_LATERAL 186
 #define BARRA_DIG01 201
@@ -19,15 +19,19 @@
 #define TAM_HORIZONTAL 60			//Tem que ser par
 #define ESP_BRANCO   1		  		//Valor dado + os caracteres ja impressos
 
-int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
+int tabelaMenu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
 void tabelaHorizontal(int op);
-void imprimeApresentacaoMenu(char *apMenu);
 void addEspacoBarraLateral(char *texto, int espAnterior);
+void espacosBranco(int qtEsp);
+void imprimeTxtTabela(char *txt,int posicao);
+
+
+
 
 //Imprime e informa opcoes escolhida de um menu 
 //Recebe a quantidade de opcoes do menu, o enderecaamento de uma matriz com as opcoes armazenadas e endereco da string com o titulo do menu;
 //Retorna a opcoes escolhida, 0 em caso de finalizacoes do programa pelo ESC;
-int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
+int tabelaMenu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
 	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numera√ß√£o do bot√£o clicado de acordo com a  tabela ASCII
 	
@@ -40,7 +44,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			
 			//Imprimindo o menu
 			tabelaHorizontal(1);
-			imprimeApresentacaoMenu(apresentaMenu);
+			imprimeTxtTabela(apresentaMenu,1);
 			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				
@@ -74,7 +78,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			
 			//Imprimindo o menu
 			tabelaHorizontal(1);
-			imprimeApresentacaoMenu(apresentaMenu);
+			imprimeTxtTabela(apresentaMenu,1);
 			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				if(opAtual == cont+1){
@@ -96,7 +100,7 @@ int menu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 			
 			//Imprimindo o menu
 			tabelaHorizontal(1);
-			imprimeApresentacaoMenu(apresentaMenu);
+			imprimeTxtTabela(apresentaMenu,1);
 			espacosBranco(1);
 			for(cont = 0;cont<qtOp;cont++){
 				if(opAtual == cont+1){
@@ -156,41 +160,61 @@ void tabelaHorizontal(int op){
 	
 }
 
-//Imprime o topico do menu
-//Recebe a string com o nome 
-void imprimeApresentacaoMenu(char *apMenu){
+//Objetivo:Imprime uma string dentro da tabela;
+//Entrada:Recebe a string com o nome, e a posicao desejada(0 =>esquerda, 1 => centralizado ) ;
+//Retorno: Nulo;
+void imprimeTxtTabela(char *txt,int posicao){
 	//Variaveis
 	int qtEspaco,cont;
 	char espacos[TAM_HORIZONTAL];
 	
 	//Desenvolvimento
-	qtEspaco = (TAM_HORIZONTAL- strlen(apMenu) )/2;
+	qtEspaco = (TAM_HORIZONTAL- strlen(txt));
 	
-	//barra lateral
+	//barra lateral esquerda
 	printf("%c",BARRA_LATERAL);
 	
-	//espacos anteriores
-	for(cont = 0 ; cont< (qtEspaco-1) ; cont++){
-			espacos[cont] = ' ';
+	//PosoÁ„o
+	if(posicao == 0){
+		
+		//A esquerda
+			//Adicionando espaÁos no vetor
+		for(cont = 0 ; cont< (qtEspaco-2); cont++){
+				espacos[cont] = ' ';
+		}
+		espacos[cont] = '\0';
+		
+		//imprimindo espaÁos e string
+		printf("%s%s",txt,espacos);
+		
+	}else{
+		
+		//Centralizado
+			//Adicionando espaÁos no vetor
+		for(cont = 0 ;cont< ((qtEspaco)/2)-1 ; cont++){
+				espacos[cont] = ' ';
+		}
+		espacos[cont] = '\0';
+		printf("%s%s%s",espacos,txt,espacos);
+		
+		//espaco extra para strng de tamanho impar e finalizando string de espaÁos
+		if( strlen(txt)%2 != 0){
+			printf(" ");
+		}
+	
 	}
 	
-	espacos[cont] = '\0';
 	
-	//topico
-	printf("%s%s%s",espacos,apMenu,espacos);
 	
-	//espaco extra para impar
-	if( strlen(apMenu)%2 != 0){
-		printf(" ");
-	}
-	
-	//barra lateral
+	//barra lateral direita
 	printf(" %c\n",BARRA_LATERAL);
 }
 
-//Imprime os espacos laterais do menu apos a string e a barra lateral
-//Recebe uma string, e a quantidade de espacos anteriores a ela 
-void addEspacoBarraLateral(char *texto, int espAnterior){
+
+//Objetivo: Imprime os espacos laterais do menu apos a string e a barra lateral a direita
+//Entrada:  Recebe uma string, e a quantidade de espacos anteriores a ela
+//Retorno:  Nulo;
+void addEspacoBarraLateral(char *texto,int espAnterior){
 	//Variaveis
 	int cont,qtEspaco = 0;
 	char espacos[TAM_HORIZONTAL];
@@ -201,10 +225,8 @@ void addEspacoBarraLateral(char *texto, int espAnterior){
 	qtEspaco += espAnterior ;
 	qtEspaco = TAM_HORIZONTAL - qtEspaco;
 	
-	//printf("%d",espaco);
-	
 	//imprimindo espacos e barra lateral
-fflush(stdin);
+	fflush(stdin);
 	for(cont = 0 ;cont<qtEspaco;cont++){
 			
 		espacos[cont] = ' ';
@@ -215,7 +237,7 @@ fflush(stdin);
 }
 
 
-//Imnprime os espacos em branco da tabela do menu
+//Objetivo: Imnprime os espacos em branco da tabela 
 //Entrada: Recebe a quantidade de linhas que ser„o impressos
 //SaÌda: NULL;
 void espacosBranco(int qtEsp){

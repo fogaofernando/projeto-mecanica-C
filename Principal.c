@@ -24,18 +24,19 @@ int main(){
 	strcpy(menuProprietario[1],"2-Renomear");
 	strcpy(menuProprietario[2],"3-Excluir ");
 	
-	//Desenvolvimento
 	
+	//Desenvolvimento
 	system("color 8E");			//Cor de fundo e cor da letra  
 	
 	do{	
-		opMenu = menu(4,menuPrincipal,"Menu Principal");
+		opMenu = tabelaMenu(4,menuPrincipal,"Menu Principal");
 		
 		if(opMenu==1){
-			opMenu = menu(3,menuProprietario,"Proprietario");
+			opMenu = tabelaMenu(3,menuProprietario,"Proprietario");
 			
 			if(opMenu == 1){
-				leValidaInt("Informe o numero inteiro:\n>",">>>ERRO: Valor Invalido...\n",0,10,&teste);
+				leValidaInt("Informe o numero inteiro:",menuProprietario[0],">>>ERRO: Valor Invalido...",0,10,&teste);
+				system("cls");
 				printf("valor inteiro: %d",teste);
 				system("pause");
 			
@@ -49,7 +50,8 @@ int main(){
 			
 		}else if(opMenu == 2){
 			
-			leValidaFloat("Informe o numero real:\n>",">>>ERRO: Valor Invalido...\n",0,10,&testeF);
+			leValidaFloat("Informe o numero real:",menuProprietario[1],">>>ERRO: Valor Invalido...",0,10,&testeF);
+			system("cls");
 			printf("valor real: %f",testeF);
 			system("pause");
 		
