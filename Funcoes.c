@@ -12,7 +12,7 @@
 void removeQuebraLinha(char *valString);
 void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor);
 void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
-void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax);
+void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
@@ -26,16 +26,25 @@ void espacosBranco(int qtEsp);
 // Objeitvo : Ler e validar uma string
 // Paramentros : Referencia ao titulo , a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores)
 // Retorno : Nenhum;
-void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax){
+void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax){
 	//variaveis
 	int flag,cont,tamTxt;
 	
 	//desenvolvimento
 	do{
+		//Mensagem de leitura e tabela
+		system("cls"); 
+		tabelaHorizontal(1);
+		imprimeTxtTabela(topo,1);
+		espacosBranco(2);
+		imprimeTxtTabela(titulo,0);
+		tabelaHorizontal(2);
+		printf("\n %c%c ",SETA01,SETA02);
+		
 		flag = 1;
 		//leitura de dados
-		system("cls");
-		printf(titulo);
+//		system("cls");
+//		printf(titulo);
 		fflush(stdin);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
@@ -48,14 +57,22 @@ void leValidaString(char *titulo,char *texto,int tamanhoMin , int tamanhoMax){
 		//verificando tamanho e validade de espacos do texto	
 		if(tamTxt<tamanhoMin){
 			flag = 0;
-			printf(">>> ERRO: O tamanho do texto esta em desacordo com o permitido...\n");
+			tabelaHorizontal(1);
+			imprimeTxtTabela(topo,1);
+			espacosBranco(2);
+			imprimeTxtTabela(">>> ERRO: O tamanho do texto esta em desacordo com o permitido...\n",0);
+			tabelaHorizontal(2);
 			system("pause");
 		}else{
 			for(cont = 0;cont < tamTxt;cont++){
 				if(texto[cont] == ' '){
 					//erro caso so haja espacamento
 					if(cont == tamTxt-1){
-						printf(">>> ERRO: O texto nao pode ser composto somente de espaco...\n");
+						tabelaHorizontal(1);
+						imprimeTxtTabela(topo,1);
+						espacosBranco(2);
+						imprimeTxtTabela(">>> ERRO: O texto nao pode ser composto somente de espaco...\n",0);
+						tabelaHorizontal(2);
 						system("pause");
 						flag = 0;
 					}
