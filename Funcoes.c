@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h> 
 
 #define SETA01 26
 #define SETA02 175
@@ -16,7 +17,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
-
+void gotoxy(int x, int y);
 void espacosBranco(int qtEsp);
 
 
@@ -39,13 +40,11 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		espacosBranco(2);
 		imprimeTxtTabela(titulo,0);
 		tabelaHorizontal(2);
-		printf("\n %c%c ",SETA01,SETA02);
 		
 		flag = 1;
 		//leitura de dados
-//		system("cls");
-//		printf(titulo);
 		fflush(stdin);
+		gotoxy(19,4);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
 		
@@ -269,15 +268,6 @@ static char cpfFormatado[15];
     
 }
 
-//objetivo: cadastrar um cliente
-//Parâmetros: referencia a struct
-//retorno : nenhum
-//void cadastro(Proprietario *prop)
-//{//
-//	printf()
-//}
-
-
 //Remove o \n da string;
 //Entrada: Referencia a string;
 //Retorno: NULO;
@@ -289,6 +279,13 @@ void removeQuebraLinha(char *valString){
 	
 }
 
+void gotoxy(int x, int y)
+{
+  COORD coord;
+  coord.X = x;
+  coord.Y = y;
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 
 
 
