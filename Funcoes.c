@@ -3,21 +3,18 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-#include <windows.h> 
 
-#define SETA01 26
-#define SETA02 175
+#define POS_Y_TOPO 2
 
 //Prototipos________________________________________________________________________________________________
 
 void removeQuebraLinha(char *valString);
 void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor);
 void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
-void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax);
+void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax,char *msgErro);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
-void gotoxy(int x, int y);
 void espacosBranco(int qtEsp);
 
 
@@ -25,9 +22,9 @@ void espacosBranco(int qtEsp);
 
 
 // Objeitvo : Ler e validar uma string
-// Paramentros : Referencia ao titulo , a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores)
+// Paramentros : Referencia ao titulo ,a mensagem do topo, a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores)
 // Retorno : Nenhum;
-void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax){
+void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax,char *msgErro){
 	//variaveis
 	int flag,cont,tamTxt;
 	
@@ -35,15 +32,11 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 	do{
 		//Mensagem de leitura e tabela
 		system("cls"); 
-		tabelaHorizontal(1);
-		imprimeTxtTabela(topo,1);
-		espacosBranco(2);
-		imprimeTxtTabela(titulo,0);
-		tabelaHorizontal(2);
+		janelaMenu();
+		imprimeCentralizado(topo,POS_Y_TOPO);
+		gotoxy(2,POS_Y_TOPO+2);
+		printf("%s",titulo);
 		
-		flag = 1;
-		//leitura de dados
-		fflush(stdin);
 		gotoxy(19,4);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
@@ -56,23 +49,12 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		//verificando tamanho e validade de espacos do texto	
 		if(tamTxt<tamanhoMin){
 			flag = 0;
-			tabelaHorizontal(1);
-			imprimeTxtTabela(topo,1);
-			espacosBranco(2);
-			imprimeTxtTabela(">>> ERRO: O tamanho do texto esta em desacordo com o permitido...\n",0);
-			tabelaHorizontal(2);
-			system("pause");
 		}else{
 			for(cont = 0;cont < tamTxt;cont++){
 				if(texto[cont] == ' '){
 					//erro caso so haja espacamento
 					if(cont == tamTxt-1){
-						tabelaHorizontal(1);
-						imprimeTxtTabela(topo,1);
-						espacosBranco(2);
-						imprimeTxtTabela(">>> ERRO: O texto nao pode ser composto somente de espaco...\n",0);
-						tabelaHorizontal(2);
-						system("pause");
+						
 						flag = 0;
 					}
 				}else{
@@ -82,6 +64,13 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 			}
 		}
 		
+		if(flag == 0){
+			gotoxy(2,POS_Y_TOPO+3);
+			printf("%s",msgErro);
+			getchar();
+			
+			flag = 0;
+		}
 		
 	}while(flag == 0);
 }
@@ -108,13 +97,12 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 	//Desenvolvimento
 	do{
 		//Mensagem de leitura e tabela
+		flag = 1;
 		system("cls"); 
-		tabelaHorizontal(1);
-		imprimeTxtTabela(topo,1);
-		espacosBranco(2);
-		imprimeTxtTabela(mens,0);
-		tabelaHorizontal(2);
-		printf("\n %c%c ",SETA01,SETA02);
+		janelaMenu();
+		imprimeCentralizado(topo,POS_Y_TOPO);
+		gotoxy(2,POS_Y_TOPO+2);
+		printf("%s",mens);
 		
 		//leitura de dados
 		fflush(stdin);
@@ -123,15 +111,10 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 		
 		//Verificando dados
 		if(*valor< min || *valor > max || flag ==0){
-			system("cls"); 
-			tabelaHorizontal(1);
-			imprimeTxtTabela(topo,1);
-			espacosBranco(2);
-			imprimeTxtTabela(msgErro,0);
-			tabelaHorizontal(2);
-			printf("\n %c%c ",SETA01,SETA02);
-		
-			system("pause");
+			gotoxy(2,POS_Y_TOPO+3);
+			printf("%s",msgErro);
+			getchar();
+			
 			flag = 0;
 		}
 	}while(flag == 0);
@@ -149,12 +132,10 @@ void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *
 	do{
 		//Mensagem de leitura e tabela
 		system("cls"); 
-		tabelaHorizontal(1);
-		imprimeTxtTabela(topo,1);
-		espacosBranco(2);
-		imprimeTxtTabela(mens,0);
-		tabelaHorizontal(2);
-		printf("\n %c%c ",SETA01,SETA02);
+		janelaMenu();
+		imprimeCentralizado(topo,POS_Y_TOPO);
+		gotoxy(2,POS_Y_TOPO+2);
+		printf("%s",mens);
 		
 		//leitura de dados
 		fflush(stdin);
@@ -163,15 +144,10 @@ void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *
 		
 		//Verificando dados
 		if(*valorF< min || *valorF > max || flag == 0){
-			system("cls"); 
-			tabelaHorizontal(1);
-			imprimeTxtTabela(topo,1);
-			espacosBranco(2);
-			imprimeTxtTabela(msgErro,0);
-			tabelaHorizontal(2);
-			printf("\n %c%c ",SETA01,SETA02);
-		
-			system("pause");
+			gotoxy(2,POS_Y_TOPO+3);
+			printf("%s",msgErro);
+			getchar();
+			
 			flag = 0;
 		}
 	}while(flag == 0);
@@ -278,14 +254,3 @@ void removeQuebraLinha(char *valString){
 	}
 	
 }
-
-void gotoxy(int x, int y)
-{
-  COORD coord;
-  coord.X = x;
-  coord.Y = y;
-  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-
-

@@ -1,14 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include<windows.h>
 
-//Menu Grafico
+
+//Tamanho da tela
+#define TELA_X 80
+#define TELA_Y 30
+
+//Botoes menu
 #define ACIMA 72
 #define ABAIXO 80
 #define ESC 27
 #define ENTER 13
-#define MAX_OPCOES 10
-#define NOME_OPCOES 100
+
+//Menu Simbolos
 #define IMG_OP 16
 #define BARRA_HORIZONTAL 205
 #define BARRA_LATERAL 186
@@ -16,104 +22,73 @@
 #define BARRA_DIG02 187
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
-#define TAM_HORIZONTAL 60			//Tem que ser par
-#define ESP_BRANCO   1		  		//Valor dado + os caracteres ja impressos
 
-int tabelaMenu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
-void tabelaHorizontal(int op);
-void addEspacoBarraLateral(char *texto, int espAnterior);
-void espacosBranco(int qtEsp);
-void imprimeTxtTabela(char *txt,int posicao);
+
+#define NOME_OPCOES 100
+#define POS_X_OPCOES (TELA_X/8)
+#define POS_Y_OPCOES (5)
 
 
 
+
+
+
+//PROTOTIPOS__________________________________________________________________________________________________________
+int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
+void imprimeSeta(int opAtual,int totalOp);
+void imprimeCentralizado(char *texto,int y);
+void janelaMenu();
+void configTela();
+void gotoxy(int x, int y);
+
+
+//FUNCOES__________________________________________________________________________________________________________
 
 //Imprime e informa opcoes escolhida de um menu 
 //Recebe a quantidade de opcoes do menu, o enderecaamento de uma matriz com as opcoes armazenadas e endereco da string com o titulo do menu;
 //Retorna a opcoes escolhida, 0 em caso de finalizacoes do programa pelo ESC;
-int tabelaMenu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
+int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
 	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeraÃ§Ã£o do botÃ£o clicado de acordo com a  tabela ASCII
 	
 	//desenvolvimento
 	system("cls");
-	do{
-		// inicio do menu
-		
-		if(tecla == -1){
-			
-			//Imprimindo o menu
-			tabelaHorizontal(1);
-			imprimeTxtTabela(apresentaMenu,1);
-			espacosBranco(1);
-			for(cont = 0;cont<qtOp;cont++){
-				
-				//imprimir opcoes
-				if(opAtual == cont+1){
-					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-					
-				}else{
-					printf("%c    %s",BARRA_LATERAL,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-				}
-				
-			}	
-			espacosBranco(1);
-			tabelaHorizontal(2);
-		}
+	janelaMenu();
+	
+	// Imprimindo o topico e as opcoes
+	imprimeCentralizado(apresentaMenu,2);
+	
+	for(cont = 0; cont<qtOp ;cont++){
+		gotoxy(POS_X_OPCOES , cont+POS_Y_OPCOES);
+		printf("%s",opcoes[cont]);
+	}
+	imprimeSeta(opAtual,qtOp);
+	
+	//Selecionando opcao
+	do{		
 		
 		//leitura do teclado
-		//fflush(stdin);
-		tecla = getch();
+		gotoxy(0,TELA_Y-1);
 		fflush(stdin);
-		system("cls");
+		tecla = getch();
 		
-		//imprimindo menu
+		//opcoes
 		if(tecla == ACIMA){
-			//Informar posiÃ§Ã£o atual do cursor
+			//Informar posicao atual do cursor
 			if(opAtual > 1){
 				opAtual--;
+				imprimeSeta(opAtual,qtOp);
 			}
 			
-			//Imprimindo o menu
-			tabelaHorizontal(1);
-			imprimeTxtTabela(apresentaMenu,1);
-			espacosBranco(1);
-			for(cont = 0;cont<qtOp;cont++){
-				if(opAtual == cont+1){
-					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-				}else{
-					printf("%c    %s",BARRA_LATERAL,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-				}
 				
-			}	
-			espacosBranco(1);
-			tabelaHorizontal(2);
 		}else if(tecla == ABAIXO){
-			//informar posiÃ§Ã£o atual do cursor
+			
+			//informar posicao atual do cursor
 			if(opAtual < qtOp){
 				opAtual++;
-			}
-			
-			//Imprimindo o menu
-			tabelaHorizontal(1);
-			imprimeTxtTabela(apresentaMenu,1);
-			espacosBranco(1);
-			for(cont = 0;cont<qtOp;cont++){
-				if(opAtual == cont+1){
-					printf("%c  %c %s",BARRA_LATERAL,IMG_OP,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-				}else{
-					printf("%c    %s",BARRA_LATERAL,opcoes[cont]);
-					addEspacoBarraLateral(opcoes[cont],5);
-				}
-				
+				imprimeSeta(opAtual,qtOp);
 			}	
-		espacosBranco(1);
-		tabelaHorizontal(2);
+			
 		}else if(tecla != ESC && tecla != ENTER){
 			tecla = -1;
 		}
@@ -129,132 +104,112 @@ int tabelaMenu(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 		
 }
 
-//Imprime o topo ou a base da tabela.
-//Recebe a opcao de impressao desejada: 1 para o topo e x != 1 para a base;
-void tabelaHorizontal(int op){
-	//Variaveis
+
+//Objetivo: Imprimir setas de acordo com a opcao selecionada;	
+//Entrada:	Opcao atual e total de opcoes possiveis;
+//Saída:	NULO;		
+void imprimeSeta(int opAtual,int totalOp){
+	//variaveis
 	int cont;
-	char *espaco;
-		
-	//Desenvolvimento
-		
-	if(op == 1){
-		printf("%c",BARRA_DIG01);
-		//strcat(espaco,"\xDA");
-		//printf("%s",espaco);	
-	}else{
-		printf("%c",BARRA_DIG03);	
-	}
 	
-
-	for(cont = 1 ; cont < TAM_HORIZONTAL ; cont++){
-		printf("%c",BARRA_HORIZONTAL);
-		
-	}
-	
-	if(op == 1){
-		printf("%c\n",BARRA_DIG02);	
-	}else{
-		printf("%c",BARRA_DIG04);	
-	}
-	
-}
-
-//Objetivo:Imprime uma string dentro da tabela;
-//Entrada:Recebe a string com o nome, e a posicao desejada(0 =>esquerda, 1 => centralizado ) ;
-//Retorno: Nulo;
-void imprimeTxtTabela(char *txt,int posicao){
-	//Variaveis
-	int qtEspaco,cont;
-	char espacos[TAM_HORIZONTAL];
-	
-	//Desenvolvimento
-	qtEspaco = (TAM_HORIZONTAL- strlen(txt));
-	
-	//barra lateral esquerda
-	printf("%c",BARRA_LATERAL);
-	
-	//Posoção
-	if(posicao == 0){
-		
-		//A esquerda
-			//Adicionando espaços no vetor
-		for(cont = 0 ; cont< (qtEspaco-2); cont++){
-				espacos[cont] = ' ';
-		}
-		espacos[cont] = '\0';
-		
-		//imprimindo espaços e string
-		printf("%s%s",txt,espacos);
-		
-	}else{
-		
-		//Centralizado
-			//Adicionando espaços no vetor
-		for(cont = 0 ;cont< ((qtEspaco)/2)-1 ; cont++){
-				espacos[cont] = ' ';
-		}
-		espacos[cont] = '\0';
-		printf("%s%s%s",espacos,txt,espacos);
-		
-		//espaco extra para strng de tamanho impar e finalizando string de espaços
-		if( strlen(txt)%2 != 0){
+	//desenvolvimento
+	for(cont = 0;cont < totalOp;cont++){
+		if(opAtual == cont+1){
+			gotoxy(POS_X_OPCOES-2, POS_Y_OPCOES+(cont));
+			printf("%c",IMG_OP);
+		}else{
+			gotoxy(POS_X_OPCOES-2, POS_Y_OPCOES+(cont));
 			printf(" ");
 		}
-	
 	}
-	
-	
-	
-	//barra lateral direita
-	printf(" %c\n",BARRA_LATERAL);
 }
 
 
-//Objetivo: Imprime os espacos laterais do menu apos a string e a barra lateral a direita
-//Entrada:  Recebe uma string, e a quantidade de espacos anteriores a ela
-//Retorno:  Nulo;
-void addEspacoBarraLateral(char *texto,int espAnterior){
-	//Variaveis
-	int cont,qtEspaco = 0;
-	char espacos[TAM_HORIZONTAL];
-		
+//Objetivo:Imprime uma string centralizada no texto de acordo com a posição desejada;
+//Entrada: Recebe o endereco de uma string, posição 'Y';
+//Retorno: Nulo;
+void imprimeCentralizado(char *texto,int y){
+	//Varivaies
+	
 	//Desenvolvimento
-		//recebendo a quantidade de espacos
-	qtEspaco = strlen(texto);
-	qtEspaco += espAnterior ;
-	qtEspaco = TAM_HORIZONTAL - qtEspaco;
-	
-	//imprimindo espacos e barra lateral
-	fflush(stdin);
-	for(cont = 0 ;cont<qtEspaco;cont++){
-			
-		espacos[cont] = ' ';
-	}
-	espacos[cont] = '\0';
-	printf("%s%c\n",espacos,BARRA_LATERAL);
-	
+	gotoxy(((TELA_X)/2)-((strlen(texto)/2 )),y);
+	printf("%s",texto);
 }
 
 
-//Objetivo: Imnprime os espacos em branco da tabela 
-//Entrada: Recebe a quantidade de linhas que serão impressos
-//Saída: NULL;
-void espacosBranco(int qtEsp){
+//Objetivo:	Imprimir a janela grafica do menu;
+//Entrada:	NULO;
+//Saída		NULO;
+void janelaMenu(){
 	//Variaveis
-	int cont,i;
-	char espacos[TAM_HORIZONTAL];
+	int cont;
 	
 	//Desenvolvimento
-	for(i=0;i<qtEsp;i++){
 		
-		fflush(stdin);
+	//imprimindo topo
+	printf("%c",BARRA_DIG01);
+	gotoxy(1,0);
+	for(cont = 1;cont < (TELA_X-1);cont++){
+		printf("%c",BARRA_HORIZONTAL);
+	}
+	printf("%c",BARRA_DIG02);
+	
+	//imprindo barras laterais
+	for(cont = 1;cont < (TELA_Y-2);cont++){
+		//esquerda
+		gotoxy(0,cont);
 		printf("%c",BARRA_LATERAL);
-		for(cont = 0;cont < (TAM_HORIZONTAL - 1);cont++){
-			espacos[cont] = ' ';	
-		}
-		espacos[cont] = '\0';
-		printf("%s%c\n",espacos,BARRA_LATERAL);
+		//direita
+		gotoxy((TELA_X-1),cont);
+		printf("%c",BARRA_LATERAL);
 	}
+	
+	//imprimindo base
+	
+	printf("%c",BARRA_DIG03);
+	for(cont = 1;cont < (TELA_X-1);cont++){
+		printf("%c",BARRA_HORIZONTAL);
+	}
+	printf("%c",BARRA_DIG04);
+	gotoxy(1,1);
+	
+	
+}
+
+
+//Objetivo:	Configurações basicas da tela de tamanho e cor
+//Entrada:	NULO; 
+//Saída: 	NULO;
+void configTela()
+{
+	//Tamanho da tela
+	COORD outbuff;												//estrutura que define as coordenadas de uma célula de caracteres em um buffer de tela do console(x e y)
+	outbuff.X = TELA_X; 										// tem que ser 1 maior que o tamanho X
+	outbuff.Y = TELA_Y; 										// tem que ser 1 maior que o tamanho Y
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);			//Estrutura identificadora para o buffer da tela do console
+	SetConsoleScreenBufferSize(hConsole, outbuff); 				/*Objetivo: Altera o tamanho do buffer de TELA do console especificado
+																Parâmetros Um identificador para o buffer de tela do console, estrutura que especifica o novo tamanho do buffer de tela do console*/
+	
+	Sleep(130);													//tempo que a tela fica congelada
+	
+	//Tamanho da Janela
+	SMALL_RECT windowSize = {0, 0,(TELA_X - 1),(TELA_Y - 1)}; 	//Estrutura que passa as cordenadas de um retângulo(esquerda X,topo Y,direita X,inferior Y); 
+	SetConsoleWindowInfo(hConsole, TRUE, &windowSize);  	  	/*Define o tamanho atual e posição da JANELA de um buffer de tela do console: 
+															 	Parametro: Um identificador para o buffer de tela do console, coordenadas manuais(false) ou especificas(true), um ponteiro para estrutura SMALL_RECT */
+	
+	//Cor do fundo da tela e da letra
+	system("color 8E");	
+}
+
+
+//Objetivo:	Posiciona o cursor de acordo com as coordenadas
+//Entrada:	Posicao x e y; 
+//Saída: 	NULO;
+void gotoxy(int x, int y)
+{
+  COORD coord;
+  coord.X = x;
+  coord.Y = y;
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 

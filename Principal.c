@@ -1,8 +1,12 @@
+//ALUNOS:		Wendell						Fernando Jorge Araújo da Silva 			
+//MATRÍCULAS:	UC							UC15200459
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 //#include <locale.h>
 #include "structs.c"
+
 #define NOME_OPCOES 100
 #define MAX_PROPRIETARIOS 500
 
@@ -11,10 +15,12 @@ int main(){
 	//setlocale(LC_ALL,"portuguese");
 	
 	//Variaveis
+	
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES];
 	int opMenu, teste,qtdeCadastros=0;
 	float testeF;
 	Proprietario prop[MAX_PROPRIETARIOS];
+	
 	//Texto do menu
 	strcpy(menuPrincipal[0],"1-Proprietario");
 	strcpy(menuPrincipal[1],"2-Veiculo");
@@ -26,19 +32,20 @@ int main(){
 	
 	
 	//Desenvolvimento
-	system("color 8E");			//Cor de fundo e cor da letra  
+	//system("color 8E");			//Cor de fundo e cor da letra  
+	configTela();
 	
 	do{	
-		opMenu = tabelaMenu(4,menuPrincipal,"Menu Principal");
+		opMenu = menuOpcoes(4,menuPrincipal,"Menu Principal");
 		
 		if(opMenu==1){
-			opMenu = tabelaMenu(3,menuProprietario,"Proprietario");
+			opMenu = menuOpcoes(3,menuProprietario,"Proprietario");
 			
 			if(opMenu == 1){
-				leValidaString("Informe o nome : ",menuProprietario[0],prop[qtdeCadastros].nome,0,10);
+				leValidaString("Informe o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,10,">>>ERRO: Valor Invalido...");
 				printf("%s",prop[qtdeCadastros].nome);
 				getch();
-				leValidaInt("Informe o numero inteiro:",menuProprietario[0],">>>ERRO: Valor Invalido...",0,10,&teste);
+				leValidaInt("Informe o numero inteiro: ",menuProprietario[0],">>>ERRO: Valor Invalido...",0,10,&teste);
 				system("cls");
 				printf("valor inteiro: %d",teste);
 				system("pause");
@@ -46,8 +53,6 @@ int main(){
 			}else if(opMenu == 2){
 
 				leValidaString("Informe uma string\n>",testeC,5,10);
-				printf("String: %s",testeC);
-				system("pause");
 			
 			}
 			
