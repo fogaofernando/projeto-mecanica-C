@@ -38,6 +38,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		printf("%s",titulo);
 		
 		gotoxy(19,4);
+		fflush(stdin);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
 		
@@ -161,7 +162,7 @@ void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *
 **************************************************************/ 
 int validaCPF (char *cpf)
 	{
-       // cpfs inválidos        
+       // cpfs invalidos      
        char *cpfInval[] = {"11111111111",
                          "22222222222",
                          "33333333333",
@@ -190,7 +191,7 @@ int validaCPF (char *cpf)
          if(retorno ==0)
             return retorno;
           
-         // transforma os caracteres do cpf em números     
+         // transforma os caracteres do cpf em numeros  
          for(cont=0;cont<strlen(cpf);cont++)
          {
                 dig[cont] = cpf[cont] - '0';
@@ -226,8 +227,8 @@ int validaCPF (char *cpf)
 /**************************************************************
 *  Nome      : formataCPF                                     *  
 *  Descricao : Formata um CPF                                 *
-*  Parâmetros: endereço inicial da string cpf                 *
-*  Retorno   : endereço de memória onde comeca a string       * 
+*  Parametros: endereço inicial da string cpf                 *
+*  Retorno   : endereço de memoria onde comeca a string       * 
 *               com CPF formatado ou NULL                     *
 **************************************************************/ 
 char * formataCPF (char *cpf)
@@ -243,6 +244,7 @@ static char cpfFormatado[15];
    }   
     
 }
+
 
 //Remove o \n da string;
 //Entrada: Referencia a string;

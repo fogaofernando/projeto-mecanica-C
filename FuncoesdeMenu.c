@@ -15,7 +15,7 @@
 #define ENTER 13
 
 //Menu Simbolos
-#define IMG_OP 16
+#define IMG_OP 62				// 16 ou 62
 #define BARRA_HORIZONTAL 205
 #define BARRA_LATERAL 186
 #define BARRA_DIG01 201
@@ -165,8 +165,7 @@ void janelaMenu(){
 	}
 	
 	//imprimindo base
-	
-	printf("%c",BARRA_DIG03);
+	printf("\n%c",BARRA_DIG03);
 	for(cont = 1;cont < (TELA_X-1);cont++){
 		printf("%c",BARRA_HORIZONTAL);
 	}

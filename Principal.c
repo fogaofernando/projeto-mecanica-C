@@ -29,10 +29,8 @@ int main(){
 	strcpy(menuProprietario[0],"1-Cadastrar cliente");
 	strcpy(menuProprietario[1],"2-Renomear");
 	strcpy(menuProprietario[2],"3-Excluir ");
-	
-	
-	//Desenvolvimento
-	//system("color 8E");			//Cor de fundo e cor da letra  
+
+	//configuração inicial da tela
 	configTela();
 	
 	do{	
@@ -42,17 +40,16 @@ int main(){
 			opMenu = menuOpcoes(3,menuProprietario,"Proprietario");
 			
 			if(opMenu == 1){
-				leValidaString("Informe o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,10,">>>ERRO: Valor Invalido...");
-				printf("%s",prop[qtdeCadastros].nome);
-				getch();
-				leValidaInt("Informe o numero inteiro: ",menuProprietario[0],">>>ERRO: Valor Invalido...",0,10,&teste);
-				system("cls");
-				printf("valor inteiro: %d",teste);
-				system("pause");
+				//cadastro do cliente
+				leValidaString("Insira o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome válido...");
+				
+				//leValidaString("Insira o CPF",menuProprietario[0],prop[qtdeCadastros].cpf,TAM_CPF,TAM_CPF,">>>ERRO: Valor Invalido...");
+				//(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
+				
+				
 				qtdeCadastros++;
 			}else if(opMenu == 2){
 
-				leValidaString("Informe uma string\n>",testeC,5,10);
 			
 			}
 			
