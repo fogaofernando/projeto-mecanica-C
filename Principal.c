@@ -17,11 +17,12 @@ int main(){
 	//Variaveis
 	
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES];
-	int opMenu, teste,qtdeCadastros=0;
+	int opMenu, teste,qtdeCadastros=0,flag;
 	float testeF;
 	Proprietario prop[MAX_PROPRIETARIOS];
 	
 	//Texto do menu
+	
 	strcpy(menuPrincipal[0],"1-Proprietario");
 	strcpy(menuPrincipal[1],"2-Veiculo");
 	strcpy(menuPrincipal[2],"3-Manutencao");
@@ -42,12 +43,21 @@ int main(){
 			if(opMenu == 1){
 				//cadastro do cliente
 				leValidaString("Insira o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome válido...");
-				
-				//leValidaString("Insira o CPF",menuProprietario[0],prop[qtdeCadastros].cpf,TAM_CPF,TAM_CPF,">>>ERRO: Valor Invalido...");
-				//(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
-				
-				
+				do
+				{
+					flag=0;
+					leValidaString("Insira o CPF",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: Valor Invalido...");
+			//	(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
+					if(validaCPF(prop[qtdeCadastros].cpf)==0){
+										flag=1;
+										gotoxy(15,6);
+										printf("CPF INVALIDO !!!");
+										getch();
+										}
+				}while(flag==1);
+				leValidaString("Insira o Endereco:",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido");
 				qtdeCadastros++;
+				
 			}else if(opMenu == 2){
 
 			

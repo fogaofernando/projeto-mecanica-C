@@ -4,8 +4,9 @@
 
 #define MAX_NOME 20
 #define MIN_NOME 0
-#define TAM_CPF 11
+#define TAM_CPF 12
 #define MAX_ENDERECO 20
+#define MIN_ENDERECO 0
 #define MAX_CIDADE 20
 #define MAX_ESTADO 20
 #define MAX_TELEFONE 11
@@ -30,7 +31,7 @@
 
 typedef struct Proprietario{
 	char nome[MAX_NOME];
-	char *cpf;
+	char cpf[TAM_CPF];
 	char endereco[MAX_ENDERECO];			//0 descrição, 1 cidade e 2 estado
 	//char cidade[MAX_CIDADE];
 	//char estado[MAX_ESTADO];
