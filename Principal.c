@@ -9,6 +9,7 @@
 
 #define NOME_OPCOES 100
 #define MAX_PROPRIETARIOS 500
+#define MAX_VEICULOS 500
 
 //Principal
 int main(){
@@ -16,10 +17,11 @@ int main(){
 	
 	//Variaveis
 	
-	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES];
-	int opMenu, teste,qtdeCadastros=0,flag;
+	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES];
+	int opMenu, teste,qtdeCadastros=0,flag,qtdeVeiculos=0;
 	float testeF;
 	Proprietario prop[MAX_PROPRIETARIOS];
+	Veiculo veic[MAX_VEICULOS];
 	
 	//Texto do menu
 	
@@ -30,7 +32,9 @@ int main(){
 	strcpy(menuProprietario[0],"1-Cadastrar cliente");
 	strcpy(menuProprietario[1],"2-Renomear");
 	strcpy(menuProprietario[2],"3-Excluir ");
-
+	strcpy(menuVeiculo[0],"1-Cadastrar veiculo");
+	strcpy(menuVeiculo[1],"2-Renomear");
+	strcpy(menuVeiculo[2],"3-Excluir ");
 	//configuração inicial da tela
 	configTela();
 	
@@ -49,27 +53,37 @@ int main(){
 					leValidaString("Insira o CPF",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: Valor Invalido...");
 			//	(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
 					if(validaCPF(prop[qtdeCadastros].cpf)==0){
-										flag=1;
-										gotoxy(15,6);
-										printf("CPF INVALIDO !!!");
-										getch();
-										}
+						flag=1;
+						gotoxy(15,6);
+						printf("CPF INVALIDO !!!");
+						getch();
+					}										
+    //   				prop[qtdeCadastros].cpf = formataCPF(prop[qtdeCadastros].cpf);
 				}while(flag==1);
+				
 				leValidaString("Insira o Endereco:",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido");
 				qtdeCadastros++;
 				
 			}else if(opMenu == 2){
-
 			
 			}
 			
 		}else if(opMenu == 2){
-			
-			leValidaFloat("Informe o numero real:",menuProprietario[1],">>>ERRO: Valor Invalido...",0,10,&testeF);
-			system("cls");
-			printf("valor real: %f",testeF);
-			system("pause");
-		
+			opMenu = menuOpcoes(3,menuVeiculo,"Veiculo");
+			if(opMenu == 1){
+				do{
+					flag=0;
+					leValidaString("Informe a Placa do Veiculo:",menuProprietario[0],veic[qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
+					if(validaPlaca(veic[qtdeVeiculos].placa)==0){
+						flag=1;
+						gotoxy(15,6);
+						printf("Placa Invalida");
+						getch();
+					}
+				}while(flag==1);
+				qtdeVeiculos++;
+			}
+
 		}else if(opMenu == 3){
 			
 		}else if(opMenu == 4){

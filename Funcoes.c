@@ -16,7 +16,8 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
 void espacosBranco(int qtEsp);
-
+int validaPlaca(char *placa);
+int isNumeric (const char* str);
 
 //Funcoes_____________________________________________________________________________________________________
 
@@ -255,4 +256,39 @@ void removeQuebraLinha(char *valString){
 		valString[strlen(valString)-1] = '\0';
 	}
 	
+}
+
+// Validar a Placa
+//Entrada: referencia a placa
+// Retorno: 1 - placa Valida 0- placa invalida
+int validaPlaca(char *placa){
+	int cont,flag=0;
+	for(cont;3;cont++)
+	{
+		if (!isNumeric (placa)) 
+        {
+        	flag=0;
+
+        }
+		else{
+			flag=1;
+		} 
+		
+	}
+	if(flag==0)
+	{
+		printf("Placa Valida");
+		getch();
+		return 1;
+	}
+	else{
+		printf("PLaca Invalida");
+	return 0;
+	}
+}
+int isNumeric (const char* str) 
+{
+    char *stop = 0;
+    strtoul (str, &stop, 10); 
+    return (stop - str == strlen (str));
 }
