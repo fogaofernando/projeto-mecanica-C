@@ -5,7 +5,7 @@
 
 
 //Tamanho da tela
-#define TELA_X 80
+#define TELA_X 80	
 #define TELA_Y 30
 
 //Botoes menu
@@ -15,17 +15,18 @@
 #define ENTER 13
 
 //Menu Simbolos
-#define IMG_OP 62				// 16 ou 62
-#define BARRA_HORIZONTAL 205
+#define IMG_OP 62					// 16 ou 62
+#define BARRA_HORIZONTAL 205		
 #define BARRA_LATERAL 186
 #define BARRA_DIG01 201
 #define BARRA_DIG02 187
 #define BARRA_DIG03 200
 #define BARRA_DIG04 188
 
-
-#define NOME_OPCOES 100
-#define POS_X_OPCOES (TELA_X/8)
+#define NOME_OPCOES 100		
+		
+//Posição do menu de opções 
+#define POS_X_OPCOES (TELA_X/8)			
 #define POS_Y_OPCOES (5)
 
 

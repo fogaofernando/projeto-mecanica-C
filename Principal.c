@@ -7,9 +7,14 @@
 //#include <locale.h>
 #include "structs.c"
 
+
 #define NOME_OPCOES 100
 #define MAX_PROPRIETARIOS 500
 #define MAX_VEICULOS 500
+
+//macros importadas
+#define POS_Y_TOPO 2
+
 
 //Principal
 int main(){
@@ -50,18 +55,18 @@ int main(){
 				do
 				{
 					flag=0;
-					leValidaString("Insira o CPF",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: Valor Invalido...");
+					leValidaString("Insira o CPF: ",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
 			//	(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
 					if(validaCPF(prop[qtdeCadastros].cpf)==0){
 						flag=1;
-						gotoxy(15,6);
-						printf("CPF INVALIDO !!!");
+						gotoxy(2,POS_Y_TOPO+3);
+						printf(">>>ERRO: CPF INVALIDO....");
 						getch();
 					}										
     //   				prop[qtdeCadastros].cpf = formataCPF(prop[qtdeCadastros].cpf);
 				}while(flag==1);
 				
-				leValidaString("Insira o Endereco:",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido");
+				leValidaString("Insira o Endereco: ",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
 				qtdeCadastros++;
 				
 			}else if(opMenu == 2){
@@ -73,14 +78,16 @@ int main(){
 			if(opMenu == 1){
 				do{
 					flag=0;
-					leValidaString("Informe a Placa do Veiculo:",menuProprietario[0],veic[qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
+					leValidaString("Informe a Placa do Veiculo: ",menuProprietario[0],veic[qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
 					if(validaPlaca(veic[qtdeVeiculos].placa)==0){
-						flag=1;
-						gotoxy(15,6);
+						flag=0;
+						gotoxy(2,POS_Y_TOPO+3);
 						printf("Placa Invalida");
 						getch();
+					}else{
+						flag = 1;
 					}
-				}while(flag==1);
+				}while(flag==0);
 				qtdeVeiculos++;
 			}
 

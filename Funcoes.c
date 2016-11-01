@@ -4,7 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define POS_Y_TOPO 2
+
+#define POS_Y_TOPO 2	//Posição minima das mensagens (com execao do menu principal)
 
 //Prototipos________________________________________________________________________________________________
 
@@ -15,15 +16,14 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
-void espacosBranco(int qtEsp);
 int validaPlaca(char *placa);
 int isNumeric (const char* str);
 
 //Funcoes_____________________________________________________________________________________________________
 
 
-// Objeitvo : Ler e validar uma string
-// Paramentros : Referencia ao titulo ,a mensagem do topo, a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores)
+// Objeitvo : Ler e validar uma string;
+// Paramentros : Referencia ao titulo ,a mensagem do topo, a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores) e referencia a mensagem de erro;
 // Retorno : Nenhum;
 void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax,char *msgErro){
 	//variaveis
@@ -38,7 +38,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		gotoxy(2,POS_Y_TOPO+2);
 		printf("%s",titulo);
 		
-		gotoxy(19,4);
+		//gotoxy(19,4);
 		fflush(stdin);
 		fgets(texto,tamanhoMax,stdin);
 		fflush(stdin);
@@ -69,7 +69,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		if(flag == 0){
 			gotoxy(2,POS_Y_TOPO+3);
 			printf("%s",msgErro);
-			getchar();
+			getch();
 			
 			flag = 0;
 		}
@@ -115,7 +115,7 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 		if(*valor< min || *valor > max || flag ==0){
 			gotoxy(2,POS_Y_TOPO+3);
 			printf("%s",msgErro);
-			getchar();
+			getch();
 			
 			flag = 0;
 		}
@@ -148,7 +148,7 @@ void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *
 		if(*valorF< min || *valorF > max || flag == 0){
 			gotoxy(2,POS_Y_TOPO+3);
 			printf("%s",msgErro);
-			getchar();
+			getch();
 			
 			flag = 0;
 		}
@@ -258,12 +258,16 @@ void removeQuebraLinha(char *valString){
 	
 }
 
+
 // Validar a Placa
 //Entrada: referencia a placa
 // Retorno: 1 - placa Valida 0- placa invalida
 int validaPlaca(char *placa){
+	//variaveis
 	int cont,flag=0;
-	for(cont;3;cont++)
+	
+	//desenvolvimento
+	for(cont=0;cont<3;cont++)
 	{
 		if (!isNumeric (placa)) 
         {
@@ -275,20 +279,28 @@ int validaPlaca(char *placa){
 		} 
 		
 	}
+	
 	if(flag==0)
 	{
-		printf("Placa Valida");
-		getch();
+	/*	printf("Placa Valida");
+		getch();*/
 		return 1;
 	}
+	
 	else{
-		printf("PLaca Invalida");
+	//	printf("PLaca Invalida");
 	return 0;
 	}
 }
+
+
+//SINTAXE?
 int isNumeric (const char* str) 
 {
-    char *stop = 0;
-    strtoul (str, &stop, 10); 
+    //variaveis
+	char *stop = 0;
+    
+    //desenvolvimento
+	strtoul (str, &stop, 10); 		// O QUE FAZ ?
     return (stop - str == strlen (str));
 }

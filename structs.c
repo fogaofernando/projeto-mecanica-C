@@ -3,10 +3,10 @@
 //primeira struct
 
 #define MAX_NOME 20
-#define MIN_NOME 0
+#define MIN_NOME 3
 #define TAM_CPF 12
-#define MAX_ENDERECO 20
-#define MIN_ENDERECO 0
+#define MAX_ENDERECO 50
+#define MIN_ENDERECO 5
 #define MAX_CIDADE 20
 #define MAX_ESTADO 20
 #define MAX_TELEFONE 11
