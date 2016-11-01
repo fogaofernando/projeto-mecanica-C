@@ -9,7 +9,7 @@
 #define MIN_ENDERECO 5
 #define MAX_CIDADE 20
 #define MAX_ESTADO 20
-#define MAX_TELEFONE 11
+#define MAX_TELEFONE 12
 
 //segunda struct
 

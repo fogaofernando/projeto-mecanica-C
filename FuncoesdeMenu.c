@@ -6,7 +6,7 @@
 
 //Tamanho da tela
 #define TELA_X 80	
-#define TELA_Y 30
+#define TELA_Y 24
 
 //Botoes menu
 #define ACIMA 72
@@ -166,7 +166,9 @@ void janelaMenu(){
 	}
 	
 	//imprimindo base
-	printf("\n%c",BARRA_DIG03);
+	
+	//printf("\n%c",BARRA_DIG03);
+	printf("%c",BARRA_DIG03);
 	for(cont = 1;cont < (TELA_X-1);cont++){
 		printf("%c",BARRA_HORIZONTAL);
 	}
@@ -180,8 +182,7 @@ void janelaMenu(){
 //Objetivo:	Configurações basicas da tela de tamanho e cor
 //Entrada:	NULO; 
 //Saída: 	NULO;
-void configTela()
-{
+void configTela(){
 	//Tamanho da tela
 	COORD outbuff;												//estrutura que define as coordenadas de uma célula de caracteres em um buffer de tela do console(x e y)
 	outbuff.X = TELA_X; 										// tem que ser 1 maior que o tamanho X

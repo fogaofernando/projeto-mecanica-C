@@ -49,33 +49,38 @@ int main(){
 		if(opMenu==1){
 			opMenu = menuOpcoes(3,menuProprietario,"Proprietario");
 			
+			//cadastro do cliente_________________________________________________________________________________________________
 			if(opMenu == 1){
-				//cadastro do cliente
-				leValidaString("Insira o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome válido...");
-				do
-				{
+				leValidaString("Insira o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome valido...");
+				
+				do{
 					flag=0;
 					leValidaString("Insira o CPF: ",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
-			//	(prop+qtdeCadastros)->cpf = formataCPF(prop[qtdeCadastros].cpf);
 					if(validaCPF(prop[qtdeCadastros].cpf)==0){
 						flag=1;
 						gotoxy(2,POS_Y_TOPO+3);
 						printf(">>>ERRO: CPF INVALIDO....");
 						getch();
 					}										
-    //   				prop[qtdeCadastros].cpf = formataCPF(prop[qtdeCadastros].cpf);
 				}while(flag==1);
 				
 				leValidaString("Insira o Endereco: ",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
+				
+				/*leValidaInt("Insira o telefone: ",menuProprietario[0],">>>ERRO: Endereco invalido...",2,MAX_TELEFONE,&prop[qtdeCadastros].tefefone);
+				printf("%d",prop[qtdeCadastros].tefefone);
+				system("pause");
+				*/
 				qtdeCadastros++;
 				
 			}else if(opMenu == 2){
 			
 			}
-			
 		}else if(opMenu == 2){
 			opMenu = menuOpcoes(3,menuVeiculo,"Veiculo");
+			
+			//Cadastrar veiculo_________________________________________________________________________________________________________
 			if(opMenu == 1){
+				
 				do{
 					flag=0;
 					leValidaString("Informe a Placa do Veiculo: ",menuProprietario[0],veic[qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
@@ -88,12 +93,13 @@ int main(){
 						flag = 1;
 					}
 				}while(flag==0);
+				
 				qtdeVeiculos++;
 			}
 
-		}else if(opMenu == 3){
+		}else if(opMenu == 2){
 			
-		}else if(opMenu == 4){
+		}else if(opMenu == 3){
 			
 		}else{
 			//Para finalizacao do programa

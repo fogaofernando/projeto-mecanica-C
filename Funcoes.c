@@ -112,13 +112,14 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 		fflush(stdin);
 		
 		//Verificando dados
-		if(*valor< min || *valor > max || flag ==0){
+		if(*valor< min || *valor > max || flag == 0 ){
 			gotoxy(2,POS_Y_TOPO+3);
 			printf("%s",msgErro);
 			getch();
 			
 			flag = 0;
 		}
+		
 	}while(flag == 0);
 }
 
@@ -264,43 +265,40 @@ void removeQuebraLinha(char *valString){
 // Retorno: 1 - placa Valida 0- placa invalida
 int validaPlaca(char *placa){
 	//variaveis
-	int cont,flag=0;
+	int cont;
 	
-	//desenvolvimento
-	for(cont=0;cont<3;cont++)
-	{
-		if (!isNumeric (placa)) 
-        {
-        	flag=0;
-
-        }
-		else{
-			flag=1;
-		} 
+	//Desenvolvimento
+	//___verificar letras
+	
+	for(cont=0;cont<3;cont++){
+		placa[cont] = toupper(placa[cont]);
 		
+		if (placa[cont] < 65 || placa[cont] > 90 ){
+        	return 0;
+		}
 	}
 	
-	if(flag==0)
-	{
-	/*	printf("Placa Valida");
-		getch();*/
-		return 1;
-	}
+	//Verifica numeros da placa
+	for(cont = 3;cont < 6;cont++ ){
+		if(placa[cont] < 48 || placa[cont] > 57){
+			return 0;
+		}
+	}	
 	
-	else{
-	//	printf("PLaca Invalida");
-	return 0;
-	}
+	
+	//Finalizacao com sucesso
+	return 1;
 }
 
 
-//SINTAXE?
+
+
 int isNumeric (const char* str) 
 {
     //variaveis
 	char *stop = 0;
     
     //desenvolvimento
-	strtoul (str, &stop, 10); 		// O QUE FAZ ?
+	strtoul (str, &stop, 10); 		
     return (stop - str == strlen (str));
 }
