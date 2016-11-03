@@ -17,7 +17,7 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
 int validaPlaca(char *placa);
-int isNumeric (const char* str);
+int verificaRepetido(int qtde,int *valor);
 
 //Funcoes_____________________________________________________________________________________________________
 
@@ -290,15 +290,21 @@ int validaPlaca(char *placa){
 	return 1;
 }
 
-
-
-
-int isNumeric (const char* str) 
+//Verificar repetido
+// Entrada: 
+//Retorno : 1 para repetido 0 - Não repetido
+int verificaRepetido(int qtde,int *valor)
 {
-    //variaveis
-	char *stop = 0;
-    
-    //desenvolvimento
-	strtoul (str, &stop, 10); 		
-    return (stop - str == strlen (str));
+	int contador,contador2;
+	for(contador=0;contador<qtde-1;contador++)
+	{
+		for(contador2=contador+1;contador2<qtde;contador2++)
+		{
+			if(valor[contador]==valor[contador2])
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
 }

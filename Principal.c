@@ -93,7 +93,8 @@ int main(){
 						flag = 1;
 					}
 				}while(flag==0);
-				
+				leValidaString("Insira o Modelo: ",menuProprietario[0],veic[qtdeCadastros].modelo,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Modelo Invalido...");
+				leValidaString("Insira o Fabricante: ",menuProprietario[0],veic[qtdeCadastros].fabricante,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Fabricante Invalido...");
 				qtdeVeiculos++;
 			}
 
