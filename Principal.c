@@ -51,26 +51,7 @@ int main(){
 			
 			//cadastro do cliente_________________________________________________________________________________________________
 			if(opMenu == 1){
-				leValidaString("Insira o nome: ",menuProprietario[0],prop[qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome valido...");
-				
-				do{
-					flag=0;
-					leValidaString("Insira o CPF: ",menuProprietario[0],prop[qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
-					if(validaCPF(prop[qtdeCadastros].cpf)==0){
-						flag=1;
-						gotoxy(2,POS_Y_TOPO+3);
-						printf(">>>ERRO: CPF INVALIDO....");
-						getch();
-					}										
-				}while(flag==1);
-				
-				leValidaString("Insira o Endereco: ",menuProprietario[0],prop[qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
-				
-				/*leValidaInt("Insira o telefone: ",menuProprietario[0],">>>ERRO: Endereco invalido...",2,MAX_TELEFONE,&prop[qtdeCadastros].tefefone);
-				printf("%d",prop[qtdeCadastros].tefefone);
-				system("pause");
-				*/
-				qtdeCadastros++;
+				cadastraProprietario(&qtdeCadastros,prop);
 				
 			}else if(opMenu == 2){
 			

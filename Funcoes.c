@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "structs.c"
 
 #define POS_Y_TOPO 2	//Posição minima das mensagens (com execao do menu principal)
 
@@ -17,8 +17,9 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
 int validaPlaca(char *placa);
-int verificaRepetido(int qtde,int *valor);
-
+int verificaIntRepetido(int qtde,int *valor,char *msgErro);
+int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro);
+void cadastraProprietario(int *qtdeCadastros,Proprietario *prop);
 //Funcoes_____________________________________________________________________________________________________
 
 
@@ -289,19 +290,86 @@ int validaPlaca(char *placa){
 	//Finalizacao com sucesso
 	return 1;
 }
-
-//Verificar repetido
-// Entrada: 
-//Retorno : 1 para repetido 0 - Não repetido
-int verificaRepetido(int qtde,int *valor)
+//Cadastra o proprietario
+//Entrada : referencia a quantidade de cadastros e a struct
+//Retorno : NULO
+void cadastraProprietario(int *qtdeCadastros,Proprietario *prop)
 {
+	//variaveis
+	int flag;
+	//Desenvolvimento
+	leValidaString("Insira o nome: ","1-Cadastrar cliente",prop[*qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome valido...");
+
+				do{
+					flag=0;
+					leValidaString("Insira o CPF: ","1-Cadastrar cliente",prop[*qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
+					if(validaCPF(prop[*qtdeCadastros].cpf)==0){
+						flag=1;
+						gotoxy(2,POS_Y_TOPO+3);
+						printf(">>>ERRO: CPF INVALIDO....");
+						getch();
+					}									
+					if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0)
+					{
+						flag=1;
+					}	
+				}while(flag==1);
+				
+				leValidaString("Insira o Endereco: ","1-Cadastrar cliente",prop[*qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
+				
+				/*leValidaInt("Insira o telefone: ",menuProprietario[0],">>>ERRO: Endereco invalido...",2,MAX_TELEFONE,&prop[qtdeCadastros].tefefone);
+				printf("%d",prop[qtdeCadastros].tefefone);
+				system("pause");
+				*/
+				*qtdeCadastros=*qtdeCadastros+1;
+}
+//Verificar se existe uma string  repetida
+//Entrada: referencia a quantidade de itens e a string a ser analisada
+//Retorno : 1 para repetido 0 - Não repetido
+int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro)
+{
+	//variaveis
+	
 	int contador,contador2;
+	
+	//Desenvolvimento
+	printf("%d",*qtde);
+	getch();
+	for(contador=0;contador<*qtde;contador++)
+	{
+		for(contador2=contador+1;contador2<*qtde+1;contador2++)
+		{
+			if(strcmp(prop[contador].cpf,prop[contador2].cpf)==0)
+			{
+				gotoxy(15,6);
+				printf(msgErro);
+				getch();
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+//Verificar se existe um numero inteiro repetido
+//Entrada: referencia a quuantidade de itens e ao valor a ser analisado
+//Retorno : 1 para repetido 0 - Não repetido
+int verificaIntRepetido(int qtde,int *valor,char *msgErro)
+{
+	//variaveis
+	
+	int contador,contador2;
+	
+	//Desenvolvimento
+	
 	for(contador=0;contador<qtde-1;contador++)
 	{
 		for(contador2=contador+1;contador2<qtde;contador2++)
 		{
 			if(valor[contador]==valor[contador2])
 			{
+				gotoxy(15,6);
+				printf(msgErro);
+				getch();
 				return 0;
 			}
 		}
