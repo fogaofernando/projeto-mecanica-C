@@ -17,6 +17,7 @@
 #define MAX_MODELO 20
 #define MAX_FABRICANTE 20
 #define MAX_CHASSI 20
+#define MIN_ANO 2000
 #define MAX_ANO 2016
 
 //terceira struct

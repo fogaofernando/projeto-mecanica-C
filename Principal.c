@@ -51,9 +51,10 @@ int main(){
 			
 			//cadastro do cliente_________________________________________________________________________________________________
 			if(opMenu == 1){
-				cadastraProprietario(&qtdeCadastros,prop);
+				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar cliente");
 				
 			}else if(opMenu == 2){
+	//			alteraProprietario(&qtdeCadastros,prop,"Renomear");
 			
 			}
 		}else if(opMenu == 2){
@@ -61,24 +62,9 @@ int main(){
 			
 			//Cadastrar veiculo_________________________________________________________________________________________________________
 			if(opMenu == 1){
+				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
 				
-				do{
-					flag=0;
-					leValidaString("Informe a Placa do Veiculo: ",menuProprietario[0],veic[qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
-					if(validaPlaca(veic[qtdeVeiculos].placa)==0){
-						flag=0;
-						gotoxy(2,POS_Y_TOPO+3);
-						printf("Placa Invalida");
-						getch();
-					}else{
-						flag = 1;
-					}
-				}while(flag==0);
-				leValidaString("Insira o Modelo: ",menuProprietario[0],veic[qtdeCadastros].modelo,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Modelo Invalido...");
-				leValidaString("Insira o Fabricante: ",menuProprietario[0],veic[qtdeCadastros].fabricante,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Fabricante Invalido...");
-				qtdeVeiculos++;
-			}
-
+		}
 		}else if(opMenu == 2){
 			
 		}else if(opMenu == 3){

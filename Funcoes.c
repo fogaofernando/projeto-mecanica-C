@@ -19,7 +19,7 @@ char * formataCPF (char *cpf);
 int validaPlaca(char *placa);
 int verificaIntRepetido(int qtde,int *valor,char *msgErro);
 int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro);
-void cadastraProprietario(int *qtdeCadastros,Proprietario *prop);
+
 //Funcoes_____________________________________________________________________________________________________
 
 
@@ -290,39 +290,7 @@ int validaPlaca(char *placa){
 	//Finalizacao com sucesso
 	return 1;
 }
-//Cadastra o proprietario
-//Entrada : referencia a quantidade de cadastros e a struct
-//Retorno : NULO
-void cadastraProprietario(int *qtdeCadastros,Proprietario *prop)
-{
-	//variaveis
-	int flag;
-	//Desenvolvimento
-	leValidaString("Insira o nome: ","1-Cadastrar cliente",prop[*qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome valido...");
 
-				do{
-					flag=0;
-					leValidaString("Insira o CPF: ","1-Cadastrar cliente",prop[*qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
-					if(validaCPF(prop[*qtdeCadastros].cpf)==0){
-						flag=1;
-						gotoxy(2,POS_Y_TOPO+3);
-						printf(">>>ERRO: CPF INVALIDO....");
-						getch();
-					}									
-					if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0)
-					{
-						flag=1;
-					}	
-				}while(flag==1);
-				
-				leValidaString("Insira o Endereco: ","1-Cadastrar cliente",prop[*qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
-				
-				/*leValidaInt("Insira o telefone: ",menuProprietario[0],">>>ERRO: Endereco invalido...",2,MAX_TELEFONE,&prop[qtdeCadastros].tefefone);
-				printf("%d",prop[qtdeCadastros].tefefone);
-				system("pause");
-				*/
-				*qtdeCadastros=*qtdeCadastros+1;
-}
 //Verificar se existe uma string  repetida
 //Entrada: referencia a quantidade de itens e a string a ser analisada
 //Retorno : 1 para repetido 0 - Não repetido
@@ -333,8 +301,7 @@ int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro)
 	int contador,contador2;
 	
 	//Desenvolvimento
-	printf("%d",*qtde);
-	getch();
+
 	for(contador=0;contador<*qtde;contador++)
 	{
 		for(contador2=contador+1;contador2<*qtde+1;contador2++)
