@@ -25,7 +25,8 @@ int main(){
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES];
 	int opMenu, teste,qtdeCadastros=0,flag,qtdeVeiculos=0;
 	float testeF;
-	Proprietario prop[MAX_PROPRIETARIOS];
+//	Proprietario prop[MAX_PROPRIETARIOS];
+	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));
 	Veiculo veic[MAX_VEICULOS];
 	
 	//Texto do menu
@@ -35,7 +36,7 @@ int main(){
 	strcpy(menuPrincipal[2],"3-Manutencao");
 	strcpy(menuPrincipal[3],"4-Relatorios");
 	strcpy(menuProprietario[0],"1-Cadastrar cliente");
-	strcpy(menuProprietario[1],"2-Renomear");
+	strcpy(menuProprietario[1],"2-Alterar");
 	strcpy(menuProprietario[2],"3-Excluir ");
 	strcpy(menuVeiculo[0],"1-Cadastrar veiculo");
 	strcpy(menuVeiculo[1],"2-Renomear");
@@ -54,8 +55,8 @@ int main(){
 				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar cliente");
 				
 			}else if(opMenu == 2){
-	//			alteraProprietario(&qtdeCadastros,prop,"Renomear");
-			
+				alteraProprietario(&qtdeCadastros,prop,"Alterar");
+				
 			}
 		}else if(opMenu == 2){
 			opMenu = menuOpcoes(3,menuVeiculo,"Veiculo");
@@ -79,6 +80,7 @@ int main(){
 	
 	//Finalizacao
 	printf("\n");
+	free(prop);
 	system("pause");
 	return 0;
 }

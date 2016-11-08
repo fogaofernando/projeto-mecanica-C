@@ -7,6 +7,7 @@
 
 //macros importadas
 #define POS_Y_TOPO 2
+#define NOME_OPCOES 100
 
 //Prototipos________________________________________________________________________________________________
 
@@ -22,9 +23,12 @@ void cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo);
 void cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 {
 	//variaveis
+	
 	int flag;
+	
 	//Desenvolvimento
-	leValidaString("Insira o nome: ",topo,prop[*qtdeCadastros].nome,2,MAX_NOME,">>>ERRO: Insira um nome valido...");
+	
+	leValidaString("Insira o nome: ",topo,prop[*qtdeCadastros].nome,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido...");
 
 				do{
 					flag=0;
@@ -55,7 +59,38 @@ void cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 //Retorno : NULO
 void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 {
+	//variaveis
+	
+	int opMenu,contador,qtdeEncontrado=0,qtdeLetras,cont;    /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
+	char menuAlterar[3][NOME_OPCOES],nomePesquisa[MAX_NOME];
+	char *aux,copy[100]; /* vetor auxiliar para comparar*/
+	
+	//Desenvolvimento
+	
+	strcpy(menuAlterar[0],"1-Nome");
+	strcpy(menuAlterar[1],"2-Endereco");
+	strcpy(menuAlterar[2],"3-Telefone");
+	opMenu = menuOpcoes(3,menuAlterar,"Alterar");
+	if(opMenu==1){
+		leValidaString("Informe o Nome para Pesquisa : ",topo,nomePesquisa,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido...");
+		qtdeLetras=strlen(nomePesquisa);
+			for(contador=0;contador<qtdeLetras;contador++)
+			{
+				aux=strchr(prop[0].nome,nomePesquisa[contador]); /* obtem a primeira ocorrencia do primeiro caracter da string2 na string1 */
+				copy[contador] = *aux;
+			}
+			copy[qtdeLetras] = '\0';
+			if(!strcmp(copy,nomePesquisa)){ /* se o array copy for igual a string que queriamos encontrar entao devolvemos TRUE */
+				printf("String encontrada = %s\n",copy);
+				qtdeEncontrado++;
+				getch();
+			}
+			else{ 
+				printf("String nao encontrada \n");/* caso contrario retornamos FALSE */
+				getch();
+			}
 
+	}
 }
 
 //Cadastra veiculos
@@ -63,7 +98,12 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 //Retorno : NULO
 void cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo)
 {
+	//variaveis
+	
 	int flag;
+	
+	//Desenvolvimento
+	
 	do{
 		flag=0;
 		leValidaString("Informe a Placa do Veiculo: ",topo,veic[*qtdeVeiculos].placa,0,MAX_PLACA,">>>ERRO: Placa Invalida");
