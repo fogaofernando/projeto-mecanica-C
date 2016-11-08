@@ -84,9 +84,9 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				printf("String encontrada = %s\n",copy);
 				qtdeEncontrado++;
 				getch();
-			}
-			else{ 
-				printf("String nao encontrada \n");/* caso contrario retornamos FALSE */
+			
+			}else{ 
+				printf("String nao encontrada \n"); /* caso contrario retornamos FALSE */
 				getch();
 			}
 

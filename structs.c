@@ -3,10 +3,10 @@
 //primeira struct
 
 #define MAX_NOME 20
-#define MIN_NOME 3
+#define MIN_NOME 1
 #define TAM_CPF 12
-#define MAX_ENDERECO 50
-#define MIN_ENDERECO 5
+#define MAX_DESCRICAO 50
+#define MIN_DESCRICAO 5
 #define MAX_CIDADE 20
 #define MAX_ESTADO 20
 #define MAX_TELEFONE 12
@@ -33,9 +33,9 @@
 typedef struct Proprietario{
 	char nome[MAX_NOME];
 	char cpf[TAM_CPF];
-	char endereco[MAX_ENDERECO];			//0 descrição, 1 cidade e 2 estado
-	//char cidade[MAX_CIDADE];
-	//char estado[MAX_ESTADO];
+	char descricao[MAX_DESCRICAO];			//0 descrição, 1 cidade e 2 estado
+	char cidade[MAX_CIDADE];
+	char estado[MAX_ESTADO];
 	int tefefone;
 }Proprietario;
 

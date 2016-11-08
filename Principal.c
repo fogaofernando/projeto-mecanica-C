@@ -26,7 +26,7 @@ int main(){
 	int opMenu, teste,qtdeCadastros=0,flag,qtdeVeiculos=0;
 	float testeF;
 //	Proprietario prop[MAX_PROPRIETARIOS];
-	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));
+	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));   // Alocação Dinamica
 	Veiculo veic[MAX_VEICULOS];
 	
 	//Texto do menu
