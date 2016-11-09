@@ -2,36 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include<windows.h>
-
-
-//Tamanho da tela
-#define TELA_X 80	
-#define TELA_Y 24
-
-//Botoes menu
-#define ACIMA 72
-#define ABAIXO 80
-#define ESC 27
-#define ENTER 13
-
-//Menu Simbolos
-#define IMG_OP 62					// 16 ou 62
-#define BARRA_HORIZONTAL 205		
-#define BARRA_LATERAL 186
-#define BARRA_DIG01 201
-#define BARRA_DIG02 187
-#define BARRA_DIG03 200
-#define BARRA_DIG04 188
-
-#define NOME_OPCOES 100		
-#define MAX_NOME 20
-//Posição do menu de opções 
-#define POS_X_OPCOES (TELA_X/8)			
-#define POS_Y_OPCOES (5)
-
-
-
-
+#include "defines.c"
 
 
 //PROTOTIPOS__________________________________________________________________________________________________________
@@ -215,60 +186,4 @@ void gotoxy(int x, int y)
   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-int menuOpcoes2(int qtOp,char opcoes[][MAX_NOME],char *apresentaMenu){
 
-//variaveis
-	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeraÃ§Ã£o do botÃ£o clicado de acordo com a  tabela ASCII
-	
-	//desenvolvimento
-	system("cls");
-	janelaMenu();
-	
-	// Imprimindo o topico e as opcoes
-	imprimeCentralizado(apresentaMenu,2);
-	
-	for(cont = 0; cont<qtOp ;cont++){
-		gotoxy(POS_X_OPCOES , cont+POS_Y_OPCOES);
-		printf("%s",opcoes[cont]);
-	}
-	imprimeSeta(opAtual,qtOp);
-	
-	//Selecionando opcao
-	do{		
-		
-		//leitura do teclado
-		gotoxy(0,TELA_Y-1);
-		fflush(stdin);
-		tecla = getch();
-		
-		//opcoes
-		if(tecla == ACIMA){
-			//Informar posicao atual do cursor
-			if(opAtual > 1){
-				opAtual--;
-				imprimeSeta(opAtual,qtOp);
-			}
-			
-				
-		}else if(tecla == ABAIXO){
-			
-			//informar posicao atual do cursor
-			if(opAtual < qtOp){
-				opAtual++;
-				imprimeSeta(opAtual,qtOp);
-			}	
-			
-		}else if(tecla != ESC && tecla != ENTER){
-			tecla = -1;
-		}
-		
-		
-	}while(tecla != ESC && tecla != ENTER);
-	
-	if(tecla == ESC){
-		return 0;
-	}
-	
-	return opAtual;
-		
-}

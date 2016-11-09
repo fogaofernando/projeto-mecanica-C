@@ -4,8 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "structs.c"
+#include "defines.c"
 
-#define POS_Y_TOPO 2	//Posição minima das mensagens (com execao do menu principal)
 
 //Prototipos________________________________________________________________________________________________
 
@@ -41,7 +41,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		
 		//gotoxy(19,4);
 		fflush(stdin);
-		fgets(texto,tamanhoMax,stdin);
+		fgets(texto,tamanhoMax+1,stdin);
 		fflush(stdin);
 		
 		//tirando '\n'
@@ -69,7 +69,7 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		
 		if(flag == 0){
 			gotoxy(2,POS_Y_TOPO+3);
-			printf("%s",msgErro);
+			printf("%s %s",texto,msgErro);
 			getch();
 			
 			flag = 0;

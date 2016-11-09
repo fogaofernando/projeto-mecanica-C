@@ -6,14 +6,9 @@
 #include <string.h>
 //#include <locale.h>
 #include "structs.c"
+#include "defines.c"
 
 
-#define NOME_OPCOES 100
-#define MAX_PROPRIETARIOS 500
-#define MAX_VEICULOS 500
-
-//macros importadas
-#define POS_Y_TOPO 2
 
 
 //Principal
@@ -25,9 +20,12 @@ int main(){
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES];
 	int opMenu, teste,qtdeCadastros=0,flag,qtdeVeiculos=0;
 	float testeF;
+
 //	Proprietario prop[MAX_PROPRIETARIOS];
-	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));   // Alocação Dinamica
-	Veiculo veic[MAX_VEICULOS];
+
+	//alocacao dinamica das estruturas
+	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));   
+	Veiculo *veic = malloc(MAX_VEICULOS*sizeof(struct Veiculo));
 	
 	//Texto do menu
 	
@@ -41,29 +39,35 @@ int main(){
 	strcpy(menuVeiculo[0],"1-Cadastrar veiculo");
 	strcpy(menuVeiculo[1],"2-Renomear");
 	strcpy(menuVeiculo[2],"3-Excluir ");
+	
 	//configuração inicial da tela
 	configTela();
 	
+	//menu principal______________________________________________________________________________________________________________________________________
 	do{	
 		opMenu = menuOpcoes(4,menuPrincipal,"Menu Principal");
 		
+		//Propetario_______________________________________________________________________________________________________________________________________	
 		if(opMenu==1){
 			opMenu = menuOpcoes(3,menuProprietario,"Proprietario");
 			
-			//cadastro do cliente_________________________________________________________________________________________________
+			//Cadastro do cliente
 			if(opMenu == 1){
 				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar cliente");
-				
+			
+			//Alteracao do cliente
 			}else if(opMenu == 2){
 				alteraProprietario(qtdeCadastros,prop,"Alterar");
 				
 			}
+			
+		//Veiculo__________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 2){
 			opMenu = menuOpcoes(3,menuVeiculo,"Veiculo");
 			
-			//Cadastrar veiculo_________________________________________________________________________________________________________
+			//Cadastrar veiculo
 			if(opMenu == 1){
-				cadastraVeiculo(qtdeVeiculos,veic,"Cadastrar veiculo");
+				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
 				
 		}
 		}else if(opMenu == 2){
@@ -81,6 +85,7 @@ int main(){
 	//Finalizacao
 	printf("\n");
 	free(prop);
+	free(veic);
 	system("pause");
 	return 0;
 }
