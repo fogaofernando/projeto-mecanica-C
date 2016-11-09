@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = Funcoes.o structs.o Principal.o FuncoesdeJanelaMenu.o FuncoesdeCadastro.o
-LINKOBJ  = Funcoes.o structs.o Principal.o FuncoesdeJanelaMenu.o FuncoesdeCadastro.o
+OBJ      = Funcoes.o structs.o Principal.o FuncoesdeMenu.o FuncoesdeCadastro.o
+LINKOBJ  = Funcoes.o structs.o Principal.o FuncoesdeMenu.o FuncoesdeCadastro.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32 -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++"
@@ -33,8 +33,8 @@ structs.o: structs.c
 Principal.o: Principal.c
 	$(CC) -c Principal.c -o Principal.o $(CFLAGS)
 
-FuncoesdeJanelaMenu.o: FuncoesdeJanelaMenu.c
-	$(CC) -c FuncoesdeJanelaMenu.c -o FuncoesdeJanelaMenu.o $(CFLAGS)
+FuncoesdeMenu.o: FuncoesdeMenu.c
+	$(CC) -c FuncoesdeMenu.c -o FuncoesdeMenu.o $(CFLAGS)
 
 FuncoesdeCadastro.o: FuncoesdeCadastro.c
 	$(CC) -c FuncoesdeCadastro.c -o FuncoesdeCadastro.o $(CFLAGS)

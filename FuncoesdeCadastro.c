@@ -39,13 +39,12 @@ void cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 						printf(">>>ERRO: CPF INVALIDO....");
 						getch();
 					}									
-					if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0)
-					{
-						flag=1;
-					}	
+//					if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0)
+//					{
+///					}	
 				}while(flag==1);
 				
-				leValidaString("Insira o Endereco: ",topo,prop[*qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
+//				leValidaString("Insira o Endereco: ",topo,prop[*qtdeCadastros].endereco,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Endereco Invalido...");
 				
 				/*leValidaInt("Insira o telefone: ",menuProprietario[0],">>>ERRO: Endereco invalido...",2,MAX_TELEFONE,&prop[qtdeCadastros].tefefone);
 				printf("%d",prop[qtdeCadastros].tefefone);
@@ -61,9 +60,8 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 {
 	//variaveis
 	
-	int opMenu,contador,qtdeEncontrado=0,qtdeLetras,cont;    /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
+	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont,aux[10];    /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
 	char menuAlterar[3][NOME_OPCOES],nomePesquisa[MAX_NOME];
-	char *aux,copy[100]; /* vetor auxiliar para comparar*/
 	
 	//Desenvolvimento
 	
@@ -73,23 +71,36 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	opMenu = menuOpcoes(3,menuAlterar,"Alterar");
 	if(opMenu==1){
 		leValidaString("Informe o Nome para Pesquisa : ",topo,nomePesquisa,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido...");
-		qtdeLetras=strlen(nomePesquisa);
-			for(contador=0;contador<qtdeLetras;contador++)
+		for(contador=0;contador<qtdeCadastros+1;contador++)
+		{
+			if(strstr(prop[contador].nome,nomePesquisa))
 			{
-				aux=strchr(prop[0].nome,nomePesquisa[contador]); /* obtem a primeira ocorrencia do primeiro caracter da string2 na string1 */
-				copy[contador] = *aux;
+				aux[contador]=contador;    //Posição dos nomes Encontrados
+				strcpy(prop[qtdeEncontrada].copiaNome,prop[contador].nome);
+				qtdeEncontrada++;
 			}
-			copy[qtdeLetras] = '\0';
-			if(!strcmp(copy,nomePesquisa)){ /* se o array copy for igual a string que queriamos encontrar entao devolvemos TRUE */
-				printf("String encontrada = %s\n",copy);
-				qtdeEncontrado++;
-				getch();
-			
-			}else{ 
-				printf("String nao encontrada \n"); /* caso contrario retornamos FALSE */
-				getch();
+		}
+		printf("NOME AQUI %s",prop[1].copiaNome);
+		getch();
+		if(qtdeEncontrada==0) 
+		{			
+			printf(">>>Erro: Nome não Encontrado...");
+			getch();
+		}		
+		else
+		{
+			opMenu = menuOpcoes2(qtdeEncontrada,prop->copiaNome,"Nomes encontrados");  //Menu de Nomes Encontrados
+			for(contador=1;contador<qtdeEncontrada+1;contador++)
+			{
+				if(opMenu==contador)
+				{
+					leValidaString("Informe o novo nome : ",topo,prop[contador].copiaNome,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido..."); // Novo nome para a opcao escolhida
+					strcpy(prop[aux[contador-1]].nome,prop[contador].copiaNome);    
+				}
 			}
-
+		}
+		printf("NOVO NOME : %s",prop[2].nome);
+		getch();
 	}
 }
 
@@ -116,8 +127,8 @@ void cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo)
 		flag = 1;
 		}
 	}while(flag==0);
-	leValidaString("Insira o Modelo: ",topo,veic[*qtdeVeiculos].modelo,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Modelo Invalido...");
-	leValidaString("Insira o Fabricante: ",topo,veic[*qtdeVeiculos].fabricante,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Fabricante I;nvalido...");
+//	leValidaString("Insira o Modelo: ",topo,veic[*qtdeVeiculos].modelo,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Modelo Invalido...");
+//	leValidaString("Insira o Fabricante: ",topo,veic[*qtdeVeiculos].fabricante,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Fabricante I;nvalido...");
 	leValidaInt("Insira o Ano de Fabricacao: ",topo,">>>ERRO: Ano Invalido",MIN_ANO,MAX_ANO,&veic[*qtdeVeiculos].ano);
 	qtdeVeiculos++;
 }

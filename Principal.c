@@ -55,7 +55,7 @@ int main(){
 				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar cliente");
 				
 			}else if(opMenu == 2){
-				alteraProprietario(&qtdeCadastros,prop,"Alterar");
+				alteraProprietario(qtdeCadastros,prop,"Alterar");
 				
 			}
 		}else if(opMenu == 2){
@@ -63,7 +63,7 @@ int main(){
 			
 			//Cadastrar veiculo_________________________________________________________________________________________________________
 			if(opMenu == 1){
-				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
+				cadastraVeiculo(qtdeVeiculos,veic,"Cadastrar veiculo");
 				
 		}
 		}else if(opMenu == 2){

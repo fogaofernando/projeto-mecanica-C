@@ -24,7 +24,7 @@
 #define BARRA_DIG04 188
 
 #define NOME_OPCOES 100		
-		
+#define MAX_NOME 20
 //Posição do menu de opções 
 #define POS_X_OPCOES (TELA_X/8)			
 #define POS_Y_OPCOES (5)
@@ -36,6 +36,7 @@
 
 //PROTOTIPOS__________________________________________________________________________________________________________
 int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
+int menuOpcoes2(int qtOp,char opcoes[][MAX_NOME],char *apresentaMenu);
 void imprimeSeta(int opAtual,int totalOp);
 void imprimeCentralizado(char *texto,int y);
 void janelaMenu();
@@ -214,3 +215,60 @@ void gotoxy(int x, int y)
   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
+int menuOpcoes2(int qtOp,char opcoes[][MAX_NOME],char *apresentaMenu){
+
+//variaveis
+	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeraÃ§Ã£o do botÃ£o clicado de acordo com a  tabela ASCII
+	
+	//desenvolvimento
+	system("cls");
+	janelaMenu();
+	
+	// Imprimindo o topico e as opcoes
+	imprimeCentralizado(apresentaMenu,2);
+	
+	for(cont = 0; cont<qtOp ;cont++){
+		gotoxy(POS_X_OPCOES , cont+POS_Y_OPCOES);
+		printf("%s",opcoes[cont]);
+	}
+	imprimeSeta(opAtual,qtOp);
+	
+	//Selecionando opcao
+	do{		
+		
+		//leitura do teclado
+		gotoxy(0,TELA_Y-1);
+		fflush(stdin);
+		tecla = getch();
+		
+		//opcoes
+		if(tecla == ACIMA){
+			//Informar posicao atual do cursor
+			if(opAtual > 1){
+				opAtual--;
+				imprimeSeta(opAtual,qtOp);
+			}
+			
+				
+		}else if(tecla == ABAIXO){
+			
+			//informar posicao atual do cursor
+			if(opAtual < qtOp){
+				opAtual++;
+				imprimeSeta(opAtual,qtOp);
+			}	
+			
+		}else if(tecla != ESC && tecla != ENTER){
+			tecla = -1;
+		}
+		
+		
+	}while(tecla != ESC && tecla != ENTER);
+	
+	if(tecla == ESC){
+		return 0;
+	}
+	
+	return opAtual;
+		
+}

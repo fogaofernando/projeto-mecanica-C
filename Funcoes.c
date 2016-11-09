@@ -302,9 +302,9 @@ int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro)
 	
 	//Desenvolvimento
 
-	for(contador=0;contador<*qtde;contador++)
+	for(contador=0;contador<*qtde-1;contador++)
 	{
-		for(contador2=contador+1;contador2<*qtde+1;contador2++)
+		for(contador2=contador+1;contador2<*qtde;contador2++)
 		{
 			if(strcmp(prop[contador].cpf,prop[contador2].cpf)==0)
 			{

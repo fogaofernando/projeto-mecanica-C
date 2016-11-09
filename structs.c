@@ -37,6 +37,7 @@ typedef struct Proprietario{
 	char cidade[MAX_CIDADE];
 	char estado[MAX_ESTADO];
 	int tefefone;
+	char copiaNome[MAX_NOME];
 }Proprietario;
 
 typedef struct Veiculo{
