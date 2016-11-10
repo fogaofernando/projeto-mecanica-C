@@ -61,7 +61,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	//variaveis
 	
 	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont,aux[10];    /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
-	char menuAlterar[3][NOME_OPCOES],nomePesquisa[MAX_NOME],copiaNome [qtdeCadastros][NOME_OPCOES];
+	char menuAlterar[3][NOME_OPCOES],nomePesquisa[MAX_NOME],copiaNome [qtdeCadastros][NOME_OPCOES],novoNome[MAX_NOME];
 	
 	//Desenvolvimento
 	
@@ -80,13 +80,10 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		{
 			if(strstr(prop[contador].nome,nomePesquisa))
 			{
-				aux[contador]=contador;    //Posição dos nomes Encontrados
-				strcpy(copiaNome[qtdeEncontrada],prop[contador].nome);
+				strcpy(copiaNome[qtdeEncontrada+1],prop[contador].nome);
 				qtdeEncontrada++;
 			}
 		}
-		//printf("NOME AQUI %s",copiaNome[0]);
-		//getch();
 		if(qtdeEncontrada==0) 
 		{			
 			printf(">>>Erro: Nome não Encontrado...");
@@ -95,19 +92,34 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		else
 		{
 			//opMenu = menuOpcoes2(qtdeEncontrada,prop->copiaNome,"Nomes encontrados");  //Menu de Nomes Encontrados
-			opMenu = menuOpcoes(qtdeEncontrada,copiaNome,"Nomes encontrados");  //Menu de Nomes Encontrados
+			opMenu = menuOpcoes(qtdeEncontrada,copiaNome+1,"Nomes encontrados");  //Menu de Nomes Encontrados
 			for(contador=1;contador<qtdeEncontrada+1;contador++)
 			{
 				if(opMenu==contador)
 				{
-					leValidaString("Informe o novo nome : ",topo,copiaNome[contador],MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido..."); // Novo nome para a opcao escolhida
-					strcpy(prop[aux[contador-1]].nome,copiaNome[contador]);    
+
+					leValidaString("Informe o novo nome : ",topo,novoNome,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido..."); // Novo nome para a opcao escolhida
+
+					for(contador2=0;contador2<qtdeCadastros;contador2++)
+					{
+						if(strcmp(copiaNome[opMenu],prop[contador2].nome)==0)
+						{
+								strcpy(prop[contador2].nome,novoNome);  
+						}
+					}
+					/*				
 				}else{
 					printf("erro");
+					getch();
+				}
+				*/
 				}
 			}
+			for(contador=0;contador<qtdeCadastros;contador++)
+			{
+				printf("NOME %s \n",prop[contador].nome);
+			}
 		}
-		printf("NOVO NOME : %s",prop[2].nome);
 		getch();
 	}
 }
