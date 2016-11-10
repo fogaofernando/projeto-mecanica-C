@@ -5,10 +5,10 @@
 typedef struct Proprietario{
 	char nome[MAX_NOME];
 	char cpf[TAM_CPF];
-	char descricao[MAX_DESCRICAO];			//0 descrição, 1 cidade e 2 estado
+	char descricao[MAX_DESCRICAO];
 	char cidade[MAX_CIDADE];
 	char estado[MAX_ESTADO];
-	char tefefone;
+	char telefone[MAX_TELEFONE];
 //	char copiaNomePesquisa [][MAX_NOME];
 }Proprietario;
 

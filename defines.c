@@ -35,12 +35,12 @@
 #define MIN_NOME 1
 #define TAM_CPF 12
 #define MAX_DESCRICAO 50
-#define MIN_DESCRICAO 5
+#define MIN_DESCRICAO 3
 #define MIN_CIDADE 2
 #define MAX_CIDADE 20
-#define MIN_ESTADO 2
+#define MIN_ESTADO 1
 #define MAX_ESTADO 20
-#define MIN_TELEFONE 11
+#define MIN_TELEFONE 1
 #define MAX_TELEFONE 12
 
 
