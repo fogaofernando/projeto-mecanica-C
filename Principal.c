@@ -59,6 +59,9 @@ int main(){
 			}else if(opMenu == 2){
 				alteraProprietario(qtdeCadastros,prop,"Alterar");
 				
+			}else if(opMenu == 3)
+			{
+				excluiProprietario(qtdeCadastros,prop,"Excluir");
 			}
 			
 		//Veiculo__________________________________________________________________________________________________________________________________________
