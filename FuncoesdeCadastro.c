@@ -6,53 +6,130 @@
 #include "structs.c"
 #include "defines.c"
 
+//Calcular o valor do "cont" de acordo com o valor da "flag"
+#define CALCULA_CONT flag == 1 ? cont++ : cont--;
 
 //Prototipos________________________________________________________________________________________________
 
 //Proprietario
-void cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo);
-void cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo);
+int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo);
+int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo);
 void excluiProprietario(int qtdeCadastros,Proprietario *prop,char *topo);
+int leituraCpf(char *CPF,char *topo,int *qtdeCadastros,Proprietario *prop);
+int leituraPlaca(char *veic,char *topo,int *qtdeVeiculos);
 
 
 //Funcoes_____________________________________________________________________________________________________
 
-//Cadastra o proprietario
-//Entrada : referencia a quantidade de cadastros e a struct
-//Retorno : NULO
-void cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
+//Cadastra o proprietario;
+//Entrada : referencia a quantidade de cadastros, a struct propetario e a mensagem do topo;
+//Retorno : 1 em caso de sucesso na leitura e 0 caso abortado a operacao;
+int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 {
 	//variaveis
 	
-	int flag;
+	int flag,cont = 0;
+
+
 	
 	//Desenvolvimento
 	
-	leValidaString("Insira o nome: ",topo,prop[*qtdeCadastros].nome,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido...");
-
-/*do{
-		flag=0;
-		leValidaString("Insira o CPF: ",topo,prop[*qtdeCadastros].cpf,MIN_NOME,TAM_CPF,">>>ERRO: CPF Invalido...");
-		if(validaCPF(prop[*qtdeCadastros].cpf)==0){
+	do{
 		flag=1;
-		gotoxy(2,POS_Y_TOPO+3);
-		printf(">>>ERRO: CPF INVALIDO....");
-		getch();
-	}									
-//	if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0)
-//	{
-///	}	
-	}while(flag==1);
-	*/
-				
-				
-//	leValidaString("Insira a Descricao do Endereco: ",topo,prop[*qtdeCadastros].descricao, MIN_DESCRICAO,MAX_DESCRICAO,">>>ERRO: Descricao Invalido...");
-//	leValidaString("Insira o Estado : ",topo,prop[*qtdeCadastros].estado,MIN_ESTADO,MAX_ESTADO,">>>ERRO: Estado Invalido...");
-//	leValidaString("Insira a Cidade: ",topo,prop[*qtdeCadastros].cidade, MIN_CIDADE,MAX_CIDADE,">>>ERRO: Cidade Invalida...");
-//	leValidaString("Insira o Telefone: ",topo,prop[*qtdeCadastros].telefone, MIN_TELEFONE,MAX_TELEFONE,">>>ERRO: Telefone Invalido...");
-	prop[*qtdeCadastros].cadastrado=1;
-	*qtdeCadastros=*qtdeCadastros+1;
+		
+		//nome
+		if(cont == 0){
+			 flag = leValidaString(prop[*qtdeCadastros].nome,"Insira o nome: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM);
+			 if(flag == 1){
+			 	cont++;
+			 }else{
+			 	printf("\n>>>abortado....");
+			 	getch();
+			 	return 0;	//leitura de dados abortada
+			 }
+		}
+		
+		//CPF
+		if(cont == 1){
+			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
+			
+			/*if(flag == 1){
+				cont++;
+			}else{
+				cont--;
+			}*/
+			
+			CALCULA_CONT
+		}
+		
+		//descricao do endereco
+		if(cont == 2){
+			flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+			CALCULA_CONT
+		}
+		
+		//estado
+		if(cont == 3){
+			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
+			CALCULA_CONT
+		}
+		
+		//cidade
+		if(cont == 4){
+			flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
+			CALCULA_CONT
+		}
+		
+		//telefone
+		if(cont == 5){
+			flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
+			CALCULA_CONT
+		}
+		
+		//finalizacao
+		if(cont == 6){
+			prop[*qtdeCadastros].cadastrado=1;
+			*qtdeCadastros=*qtdeCadastros+1;
+			printf("\n>>>Dados salvos com sucesso...");
+			getch();
+			return 1;	//finalizacao com sucesso
+		}
+	
+	}while(flag == 0);
 }
+
+
+//Objetivo:	Faz a leitura e validacao do CPF;
+//Entrada: 	Referencia a string para o CPF;
+//Saída:  	1 em caso de leitura com sucesso e 0 caso de retorno com ESC;	
+int leituraCpf(char *CPF,char *topo,int *qtdeCadastros,Proprietario *prop){
+	//variaveis
+	int flag;
+	
+	//desenvolvimento
+	do{
+		flag=0;
+		if(leValidaString(CPF,"Insira o CPF: ",topo,TAM_CPF,TAM_CPF,TIPO_INTEIRO,NAO) == 0){
+			return 0;
+		}
+		
+		if(validaCPF(CPF)==0){
+			flag=1;
+			gotoxy(2,POS_Y_TOPO+3);
+			printf(">>>ERRO: CPF INVALIDO....");
+			getch();
+		}									
+		
+		if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0){
+		
+		}	
+	}while(flag==1);
+	
+	return 1;
+	
+}
+
+
 
 
 //Excluir Porprietario
@@ -81,7 +158,7 @@ void excluiProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	
 	
 	//EXCLUI NOME
-	leValidaString("Informe o Nome para Exclusao : ",topo,pesquisaNome,MIN_NOME,MAX_NOME,">>>ERRO: Insira um nome valido...");
+	leValidaString(pesquisaNome,"Informe o Nome para Exclusao: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM);
 	for(contador=0;contador<qtdeCadastros+1;contador++)
 	{
 		if(strstr(prop[contador].nome,pesquisaNome))
@@ -132,30 +209,77 @@ void excluiProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 
 //Cadastra veiculos
 //Entrada : referencia a quantidade de Veiculos e a struct
-//Retorno : NULO
-void cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo)
-{
+//Retorno : 1 em caso de sucesso e 0 caso de operacao abortada
+int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 	//variaveis
-	
-	int flag;
+	int flag,cont = 0;
 	
 	//Desenvolvimento
-	
-	do{
-		flag=0;
-		leValidaString("Informe a Placa do Veiculo: ",topo,veic[*qtdeVeiculos].placa,TAM_PLACA,TAM_PLACA,">>>ERRO: Placa Invalida");
-		if(validaPlaca(veic[*qtdeVeiculos].placa)==0){
-			flag=0;
-			gotoxy(2,POS_Y_TOPO+3);
-			printf("Placa Invalida");
-			getch();
-		}else{
-		flag = 1;
+	do{	
+		//Placa
+		if(cont == 0){
+			flag = leituraPlaca(veic[*qtdeVeiculos].placa,topo,qtdeVeiculos);
+			if(flag == 1){
+				cont++;
+			}else{
+				printf("\n >>>Operacao abortada...");
+				getch();
+				return 0;	//leitura abortada
+			}
 		}
-	}while(flag==0);
-//	leValidaString("Insira o Modelo: ",topo,veic[*qtdeVeiculos].modelo,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Modelo Invalido...");
-//	leValidaString("Insira o Fabricante: ",topo,veic[*qtdeVeiculos].fabricante,MIN_ENDERECO,MAX_ENDERECO,">>>ERRO: Fabricante I;nvalido...");
-//	leValidaInt("Insira o Ano de Fabricacao: ",topo,">>>ERRO: Ano Invalido",MIN_ANO,MAX_ANO,&veic[*qtdeVeiculos].ano);
-	*qtdeVeiculos = *qtdeVeiculos = 1;
+		
+		//modelo
+		if(cont == 1){
+			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,MAX_MODELO,TIPO_LETRAS_NUMEROS,SIM);
+			CALCULA_CONT
+		}
+		
+		//fabricante
+		if(cont == 2){
+			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,MAX_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
+			CALCULA_CONT
+		}
+		
+		//leValidaInt("Insira o Ano de Fabricacao: ",topo,">>>ERRO: Ano Invalido",MIN_ANO,MAX_ANO,&veic[*qtdeVeiculos].ano);
+		
+		//finalizacao
+		if(cont == 3){
+			*qtdeVeiculos = *qtdeVeiculos = 1;
+			printf("\n >>>leitura de dados feita com sucesso..");
+			getch();
+			return 1;
+		}
+		
+	}while(flag == 0);
+	
 }
 
+
+//Objetivo:	Faz a leitura da placa;
+//Entrada:	Referencia ao veiculo, a mensagem do topo e quantidade de veiculo;
+//Saida:	1 em caso de leitura com sucesso e 0 caso de retorno com ESC;		
+int leituraPlaca(char *veic,char *topo,int *qtdeVeiculos){
+	//variaveis
+	int flag;
+	
+	//desenvolvimento
+	do{
+		flag=0;
+		
+		if(leValidaString(veic,"Informe a Placa do Veiculo: ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO) == 0 ){
+			return 0;		//retorno por ESC
+		}
+		
+		if(validaPlaca(veic)==0){
+			flag=0;
+			gotoxy(2,POS_Y_TOPO+3);
+			printf(">>>Placa Invalida");
+			getch();
+		}else{
+			flag = 1;
+		}
+		
+	}while(flag==0);
+	
+	return 1; //retorno com sucesso	
+}

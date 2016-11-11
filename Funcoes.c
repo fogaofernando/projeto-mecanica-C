@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
 #include "structs.c"
 #include "defines.c"
 
@@ -12,7 +13,7 @@
 void removeQuebraLinha(char *valString);
 void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor);
 void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
-void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax,char *msgErro);
+int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin , int tamanhoMax,int tipoString, int aceitaEspaco);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
 char * formataCPF (char *cpf);
@@ -20,15 +21,21 @@ int validaPlaca(char *placa);
 int verificaIntRepetido(int qtde,int *valor,char *msgErro);
 int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro);
 
+//int leValidaInt(char *mens,char *topo,int valorMin, int valorMax, int *valorI);
+int leituraDadosChar(char *valor,int tamMax,int posInicial,int opEntrada,int opEspaco);
+void apagaCaracter(int posX, int posY);
+int verificaCharEspecifico(int op,int espaco,char valorC);
+
 //Funcoes_____________________________________________________________________________________________________
 
 
-// Objeitvo : Ler e validar uma string;
-// Paramentros : Referencia ao titulo ,a mensagem do topo, a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores) e referencia a mensagem de erro;
-// Retorno : Nenhum;
-void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tamanhoMax,char *msgErro){
+/// Objeitvo : Ler e validar uma string;
+/* Paramentros : Referencia ao titulo ,a mensagem do topo, a string , tamanho minimo e tamanho maximo(sera considerado o tamanho da string, ignoranando caracteres superiores),
+referencia a mensagem de erro, tipo de string que sera lidoe se vai aceitar espaco(1 sim e 0 nao);*/
+// Retorno : 1 letura com sucesso(ENTER) e 0 leitura cancelada(ESC);
+int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin,int tamanhoMax,int tipoString,int aceitaEspaco){
 	//variaveis
-	int flag,cont,tamTxt;
+	int flag,cont,tecla,tamTxt;
 	
 	//desenvolvimento
 	do{
@@ -39,43 +46,48 @@ void leValidaString(char *titulo,char *topo,char *texto,int tamanhoMin , int tam
 		gotoxy(2,POS_Y_TOPO+2);
 		printf("%s",titulo);
 		
-		//gotoxy(19,4);
-		fflush(stdin);
-		fgets(texto,tamanhoMax+1,stdin);
-		fflush(stdin);
 		
-		//tirando '\n'
-		removeQuebraLinha(texto);	
+		//Leitura dos dados
+		if(leituraDadosChar(valorS,tamanhoMax,strlen(titulo),tipoString,aceitaEspaco) == 0){
+			//saindo pelo ESC
+			return 0;
+		}
 		
-		tamTxt = strlen(texto);
+		tamTxt = strlen(valorS);
 		
 		//verificando tamanho e validade de espacos do texto	
 		if(tamTxt<tamanhoMin){
 			flag = 0;
+			
+			if(tamanhoMax != tamanhoMin){
+				printf("\n>>>ERRO DE LEITURA:O dado deve ter um tamanho entre %d e %d caracteres...",tamanhoMin,tamanhoMax);
+				getch();
+			}else{
+				printf("\n>>>ERRO DE LEITURA:O dado deve ter um tamanho de %d caracteres...",tamanhoMax);
+				getch();	
+			}
+			
 		}else{
 			for(cont = 0;cont < tamTxt;cont++){
-				if(texto[cont] == ' '){
-					//erro caso so haja espacamento
-					if(cont == tamTxt-1){
-						
-						flag = 0;
-					}
+				if(valorS[cont] == ' '){
+					flag = 0;
 				}else{
 					flag = 1 ;
 					break;
 				}
 			}
-		}
-		
-		if(flag == 0){
-			gotoxy(2,POS_Y_TOPO+3);
-			printf("%s %s",texto,msgErro);
-			getch();
 			
-			flag = 0;
+			//mensagem de erro em caso de invalidade
+			if(flag == 0){
+				printf("\n>>>ERRO DE LEITURA:O dado nao pode conter somente espacos em branco...");
+				getch();
+			}
 		}
-		
+	
 	}while(flag == 0);
+	
+	//finalização
+	return 1;
 }
 
 
@@ -89,6 +101,7 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 		*opcao=toupper(*opcao);
 	}while(strchr(opcoes,*opcao)==NULL);
 }
+
 
 //Objetivo: Ler e validar um numero inteiro;
 //Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
@@ -156,6 +169,7 @@ void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *
 		}
 	}while(flag == 0);
 }
+
 
 /**************************************************************
 *  Nome      : validaCPF                                      *  
@@ -291,6 +305,7 @@ int validaPlaca(char *placa){
 	return 1;
 }
 
+
 //Verificar se existe uma string  repetida
 //Entrada: referencia a quantidade de itens e a string a ser analisada
 //Retorno : 1 para repetido 0 - Não repetido
@@ -317,6 +332,8 @@ int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro)
 	}
 	return 1;
 }
+
+
 //Verificar se existe um numero inteiro repetido
 //Entrada: referencia a quuantidade de itens e ao valor a ser analisado
 //Retorno : 1 para repetido 0 - Não repetido
@@ -342,4 +359,154 @@ int verificaIntRepetido(int qtde,int *valor,char *msgErro)
 		}
 	}
 	return 1;
+}
+
+
+//Objetivo: Le os dados em tempo real de click;
+/*Entrada: Enderecamento da string, tamanho maximo permitido da string, posicao inicial do cursor, o tipo de entrada que sera permitido => 
+		   1(somente letras), 2(char com caracteres especiais), 3 (char e numeros) e aceitar espaco(1 sim e 0 nao); 	*/
+//Saida: 0 caso de finalizacao por ESC e 1 por ENTER;
+int leituraDadosChar(char *valor,int maxCaracteres,int posInicial,int opEntrada,int opEspaco){
+	//variavies
+	char charAtual;
+	int cont = 0,tecla;
+	
+	//dsesenvolvimento
+	do{
+		//leitura da tecla
+		fflush(stdin);
+		tecla = getch();
+		
+		//apagar caracter
+		if(tecla == BACKSPAECE && cont != 0){
+			
+			cont--;
+			apagaCaracter( posInicial + (cont) ,POS_Y_OPCOES);
+		
+		}else if(cont < maxCaracteres){
+		//tipos de dados que entram na string
+			charAtual=tecla;
+			
+			if(verificaCharEspecifico(opEntrada,opEspaco,charAtual) == 1){
+				printf("%c",tecla);
+				fflush(stdin);
+				valor[cont] = tecla;
+				cont++;
+			}
+			
+			/*if((tecla >= TAB_0 && tecla <= TAB_9  ) || (tecla >= TAB_a && tecla <= TAB_z  ) || (tecla >= TAB_A && tecla <= TAB_Z  ) || (tecla >= TAB_VIRGULA && tecla <= TAB_BARRA ) || (tecla ==  ESPACO)){
+				printf("%c",tecla);
+				fflush(stdin);
+				valor[cont] = tecla;
+				cont++;	
+			}*/
+		}
+		
+		
+	}while(tecla != ESC && tecla != ENTER);
+	
+	
+	//finalização
+	if(tecla == ESC){
+		
+		valor[0] = '\0';
+		return 0;
+	
+	}else{
+		
+		valor[cont] = '\0';
+		return 1;
+	
+	}
+}
+
+
+//Objetivo:	Posiciona o cursor a um espaco atras e apaga o caracter apresentado
+//Entrada:	Posicao atual do cursor em X e Y; 
+//Saída: 	NULO;
+void apagaCaracter(int posX, int posY){
+	
+	posX+=2;
+	posY--;
+	
+	//desenvolvimento
+	gotoxy(posX,posY);
+	
+	/*
+  	coordDelete.X = posX+2;
+  	coordDelete.Y = POS_Y_OPCOES-1;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coordDelete);
+  */
+ 	
+	 printf("%c",' ');
+	
+	/*
+	coordDelete.X = posX+2;
+  	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coordDelete);
+	*/
+	gotoxy(posX,posY);
+}
+
+
+//objetivo: Verifica o tipo de dado;
+//entrada: Tipo de verificacao =  1(somente letras), 2(char com caracteres especiais), 3(letra e numeros), 4(char e numero), 5(int), 6(float) e aceitar espaco(1 sim e 0 nao);
+//Retorno: retorna 0 para invalido e 1 para valido;
+int verificaCharEspecifico(int op,int espaco,char valorC){
+	//variveis
+	//desenvolvimento
+	switch(op){
+		//1-letras_________________________________________________________________________________________________________
+		case TIPO_LETRAS:
+			if((valorC >= TAB_a && valorC <= TAB_z ) || (valorC >= TAB_A && valorC <= TAB_Z)){
+				return 1;
+			}
+		break;
+		
+		//2-Caracteres especiais e letras_________________________________________________________________________________________________________
+		case TIPO_LETRAS_ESPECIAIS:
+			if((valorC >= TAB_a && valorC <= TAB_z) || (valorC >= TAB_A && valorC <= TAB_Z) || (valorC >= TAB_INTERROGACAO && valorC <= TAB_BARRA)){
+				return 1;
+			}
+		break;
+		
+		//3-Letras e numeros_________________________________________________________________________________________________________
+		case TIPO_LETRAS_NUMEROS:
+			if((valorC >= TAB_a && valorC <= TAB_z ) || (valorC >= TAB_A && valorC <= TAB_Z) || (valorC >= TAB_0 && valorC <= TAB_9)){
+				return 1;
+			}
+		break;
+		
+		//4-letras, caracteres especiais e numeros_________________________________________________________________________________________________________
+		case TIPO_LETRAS_ESPECIAIS_NUMEROS:
+			if((valorC >= TAB_a && valorC <= TAB_z ) || (valorC >= TAB_A && valorC <= TAB_Z) || (valorC >= TAB_0 && valorC <= TAB_9) || (valorC >= TAB_INTERROGACAO && valorC <= TAB_BARRA)){
+				return 1;
+			}
+		break;
+		
+		//5-Inteiro_________________________________________________________________________________________________________
+		case TIPO_INTEIRO:
+			if(valorC >= TAB_0 && valorC <= TAB_9 ){
+				return 1;
+			}
+		break;
+		
+		//6-Real_________________________________________________________________________________________________________
+		case TIPO_REAL:
+			if( (valorC >= TAB_0 && valorC <= TAB_9) || valorC == TAB_PONTO){
+				return 1;
+			}
+		break;
+		
+	}
+		
+	//espaco
+	if(espaco == SIM){
+		if(valorC == TAB_ESPACO){
+			return 1;
+		}
+	}
+	
+	//caso de invalidade do caracter
+	return 0;
+	
 }
