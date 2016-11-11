@@ -47,6 +47,7 @@
 
 //SEGUNDA STRUCT
 #define TAM_PLACA 7
+#define MIN_PLACA 2
 #define MIN_MODELO 1
 #define MAX_MODELO 20
 #define MAX_FABRICANTE 20

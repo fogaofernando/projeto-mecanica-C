@@ -53,15 +53,15 @@ int main(){
 			
 			//Cadastro do cliente
 			if(opMenu == 1){
-				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar cliente");
+				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar Proprietario");
 			
 			//Alteracao do cliente
 			}else if(opMenu == 2){
-				alteraProprietario(qtdeCadastros,prop,"Alterar");
+				alteraProprietario(qtdeCadastros,prop,"Alterar Proprietario");
 				
 			}else if(opMenu == 3)
 			{
-				excluiProprietario(qtdeCadastros,prop,"Excluir");
+				excluiProprietario(qtdeCadastros,prop,"Excluir Proprietario");
 			}
 			
 		//Veiculo__________________________________________________________________________________________________________________________________________
@@ -72,8 +72,11 @@ int main(){
 			if(opMenu == 1){
 				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
 				
+		} else if(opMenu ==2){
+				alteraVeiculo(qtdeVeiculos,veic,"Alterar Veiculo");
 		}
 		}else if(opMenu == 2){
+
 			
 		}else if(opMenu == 3){
 			

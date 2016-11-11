@@ -9,7 +9,7 @@ typedef struct Proprietario{
 	char cidade[MAX_CIDADE];
 	char estado[MAX_ESTADO];
 	char telefone[MAX_TELEFONE];
-//	char copiaNomePesquisa [][MAX_NOME];
+	int cadastrado;
 }Proprietario;
 
 typedef struct Veiculo{
