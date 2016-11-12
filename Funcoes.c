@@ -316,10 +316,9 @@ int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro)
 	int contador,contador2;
 	
 	//Desenvolvimento
-
-	for(contador=0;contador<*qtde-1;contador++)
+	for(contador=0;contador<*qtde;contador++)
 	{
-		for(contador2=contador+1;contador2<*qtde;contador2++)
+		for(contador2=contador+1;contador2<*qtde+1;contador2++)
 		{
 			if(strcmp(prop[contador].cpf,prop[contador2].cpf)==0)
 			{
@@ -345,9 +344,9 @@ int verificaIntRepetido(int qtde,int *valor,char *msgErro)
 	
 	//Desenvolvimento
 	
-	for(contador=0;contador<qtde-1;contador++)
+	for(contador=0;contador<qtde;contador++)
 	{
-		for(contador2=contador+1;contador2<qtde;contador2++)
+		for(contador2=contador+1;contador2<qtde+1;contador2++)
 		{
 			if(valor[contador]==valor[contador2])
 			{

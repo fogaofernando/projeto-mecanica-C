@@ -11,7 +11,8 @@
 //Proprietario
 void alteraVeiculo(int qtdeVeiculos,Veiculo *veic,char *topo);
 void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo);
-void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char valor[qtdeCadastros][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int MAX_TAM);
+void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char *valor[][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int MAX_TAM);
+
 //Altera um dado do Propeitario
 //Entrada : referencia a quantidade de cadastros e a struct
 //Retorno : NULO
@@ -60,7 +61,8 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		}		
 		else
 		{
-			opMenu = menuOpcoes(qtdeEncontrada,copiaNome+1,"Nomes encontrados");  //Menu de Nomes Encontrados
+			printf("Nome Pesquisado : %s",pesquisaNome);
+			opMenu = menuOpcoes(qtdeEncontrada,copiaNome+1,"Nome Pesquisado : %s");  //Menu de Nomes Encontrados
 			for(contador=1;contador<qtdeEncontrada+1;contador++)
 			{
 				if(opMenu==contador)
@@ -309,10 +311,8 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 	//Opcao de pesquisa
 	opMenu = menuOpcoes(3,menuAlterar,"Alterar");
 
-	if(opMenu==1){
-		// AlteraDado(qtdeCadastros,"Informe a Placa para Pesquisa : ","Placas encontradas","Informe a nova placa : ",veic->placa,"Alterar",">>>Erro: Placa não Encontrada...",">>>ERRO: Insira uma placa valida...",TAM_PLACA,TAM_PLACA);
-		/*
-			leValidaString("Informe a Placa para Pesquisa : ",topo,pesquisaPlaca,MIN_PLACA,TAM_PLACA,">>>ERRO: Insira uma placa valida...");
+	if(opMenu==1){ // ALTERA PLACA
+		leValidaString("Informe a Placa para Pesquisa : ",topo,pesquisaPlaca,MIN_PLACA,TAM_PLACA,">>>ERRO: Insira uma placa valida...");
 		for(contador=0;contador<qtdeCadastros+1;contador++)
 		{
 			if(strstr(veic[contador].placa,pesquisaPlaca))
@@ -328,7 +328,7 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 		}		
 		else
 		{
-			opMenu = menuOpcoes(qtdeEncontrada,copiaPlaca+1,);  //Menu de Nomes Encontrados
+			opMenu = menuOpcoes(qtdeEncontrada,copiaPlaca+1,"Placas Encontradas ");  //Menu de Nomes Encontrados
 			for(contador=1;contador<qtdeEncontrada+1;contador++)
 			{
 				if(opMenu==contador)
@@ -346,7 +346,7 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 					printf("erro");
 					getch();
 				}
-				
+				*/
 				}
 			}
 			for(contador=0;contador<qtdeCadastros;contador++)
@@ -355,64 +355,7 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}
 		getch();
-	*/}
+	}
 }
 
 
-
-
-
-/*
-void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char valor[qtdeCadastros][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int MAX_TAM)
-{
-		int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont;  //AUXILIARES   /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
-		//ALTERA PLACA
-	/*	char copiaPlaca [qtdeCadastros][NOME_OPCOES],novaPlaca[MIN_TAM],pesquisaPlaca[MAX_TAM]; 
-		
-		
-		leValidaString(pesquisaPlaca,titulo,topo,MIN_TAM,MAX_TAM,TIPO_LETRAS_NUMEROS,NAO);
-		for(contador=0;contador<qtdeCadastros+1;contador++)
-		{
-			if(strstr(veic[contador].placa,pesquisaPlaca))
-			{
-				strcpy(copiaPlaca[qtdeEncontrada+1],valor[contador]);
-				qtdeEncontrada++;
-			}
-		}
-		if(qtdeEncontrada==0) 
-		{			
-			printf(msgErro);
-			getch();
-		}	
-		/*
-		else
-		{
-			opMenu = menuOpcoes(qtdeEncontrada,copiaPlaca+1,titulo3);  //Menu de Nomes Encontrados
-			for(contador=1;contador<qtdeEncontrada+1;contador++)
-			{
-				if(opMenu==contador)
-				{
-					leValidaString(titulo2,topo,novaPlaca,MIN_TAM,MAX_TAM,msgErro2); // Novo placa para a opcao escolhida
-					for(contador2=0;contador2<qtdeCadastros;contador2++)
-					{
-						if(strcmp(copiaPlaca[opMenu],veic[contador2].placa)==0)
-						{
-							strcpy(veic[contador2].placa,novaPlaca);  
-						}
-					}
-					/*				
-				}else{
-					printf("erro");
-					getch();
-				}
-				
-				}
-			}
-			
-			for(contador=0;contador<qtdeCadastros;contador++)
-			{
-				printf("PLACAS %s \n",veic[contador].placa);
-			}
-	//	}
-		getch();
-}*/

@@ -51,7 +51,7 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//CPF
 		if(cont == 1){
-			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
+//			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
 			
 			/*if(flag == 1){
 				cont++;
@@ -64,25 +64,25 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//descricao do endereco
 		if(cont == 2){
-			flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+	//		flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//estado
 		if(cont == 3){
-			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
+//			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//cidade
 		if(cont == 4){
-			flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
+	//		flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//telefone
 		if(cont == 5){
-			flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
+	//		flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
 			CALCULA_CONT
 		}
 		
@@ -90,7 +90,8 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		if(cont == 6){
 			prop[*qtdeCadastros].cadastrado=1;
 			*qtdeCadastros=*qtdeCadastros+1;
-			printf("\n>>>Dados salvos com sucesso...");
+			gotoxy(3,5);
+			printf(">>>Dados salvos com sucesso...");
 			getch();
 			return 1;	//finalizacao com sucesso
 		}
@@ -121,7 +122,7 @@ int leituraCpf(char *CPF,char *topo,int *qtdeCadastros,Proprietario *prop){
 		}									
 		
 		if(verificaStringRepetida(qtdeCadastros,prop,">>>ERRO: CPF Repetido")==0){
-		
+			flag=1;
 		}	
 	}while(flag==1);
 	
@@ -237,6 +238,11 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		//fabricante
 		if(cont == 2){
 			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,MAX_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
+			CALCULA_CONT
+		}
+		//chassi
+		if(cont ==3){
+			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		

@@ -45,11 +45,13 @@
 
 //SEGUNDA STRUCT
 #define TAM_PLACA 7
+#define MIN_PLACA 1
 #define MIN_MODELO 1
 #define MAX_MODELO 20
 #define MAX_FABRICANTE 20
 #define MIN_FABRICANTE 2
-#define TAM_CHASSI 20
+#define MIN_CHASSI 1
+#define TAM_CHASSI 17
 #define MIN_ANO 2000
 #define MAX_ANO 2016
 
@@ -69,6 +71,7 @@
 #define NOME_OPCOES 100				//definir o tamanho das strings do menu de opcao
 #define MAX_PROPRIETARIOS 500
 #define MAX_VEICULOS 500
+#define MAX_MANUTENCAO 500
 
 
 //Caracteres da Tabela ASCII

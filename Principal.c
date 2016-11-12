@@ -17,8 +17,8 @@ int main(){
 	
 	//Variaveis
 	
-	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES];
-	int opMenu, teste,qtdeCadastros=0,flag,qtdeVeiculos=0;
+	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[3][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
+	int opMenu, teste,*qtdeCadastros=0,flag,*qtdeVeiculos=0,*qtdeManutencoes;
 	float testeF;
 
 //	Proprietario prop[MAX_PROPRIETARIOS];
@@ -26,6 +26,7 @@ int main(){
 	//alocacao dinamica das estruturas
 	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));   
 	Veiculo *veic = malloc(MAX_VEICULOS*sizeof(struct Veiculo));
+	Manutencao *manu = malloc(MAX_MANUTENCAO*sizeof(struct Manutencao));
 	
 	//Texto do menu
 	
@@ -39,6 +40,11 @@ int main(){
 	strcpy(menuVeiculo[0],"1-Cadastrar veiculo");
 	strcpy(menuVeiculo[1],"2-Renomear");
 	strcpy(menuVeiculo[2],"3-Excluir ");
+	strcpy(menuRelatorios[0],"R1-Apresentar Cadastros");
+	strcpy(menuRelatorios[1],"R2-Apresentar Veiculos de um Proprietario");
+	strcpy(menuRelatorios[2],"R3-Pesquisar Veiculo");
+	strcpy(menuRelatorios[3],"R4-Apresentar todas as Manutencoes em um periodo");
+	strcpy(menuRelatorios[4],"R5-Pesquisar Proprietario");
 	
 	//configuração inicial da tela
 	configTela();
@@ -72,15 +78,28 @@ int main(){
 			if(opMenu == 1){
 				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
 				
-		} else if(opMenu ==2){
+		} 	else if(opMenu ==2){
 				alteraVeiculo(qtdeVeiculos,veic,"Alterar Veiculo");
-		}
-		}else if(opMenu == 2){
+		
+		}	else if(opMenu == 2){
 
-			
+		}
+		//Manutenção__________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 3){
-			
-		}else{
+			opMenu = menuOpcoes(3,menuManutencao,"Manutencao");
+			//Cadastrar Manudenção
+			if(opMenu == 1){
+				
+			}
+		
+		}else if(opMenu == 4){
+			opMenu = menuOpcoes(5,menuRelatorios,"Relatorios");
+			//Apresenta todos os cadastros
+			if(opMenu == 1){
+				apresentaCadastros(qtdeCadastros,qtdeVeiculos,qtdeManutencoes,prop,veic,"Cadastros Existentes");
+			}
+		}
+		else{
 			//Para finalizacao do programa
 			opMenu = -1;
 		}	
