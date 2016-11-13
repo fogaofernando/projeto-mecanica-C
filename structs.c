@@ -21,11 +21,11 @@ typedef struct Veiculo{
 }Veiculo;
 
 typedef struct Manutencao{
-	int idVeiculo;
-	int idPropietario;
-	char descricao;
-	float valorPecas;
-	float maodeObra;
+	char idVeiculo[TAM_PLACA];
+	char idPropietario[TAM_CPF];
+	char descricao[MAX_DESCRICAO];
+	float valorPecas[MAX_VALOR];
+	float maodeObra[MAX_MAODEOBRA];
 }Manutencao;
 
 //OBS: o +1 nas structs sao para o espaco extra para o '\0'

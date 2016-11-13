@@ -17,8 +17,8 @@ int main(){
 	
 	//Variaveis
 	
-	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[3][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
-	int opMenu, teste,*qtdeCadastros=0,flag,*qtdeVeiculos=0,*qtdeManutencoes;
+	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[2][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
+	int opMenu, teste,*qtdeCadastros=0,flag,*qtdeVeiculos=0,*qtdeManutencoes=0;
 	float testeF;
 
 //	Proprietario prop[MAX_PROPRIETARIOS];
@@ -40,6 +40,8 @@ int main(){
 	strcpy(menuVeiculo[0],"1-Cadastrar veiculo");
 	strcpy(menuVeiculo[1],"2-Renomear");
 	strcpy(menuVeiculo[2],"3-Excluir ");
+	strcpy(menuManutencao[0],"1-Cadastrar Manutencao");
+	strcpy(menuManutencao[1],"2-Excluir Manutencao");
 	strcpy(menuRelatorios[0],"R1-Apresentar Cadastros");
 	strcpy(menuRelatorios[1],"R2-Apresentar Veiculos de um Proprietario");
 	strcpy(menuRelatorios[2],"R3-Pesquisar Veiculo");
@@ -67,7 +69,6 @@ int main(){
 				
 			}else if(opMenu == 3)
 			{
-				excluiProprietario(qtdeCadastros,prop,"Excluir Proprietario");
 			}
 			
 		//Veiculo__________________________________________________________________________________________________________________________________________
@@ -86,17 +87,17 @@ int main(){
 		}
 		//Manutenção__________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 3){
-			opMenu = menuOpcoes(3,menuManutencao,"Manutencao");
+			opMenu = menuOpcoes(2,menuManutencao,"Manutencao");
 			//Cadastrar Manudenção
 			if(opMenu == 1){
-				
+				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdeCadastros,prop,veic,manu,"Cadastrar Manutencao");
 			}
 		
 		}else if(opMenu == 4){
 			opMenu = menuOpcoes(5,menuRelatorios,"Relatorios");
 			//Apresenta todos os cadastros
 			if(opMenu == 1){
-				apresentaCadastros(qtdeCadastros,qtdeVeiculos,qtdeManutencoes,prop,veic,"Cadastros Existentes");
+				apresentaCadastros(qtdeCadastros,qtdeVeiculos,&qtdeManutencoes,prop,veic,"Cadastros Existentes");
 			}
 		}
 		else{
