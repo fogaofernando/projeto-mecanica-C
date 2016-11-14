@@ -21,12 +21,12 @@ int main(){
 	int opMenu, teste,qtdePropetario=0,flag,qtdeVeiculos=0,qtdeManutencoes=0,cont;
 	float testeF;
 
-//	Proprietario prop[MAX_PROPRIETARIOS];
+//	Proprietario prop[TAM_PROPRIETARIOS];
 
 	//alocacao dinamica das estruturas
-	Proprietario *prop = malloc(MAX_PROPRIETARIOS*sizeof(struct Proprietario));   
-	Veiculo *veic = malloc(MAX_VEICULOS*sizeof(struct Veiculo));
-	Manutencao *manu = malloc(MAX_MANUTENCAO*sizeof(struct Manutencao));
+	Proprietario *prop = malloc(TAM_PROPRIETARIOS*sizeof(struct Proprietario));   
+	Veiculo *veic = malloc(TAM_VEICULOS*sizeof(struct Veiculo));
+	Manutencao *manu = malloc(TAM_MANUTENCAO*sizeof(struct Manutencao));
 	
 	//Texto do menu_________________________________________________________________________________________________________________________
 	
@@ -120,6 +120,7 @@ int main(){
 	printf("\n");
 	free(prop);
 	free(veic);
+	free(manu);
 	system("pause");
 	return 0;
 }

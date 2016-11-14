@@ -11,7 +11,7 @@
 //Proprietario
 void alteraVeiculo(int qtdeVeiculos,Veiculo *veic,char *topo);
 void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo);
-void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char *valor[][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int MAX_TAM);
+void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char *valor[][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int TAM_TAM);
 
 //Altera um dado do Propeitario
 //Entrada : referencia a quantidade de cadastros e a struct
@@ -22,11 +22,11 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	
 	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont;  //AUXILIARES   /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
 	char menuAlterar[3][NOME_OPCOES],menuEndereco[3][NOME_OPCOES];  // Menu 
-	char copiaNome [qtdeCadastros][NOME_OPCOES],novoNome[MAX_NOME],pesquisaNome[MAX_NOME]; // ALTERA NOME
-	char copiaDescricao [qtdeCadastros][NOME_OPCOES],novaDescricao[MAX_NOME],pesquisaDescricao[MAX_DESCRICAO]; // ALTERA DESCRICAO
-	char copiaEstado [qtdeCadastros][NOME_OPCOES],novoEstado[MAX_ESTADO],pesquisaEstado[MAX_ESTADO]; // ALTERA ESTADO
-	char copiaCidade [qtdeCadastros][NOME_OPCOES],novaCidade[MAX_CIDADE],pesquisaCidade[MAX_CIDADE];
-	char copiaTelefone [qtdeCadastros][NOME_OPCOES],novoTelefone[MAX_TELEFONE],pesquisaTelefone[MAX_TELEFONE]; // ALTERA CIDADE
+	char copiaNome [qtdeCadastros][NOME_OPCOES],novoNome[TAM_NOME],pesquisaNome[TAM_NOME]; // ALTERA NOME
+	char copiaDescricao [qtdeCadastros][NOME_OPCOES],novaDescricao[TAM_NOME],pesquisaDescricao[TAM_DESCRICAO]; // ALTERA DESCRICAO
+	char copiaEstado [qtdeCadastros][NOME_OPCOES],novoEstado[TAM_ESTADO],pesquisaEstado[TAM_ESTADO]; // ALTERA ESTADO
+	char copiaCidade [qtdeCadastros][NOME_OPCOES],novaCidade[TAM_CIDADE],pesquisaCidade[TAM_CIDADE];
+	char copiaTelefone [qtdeCadastros][NOME_OPCOES],novoTelefone[TAM_TELEFONE],pesquisaTelefone[TAM_TELEFONE]; // ALTERA CIDADE
 	
 	//Desenvolvimento
 	
@@ -45,7 +45,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 
 	if(opMenu==1){
 		//ALTERA NOME
-		if( leValidaString(pesquisaNome,"Informe o Nome para Pesquisa: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM) == 1 ){
+		if( leValidaString(pesquisaNome,"Informe o Nome para Pesquisa: ",topo,MIN_NOME,TAM_NOME,TIPO_LETRAS,SIM) == 1 ){
 			
 			//Pesquisa por nome
 			for(contador=0;contador<qtdeCadastros+1;contador++)
@@ -70,7 +70,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 					if(opMenu==contador)
 					{
 						// Novo nome para a opcao escolhida
-						if( leValidaString(novoNome,"Informe o novo nome: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM) == 1){
+						if( leValidaString(novoNome,"Informe o novo nome: ",topo,MIN_NOME,TAM_NOME,TIPO_LETRAS,SIM) == 1){
 							for(contador2=0;contador2<qtdeCadastros;contador2++)
 							{
 								if(strcmp(copiaNome[opMenu],prop[contador2].nome)==0)
@@ -108,7 +108,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		if(opMenu==1) // ALTERA DESCRICAO
 		{
 			//pesquisar por descricao
-			if( leValidaString(pesquisaDescricao,"Informe a Descricao para Pesquisa: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) ==1 ){
+			if( leValidaString(pesquisaDescricao,"Informe a Descricao para Pesquisa: ",topo,MIN_DESCRICAO,TAM_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) ==1 ){
 	
 				for(contador=0;contador<qtdeCadastros+1;contador++)
 				{
@@ -132,7 +132,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 						{
 							
 							//alteracao da descricao
-							if(leValidaString(novaDescricao,"Informe a nova Descricao: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) == 1 ){
+							if(leValidaString(novaDescricao,"Informe a nova Descricao: ",topo,MIN_DESCRICAO,TAM_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) == 1 ){
 								for(contador2=0;contador2<qtdeCadastros;contador2++)
 								{
 									if(strcmp(copiaDescricao[opMenu],prop[contador2].descricao)==0)
@@ -165,7 +165,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		//ALTERA ESTADO
 		}else if(opMenu == 2) 
 		{
-			if( leValidaString(pesquisaEstado,"Informe o Estado para Pesquisa: ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS,SIM) == 1){
+			if( leValidaString(pesquisaEstado,"Informe o Estado para Pesquisa: ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS,SIM) == 1){
 				for(contador=0;contador<qtdeCadastros+1;contador++)
 				{
 					if(strstr(prop[contador].estado,pesquisaEstado))
@@ -186,7 +186,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 					{
 						if(opMenu==contador)
 						{
-							leValidaString(novoEstado,"Informe o novo Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS,SIM); // Novo nome para a opcao escolhida
+							leValidaString(novoEstado,"Informe o novo Estado : ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS,SIM); // Novo nome para a opcao escolhida
 							for(contador2=0;contador2<qtdeCadastros;contador2++)
 							{
 								if(strcmp(copiaEstado[opMenu],prop[contador2].estado)==0)
@@ -216,7 +216,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		}else if(opMenu == 3)
 		{
 			//pesquisando por nome da cidade
-			if(leValidaString(pesquisaCidade,"Informe a Cidade para Pesquisa: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS,SIM)==1){
+			if(leValidaString(pesquisaCidade,"Informe a Cidade para Pesquisa: ",topo,MIN_CIDADE,TAM_CIDADE,TIPO_LETRAS,SIM)==1){
 				for(contador=0;contador<qtdeCadastros+1;contador++)
 				{
 					if(strstr(prop[contador].cidade,pesquisaCidade))
@@ -238,7 +238,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 						if(opMenu==contador)
 						{	
 							//Novo nome da cidade
-							if( leValidaString(novaCidade,"Informe a nova Cidade : ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS,SIM) == 1){
+							if( leValidaString(novaCidade,"Informe a nova Cidade : ",topo,MIN_CIDADE,TAM_CIDADE,TIPO_LETRAS,SIM) == 1){
 								for(contador2=0;contador2<qtdeCadastros;contador2++)
 								{
 									if(strcmp(copiaCidade[opMenu],prop[contador2].cidade)==0)
@@ -271,7 +271,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	}else if(opMenu == 3) // ALTERA TELEFONE
 	//ALTERA TELEFONE
 	{
-			if(leValidaString(pesquisaTelefone,"Informe o Telefone para Pesquisa: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO)==1){
+			if(leValidaString(pesquisaTelefone,"Informe o Telefone para Pesquisa: ",topo,MIN_TELEFONE,TAM_TELEFONE,TIPO_INTEIRO,NAO)==1){
 				for(contador=0;contador<qtdeCadastros+1;contador++)
 				{
 					if(strstr(prop[contador].telefone,pesquisaTelefone))
@@ -293,7 +293,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 						if(opMenu==contador)
 						{
 							// Novo nome para a opcao escolhida
-							if(leValidaString(novoTelefone,"Informe a novo Telefone : ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO) == 1){
+							if(leValidaString(novoTelefone,"Informe a novo Telefone : ",topo,MIN_TELEFONE,TAM_TELEFONE,TIPO_INTEIRO,NAO) == 1){
 								for(contador2=0;contador2<qtdeCadastros;contador2++)
 								{
 									if(strcmp(copiaTelefone[opMenu],prop[contador2].telefone)==0)
@@ -333,20 +333,20 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 	
 	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont;  //AUXILIARES   /*qtdeEncontrado = qtde de nomes encontrados pela pesquisa */
 	char menuAlterar[3][NOME_OPCOES],menuEndereco[3][NOME_OPCOES];  // Menu 
-	char copiaPlaca [qtdeCadastros][NOME_OPCOES],novaPlaca[TAM_PLACA],pesquisaPlaca[TAM_PLACA]; // ALTERA NOME
-	char copiaDescricao [qtdeCadastros][NOME_OPCOES],novaDescricao[MAX_NOME],pesquisaDescricao[MAX_DESCRICAO]; // ALTERA DESCRICAO
-	char copiaEstado [qtdeCadastros][NOME_OPCOES],novoEstado[MAX_ESTADO],pesquisaEstado[MAX_ESTADO]; // ALTERA ESTADO
-	char copiaCidade [qtdeCadastros][NOME_OPCOES],novaCidade[MAX_CIDADE],pesquisaCidade[MAX_CIDADE];
-	char copiaTelefone [qtdeCadastros][NOME_OPCOES],novoTelefone[MAX_TELEFONE],pesquisaTelefone[MAX_TELEFONE]; // ALTERA CIDADE
+	char copiaPlaca [qtdeCadastros][NOME_OPCOES],novaPlaca[TAM_PLACA],pesquisaPlaca[TAM_PLACA]; // ALTERA Placa
+	char copiaModelo [qtdeCadastros][NOME_OPCOES],novoModelo[TAM_MODELO],pesquisaModelo[TAM_MODELO]; // ALTERA Modelo
+	char copiaFrabricante [qtdeCadastros][NOME_OPCOES],novoFrabricante[TAM_FABRICANTE],pesquisFrabricante[TAM_FABRICANTE]; // ALTERA Frabricante
+	char copiaChassi [qtdeCadastros][NOME_OPCOES],novoChassi[TAM_CHASSI],pesquisaChassi[TAM_CHASSI];  // Altera Chassi
+	char copiaAno [qtdeCadastros][NOME_OPCOES],novoAno[TAM_ANO],pesquisaAno[TAM_ANO]; // ALTERA Ano
 	
 	//Desenvolvimento
 	
 	strcpy(menuAlterar[0],"1-Placa");
-	strcpy(menuAlterar[1],"2-Endereco");
-	strcpy(menuAlterar[2],"3-Telefone");
+	strcpy(menuAlterar[1],"2-Modelo");
+	strcpy(menuAlterar[2],"3-Fabricante");
 	strcpy(menuEndereco[0],"1-Descricao");
-	strcpy(menuEndereco[1],"2-Estado");
-	strcpy(menuEndereco[2],"3-Cidade");
+	strcpy(menuEndereco[1],"2-Chassi");
+	strcpy(menuEndereco[2],"3-Ano");
 	
 
 	system("pause");
@@ -359,6 +359,10 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 	
 		//Pesquisa por placa
 		if(leValidaString(pesquisaPlaca,"Informe a Placa para Pesquisa : ",topo,MIN_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO) ==1 ){
+			for(contador=0;contador<strlen(pesquisaPlaca);contador++)
+			{
+				pesquisaPlaca[contador]=toupper(pesquisaPlaca[contador]);
+			}
 			for(contador=0;contador<qtdeCadastros+1;contador++)
 			{
 				if(strstr(veic[contador].placa,pesquisaPlaca))
@@ -367,6 +371,7 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 					qtdeEncontrada++;
 				}
 			}
+			gotoxy(3,7);
 			if(qtdeEncontrada==0) 
 			{			
 				printf("\n%c >>>Erro: Placa não Encontrada...",BARRA_LATERAL);
@@ -375,11 +380,11 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			else
 			{
 				opMenu = menuOpcoes(qtdeEncontrada,copiaPlaca+1,"Placas Encontradas ");  //Menu de Nomes Encontrados
+
 				for(contador=1;contador<qtdeEncontrada+1;contador++)
 				{
 					if(opMenu==contador)
-					{
-						
+					{						
 						// Novo placa para a opcao escolhida
 						if(leValidaString(novaPlaca,"Informe a nova placa : ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO) == 1){ 
 							for(contador2=0;contador2<qtdeCadastros;contador2++)
@@ -409,6 +414,70 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			printf("\n%c >>Abortado...",IMG_OP);
 		}
 		getch();
+	}else if(opMenu == 2)
+	{
+			
+		//Pesquisa por Modelo
+		if(leValidaString(pesquisaModelo,"Informe a Modelo para Pesquisa : ",topo,MIN_MODELO,TAM_MODELO,TIPO_LETRAS_NUMEROS,NAO) ==1 ){
+			for(contador=0;contador<strlen(pesquisaModelo);contador++)
+			{
+				pesquisaModelo[contador]=toupper(pesquisaModelo[contador]);
+			}
+			for(contador=0;contador<qtdeCadastros+1;contador++)
+			{
+				if(strstr(veic[contador].modelo,pesquisaModelo))
+				{
+					strcpy(copiaModelo[qtdeEncontrada+1],veic[contador].modelo);
+					qtdeEncontrada++;
+				}
+			}
+			gotoxy(3,7);
+			if(qtdeEncontrada==0) 
+			{			
+				printf("\n%c >>>Erro: Modelo não Encontrada...",BARRA_LATERAL);
+				getch();
+			}		
+			else
+			{
+				opMenu = menuOpcoes(qtdeEncontrada,copiaModelo+1,"Modelos Encontradas ");  //Menu de Nomes Encontrados
+
+				for(contador=1;contador<qtdeEncontrada+1;contador++)
+				{
+					if(opMenu==contador)
+					{						
+						// Novo Modelo para a opcao escolhida
+						if(leValidaString(novoModelo,"Informe a nova Modelo : ",topo,TAM_MODELO,TAM_MODELO,TIPO_LETRAS_NUMEROS,NAO) == 1){ 
+							for(contador2=0;contador2<qtdeCadastros;contador2++)
+							{
+								if(strcmp(copiaModelo[opMenu],veic[contador2].modelo)==0)
+								{
+									strcpy(veic[contador2].modelo,novoModelo);  
+								}
+							}
+						}else{
+							printf("\n%c >>>Abortado...",IMG_OP);
+						}
+						/*				
+					}else{
+						printf("erro");
+						getch();
+					}
+					*/
+					}
+				}
+				for(contador=0;contador<qtdeCadastros;contador++)
+				{
+					printf("Modelos %s \n",veic[contador].modelo);
+				}
+			}
+		}else{
+			printf("\n%c >>Abortado...",IMG_OP);
+		}
+		getch();
+		
+	}else if(opMenu == 3)
+	{
+		
 	}
 }
 

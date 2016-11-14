@@ -29,17 +29,17 @@
 
 
 //PRIMEIRA STRUCT
-#define MAX_NOME 40
+#define TAM_NOME 40
 #define MIN_NOME 1
 #define TAM_CPF 11
-#define MAX_DESCRICAO 50
+#define TAM_DESCRICAO 50
 #define MIN_DESCRICAO 3
 #define MIN_CIDADE 2
-#define MAX_CIDADE 20
+#define TAM_CIDADE 20
 #define MIN_ESTADO 1
-#define MAX_ESTADO 20
+#define TAM_ESTADO 20
 #define MIN_TELEFONE 10
-#define MAX_TELEFONE 11
+#define TAM_TELEFONE 11
 
 
 
@@ -47,30 +47,30 @@
 #define TAM_PLACA 7
 #define MIN_PLACA 1
 #define MIN_MODELO 1
-#define MAX_MODELO 20
-#define MAX_FABRICANTE 20
+#define TAM_MODELO 20
+#define TAM_FABRICANTE 20
 #define MIN_FABRICANTE 2
 #define MIN_CHASSI 1
 #define TAM_CHASSI 17
 #define MIN_ANO 1970
-#define MAX_ANO 2016
+#define TAM_ANO 2016
 
 
 //TERCEIRA STRUCT
-#define MAX_DESCICAO
+#define TAM_DESCICAO
 //#define DESCRICAO 500
-#define MAX_VALOR 100000
+#define TAM_VALOR 100000
 #define MIN_VALOR 10
-#define MAX_MAODEOBRA 100000
+#define TAM_MAODEOBRA 100000
 #define MIN_MAODEOBRA 10
 
 
 
 //PRINCIPAL.C
 #define NOME_OPCOES 100				//definir o tamanho das strings do menu de opcao
-#define MAX_PROPRIETARIOS 500
-#define MAX_VEICULOS 500
-#define MAX_MANUTENCAO 500
+#define TAM_PROPRIETARIOS 500
+#define TAM_VEICULOS 500
+#define TAM_MANUTENCAO 500
 
 
 //Caracteres da Tabela ASCII
@@ -82,7 +82,7 @@
 #define TAB_9 57
 #define TAB_INTERROGACAO 32 //minimo	
 #define TAB_VIRGULA 44	
-#define TAB_BARRA 47	//maximo
+#define TAB_BARRA 47	//TAMimo
 #define TAB_PONTO 46
 #define TAB_ESPACO 32
 

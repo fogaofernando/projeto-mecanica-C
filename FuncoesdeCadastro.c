@@ -36,7 +36,7 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//nome
 		if(cont == 0){
-			 flag = leValidaString(prop[*qtdeCadastros].nome,"Insira o nome: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM);
+			 flag = leValidaString(prop[*qtdeCadastros].nome,"Insira o nome: ",topo,MIN_NOME,TAM_NOME,TIPO_LETRAS,SIM);
 			 if(flag == 1){
 			 	cont++;
 			 }else{
@@ -61,25 +61,25 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//descricao do endereco
 		if(cont == 2){
-			flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,TAM_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//estado
 		if(cont == 3){
-			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//cidade
 		if(cont == 4){
-			flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,TAM_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//telefone
 		if(cont == 5){
-			flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
+			flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,TAM_TELEFONE,TIPO_INTEIRO,NAO);
 			CALCULA_CONT
 		}
 		
@@ -150,24 +150,24 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		
 		//modelo
 		if(cont == 1){
-			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,MAX_MODELO,TIPO_LETRAS_NUMEROS,SIM);
+	//		flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,TAM_MODELO,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//fabricante
 		if(cont == 2){
-			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,MAX_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
+//			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,TAM_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		//chassi
 		if(cont ==3){
-			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
+	//		flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//ano de fabricacao
 		if(cont == 4){
-			leValidaInt(&veic[*qtdeVeiculos].ano,"Insira o Ano de Fabricacao: ",topo,MIN_ANO,MAX_ANO);
+	//		leValidaInt(&veic[*qtdeVeiculos].ano,"Insira o Ano de Fabricacao: ",topo,MIN_ANO,TAM_ANO);
 			CALCULA_CONT
 		}
 		
@@ -229,7 +229,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		flag1=0;
 		//ID do Veiculo
 		if(cont == 0){
-	//		 flag = leValidaString(prop[*qtdeCadastros].nome,"Insira o nome: ",topo,MIN_NOME,MAX_NOME,TIPO_LETRAS,SIM);
+	//		 flag = leValidaString(prop[*qtdeCadastros].nome,"Insira o nome: ",topo,MIN_NOME,TAM_NOME,TIPO_LETRAS,SIM);
 			flag = leituraPlaca(pesquisaPlaca,topo,&qtdeVeiculos);
 			for(contador=0;contador<qtdeVeiculos+1;contador++)
 				{
@@ -270,25 +270,25 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		
 		//descricao do endereco
 		if(cont == 2){
-	//		flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+	//		flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,TAM_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//estado
 		if(cont == 3){
-//			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
+//			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//cidade
 		if(cont == 4){
-	//		flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
+	//		flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,TAM_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//telefone
 		if(cont == 5){
-	//		flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
+	//		flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,TAM_TELEFONE,TIPO_INTEIRO,NAO);
 			CALCULA_CONT
 		}
 		

@@ -11,7 +11,7 @@
 //Prototipos________________________________________________________________________________________________
 
 void removeQuebraLinha(char *valString);
-int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorMax);
+int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorTAM);
 void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
 int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin , int tamanhoMax,int tipoString, int aceitaEspaco);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
