@@ -9,8 +9,8 @@ typedef struct Proprietario{
 	char cidade[MAX_CIDADE+1];
 	char estado[MAX_ESTADO+1];
 	char telefone[MAX_TELEFONE+1];
-	int cadastrado;
-}Proprietario;
+	int  servRealizado; 		//0 nao e 1 sim		
+}Proprietario;		
 
 typedef struct Veiculo{
 	char placa[TAM_PLACA+1];
@@ -18,6 +18,7 @@ typedef struct Veiculo{
 	char fabricante[MAX_FABRICANTE+1];
 	char chassi[TAM_CHASSI+1];
 	int ano;
+	int manutRealizada; 		//0 nao e 1 sim
 }Veiculo;
 
 typedef struct Manutencao{

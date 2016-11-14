@@ -22,7 +22,7 @@ void gotoxy(int x, int y);
 //Retorna a opcoes escolhida, 0 em caso de finalizacoes do programa pelo ESC;
 int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu){
 	//variaveis
-	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numera√ß√£o do bot√£o clicado de acordo com a  tabela ASCII
+	int tecla = -1,opAtual = 1,cont;	// a tecla vai receber a numeracao do botao clicado de acordo com a  tabela ASCII
 	
 	//desenvolvimento
 	system("cls");
@@ -162,8 +162,8 @@ void configTela(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);			//Estrutura identificadora para o buffer da tela do console
 	SetConsoleScreenBufferSize(hConsole, outbuff); 				/*Objetivo: Altera o tamanho do buffer de TELA do console especificado
 																Par‚metros Um identificador para o buffer de tela do console, estrutura que especifica o novo tamanho do buffer de tela do console*/
-	
-	Sleep(130);													//tempo que a tela fica congelada
+	  
+	Sleep(120);													//tempo que a tela fica congelada
 	
 	//Tamanho da Janela
 	SMALL_RECT windowSize = {0, 0,(TELA_X - 1),(TELA_Y - 1)}; 	//Estrutura que passa as cordenadas de um ret‚ngulo(esquerda X,topo Y,direita X,inferior Y); 

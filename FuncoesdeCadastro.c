@@ -48,7 +48,7 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//CPF
 		if(cont == 1){
-//			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
+			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
 			
 			/*if(flag == 1){
 				cont++;
@@ -61,31 +61,31 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//descricao do endereco
 		if(cont == 2){
-	//		flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].descricao,"Insira a Descricao do Endereco: ",topo,MIN_DESCRICAO,MAX_DESCRICAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//estado
 		if(cont == 3){
-//			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].estado,"Insira o Estado : ",topo,MIN_ESTADO,MAX_ESTADO,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//cidade
 		if(cont == 4){
-	//		flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
+			flag = leValidaString(prop[*qtdeCadastros].cidade,"Insira a Cidade: ",topo,MIN_CIDADE,MAX_CIDADE,TIPO_LETRAS_ESPECIAIS,SIM);
 			CALCULA_CONT
 		}
 		
 		//telefone
 		if(cont == 5){
-	//		flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
+			flag = leValidaString(prop[*qtdeCadastros].telefone,"Insira o Telefone: ",topo,MIN_TELEFONE,MAX_TELEFONE,TIPO_INTEIRO,NAO);
 			CALCULA_CONT
 		}
 		
 		//finalizacao
 		if(cont == 6){
-			prop[*qtdeCadastros].cadastrado=1;
+			prop[*qtdeCadastros].servRealizado=1;
 			*qtdeCadastros=*qtdeCadastros+1;
 			gotoxy(3,5);
 			printf(">>>Dados salvos com sucesso...");
@@ -150,26 +150,30 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		
 		//modelo
 		if(cont == 1){
-//			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,MAX_MODELO,TIPO_LETRAS_NUMEROS,SIM);
+			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,MAX_MODELO,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//fabricante
 		if(cont == 2){
-//			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,MAX_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
+			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,MAX_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		//chassi
 		if(cont ==3){
-//			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
+			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
-		//leValidaInt("Insira o Ano de Fabricacao: ",topo,">>>ERRO: Ano Invalido",MIN_ANO,MAX_ANO,&veic[*qtdeVeiculos].ano);
+		//ano de fabricacao
+		if(cont == 4){
+			leValidaInt(&veic[*qtdeVeiculos].ano,"Insira o Ano de Fabricacao: ",topo,MIN_ANO,MAX_ANO);
+			CALCULA_CONT
+		}
 		
 		//finalizacao
-		if(cont == 3){
-			*qtdeVeiculos = *qtdeVeiculos = 1;
+		if(cont == 5){
+			*qtdeVeiculos = *qtdeVeiculos + 1;
 			printf("\n >>>leitura de dados feita com sucesso..");
 			getch();
 			return 1;
@@ -290,7 +294,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		
 		//finalizacao
 		if(cont == 6){
-			prop[qtdeCadastros].cadastrado=1;
+			//prop[qtdeCadastros].servRealizado = NAO;
 			*qtdeManutencoes=*qtdeManutencoes+1;
 			gotoxy(3,5);
 			printf(">>>Dados salvos com sucesso...");

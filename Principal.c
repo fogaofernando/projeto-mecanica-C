@@ -18,7 +18,7 @@ int main(){
 	//Variaveis
 	
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[2][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
-	int opMenu, teste,*qtdeCadastros=0,flag,*qtdeVeiculos=0,*qtdeManutencoes=0;
+	int opMenu, teste,qtdePropetario=0,flag,qtdeVeiculos=0,qtdeManutencoes=0,cont;
 	float testeF;
 
 //	Proprietario prop[MAX_PROPRIETARIOS];
@@ -28,7 +28,7 @@ int main(){
 	Veiculo *veic = malloc(MAX_VEICULOS*sizeof(struct Veiculo));
 	Manutencao *manu = malloc(MAX_MANUTENCAO*sizeof(struct Manutencao));
 	
-	//Texto do menu
+	//Texto do menu_________________________________________________________________________________________________________________________
 	
 	strcpy(menuPrincipal[0],"1-Proprietario");
 	strcpy(menuPrincipal[1],"2-Veiculo");
@@ -61,14 +61,16 @@ int main(){
 			
 			//Cadastro do cliente
 			if(opMenu == 1){
-				cadastraProprietario(&qtdeCadastros,prop,"Cadastrar Proprietario");
+				if( cadastraProprietario(&qtdePropetario,prop,"Cadastrar Proprietario") == 1){
+					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdePropetario-1].nome,prop[qtdePropetario-1].cpf,prop[qtdePropetario-1].descricao,prop[qtdePropetario-1].cidade,prop[qtdePropetario-1].estado,prop[qtdePropetario-1].telefone);
+					getch();
+				}
 			
 			//Alteracao do cliente
 			}else if(opMenu == 2){
-				alteraProprietario(qtdeCadastros,prop,"Alterar Proprietario");
+				alteraProprietario(qtdePropetario,prop,"Alterar Proprietario");
+			}else if(opMenu == 3){
 				
-			}else if(opMenu == 3)
-			{
 			}
 			
 		//Veiculo__________________________________________________________________________________________________________________________________________
@@ -77,27 +79,33 @@ int main(){
 			
 			//Cadastrar veiculo
 			if(opMenu == 1){
-				cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo");
+				if(cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo") == 1){
+					for(cont =0;cont<qtdeVeiculos;cont++){
+						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano);
+					}
+					getch();
+				}
+			
+			//Alterar veiculo	
+			}else if(opMenu ==2){
+					alteraVeiculo(qtdeVeiculos,veic,"Alterar Veiculo");
+			}else{
 				
-		} 	else if(opMenu ==2){
-				alteraVeiculo(qtdeVeiculos,veic,"Alterar Veiculo");
-		
-		}	else if(opMenu == 2){
-
-		}
+			}
 		//Manutenção__________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 3){
 			opMenu = menuOpcoes(2,menuManutencao,"Manutencao");
 			//Cadastrar Manudenção
 			if(opMenu == 1){
-				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdeCadastros,prop,veic,manu,"Cadastrar Manutencao");
+				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdePropetario,prop,veic,manu,"Cadastrar Manutencao");
 			}
 		
+		//Relatorio____________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 4){
 			opMenu = menuOpcoes(5,menuRelatorios,"Relatorios");
 			//Apresenta todos os cadastros
 			if(opMenu == 1){
-				apresentaCadastros(qtdeCadastros,qtdeVeiculos,&qtdeManutencoes,prop,veic,"Cadastros Existentes");
+				apresentaCadastros(qtdePropetario,qtdeVeiculos,prop,veic,manu,"Cadastros Existentes");
 			}
 		}
 		else{

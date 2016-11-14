@@ -11,7 +11,7 @@
 //Prototipos________________________________________________________________________________________________
 
 void removeQuebraLinha(char *valString);
-void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor);
+int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorMax);
 void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
 int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin , int tamanhoMax,int tipoString, int aceitaEspaco);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
@@ -60,10 +60,10 @@ int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin,int taman
 			flag = 0;
 			
 			if(tamanhoMax != tamanhoMin){
-				printf("\n>>>ERRO DE LEITURA:O dado deve ter um tamanho entre %d e %d caracteres...",tamanhoMin,tamanhoMax);
+				printf("\n%c >>>ERRO DE LEITURA:O dado deve ter um tamanho entre %d e %d caracteres...",BARRA_LATERAL,tamanhoMin,tamanhoMax);
 				getch();
 			}else{
-				printf("\n>>>ERRO DE LEITURA:O dado deve ter um tamanho de %d caracteres...",tamanhoMax);
+				printf("\n%c >>>ERRO DE LEITURA:O dado deve ter um tamanho de %d caracteres...",BARRA_LATERAL,tamanhoMax);
 				getch();	
 			}
 			
@@ -79,7 +79,7 @@ int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin,int taman
 			
 			//mensagem de erro em caso de invalidade
 			if(flag == 0){
-				printf("\n>>>ERRO DE LEITURA:O dado nao pode conter somente espacos em branco...");
+				printf("\n%c >>>ERRO DE LEITURA:O dado nao pode conter somente espacos em branco...",BARRA_LATERAL);
 				getch();
 			}
 		}
@@ -103,6 +103,59 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 }
 
 
+//Objetivo: Ler e validar um numero inteiro;
+//Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
+//Retorno: Nenhum;
+int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorMax){
+	//Variaveis iniciais
+	int flag,maxCasas=1,num;
+	
+	//verificar quantidade de casas maxima permitida
+	num = valorMax;
+	while( (num = num/10) >= 1 ){
+		maxCasas++;
+	}
+	
+	//variavel para capturar os dados informados
+	char valorChar[maxCasas];
+	
+	//Desenvolvimento
+	do{
+		
+		//Mensagem de leitura e tabela
+		flag = 1;
+		system("cls"); 
+		janelaMenu();
+		imprimeCentralizado(topo,POS_Y_TOPO);
+		gotoxy(2,POS_Y_TOPO+2);
+		printf("%s",mens);
+		
+		//leitura de dados
+		if(leituraDadosChar(valorChar,maxCasas,strlen(mens),TIPO_INTEIRO,NAO) == 0){
+			//saindo com ESC
+			return 0;
+		}
+		
+		*valorI = atoi(valorChar);
+		/*fflush(stdin);
+		flag = scanf("%d",valorI);
+		fflush(stdin);
+		*/
+		
+		//Verificando dados
+		if( *valorI< valorMin || *valorI > valorMax){
+			printf("\n %c>>>ERRO:O valor deve ter tamanho minimo %d e maximo %d...",BARRA_LATERAL,valorMin,valorMax);
+			getch();
+			flag = 0;
+		}
+		
+	}while(flag == 0);
+	
+	//finalizacao com sucesso
+	return 1;
+}
+
+/*
 //Objetivo: Ler e validar um numero inteiro;
 //Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
 //Retorno: Nenhum;
@@ -136,7 +189,7 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 		
 	}while(flag == 0);
 }
-
+*/
 
 //Objetivo: Ler e validar um numero real;
 //Parametros: Referencia a mensagem de leitura,ao topo e a mensagem de erro, valor e minimo permitido e endereco de valor real;
@@ -294,7 +347,7 @@ int validaPlaca(char *placa){
 	}
 	
 	//Verifica numeros da placa
-	for(cont = 3;cont < 6;cont++ ){
+	for(cont = 3;cont < 7;cont++ ){
 		if(placa[cont] < 48 || placa[cont] > 57){
 			return 0;
 		}

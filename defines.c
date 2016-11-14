@@ -52,7 +52,7 @@
 #define MIN_FABRICANTE 2
 #define MIN_CHASSI 1
 #define TAM_CHASSI 17
-#define MIN_ANO 2000
+#define MIN_ANO 1970
 #define MAX_ANO 2016
 
 
