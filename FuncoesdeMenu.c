@@ -7,7 +7,6 @@
 
 //PROTOTIPOS__________________________________________________________________________________________________________
 int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
-int menuOpcoes2(int qtOp,char opcoes[][MAX_NOME],char *apresentaMenu);
 void imprimeSeta(int opAtual,int totalOp);
 void imprimeCentralizado(char *texto,int y);
 void janelaMenu();

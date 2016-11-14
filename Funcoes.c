@@ -12,7 +12,7 @@
 
 void removeQuebraLinha(char *valString);
 int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorTAM);
-void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF);
+int leValidaFloat(float *valorF,char *mens,char *topo,int valorMin, int valorMax);
 int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin , int tamanhoMax,int tipoString, int aceitaEspaco);
 void leValidaOpcao(char *opcao,char *titulo,char *opcoes);
 int validaCPF (char *cpf);
@@ -105,7 +105,7 @@ void leValidaOpcao(char *opcao,char *titulo,char *opcoes){
 
 //Objetivo: Ler e validar um numero inteiro;
 //Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
-//Retorno: Nenhum;
+//Retorno: 1 em caso de sucesso e 0 retorno com ESC;
 int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorMax){
 	//Variaveis iniciais
 	int flag,maxCasas=1,num;
@@ -155,16 +155,26 @@ int leValidaInt(int *valorI,char *mens,char *topo,int valorMin, int valorMax){
 	return 1;
 }
 
-/*
-//Objetivo: Ler e validar um numero inteiro;
+
+//Objetivo: Ler e validar um numero real;
 //Parametros: Referencia a mensagem de leitura, ao tópico no topo e a mensagem de erro, valor inteiro minimo e maximo e referencia ao vetor de valor inteiro;
-//Retorno: Nenhum;
-void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valor){
-	//Variaveis
-	int flag;
+//Retorno: 1 em caso de sucesso e 0 retorno com ESC;
+int leValidaFloat(float *valorF,char *mens,char *topo,int valorMin, int valorMax){
+	//Variaveis iniciais
+	int flag,maxCasas=1,num;
+	
+	//verificar quantidade de casas maxima permitida
+	num = valorMax;
+	while( (num = num/10) >= 1 ){
+		maxCasas++;
+	}
+	
+	//variavel para capturar os dados informados
+	char valorChar[maxCasas];
 	
 	//Desenvolvimento
 	do{
+		
 		//Mensagem de leitura e tabela
 		flag = 1;
 		system("cls"); 
@@ -174,53 +184,28 @@ void leValidaInt(char *mens,char *topo,char *msgErro,int min, int max, int *valo
 		printf("%s",mens);
 		
 		//leitura de dados
-		fflush(stdin);
-		flag = scanf("%d",valor);
-		fflush(stdin);
-		
-		//Verificando dados
-		if(*valor< min || *valor > max || flag == 0 ){
-			gotoxy(2,POS_Y_TOPO+3);
-			printf("%s",msgErro);
-			getch();
-			
-			flag = 0;
+		if(leituraDadosChar(valorChar,maxCasas,strlen(mens),TIPO_REAL,NAO) == 0){
+			//saindo com ESC
+			return 0;
 		}
 		
-	}while(flag == 0);
-}
-*/
+		*valorF = atof(valorChar);
+		/*fflush(stdin);
+		flag = scanf("%d",valorI);
+		fflush(stdin);
+		*/
 
-//Objetivo: Ler e validar um numero real;
-//Parametros: Referencia a mensagem de leitura,ao topo e a mensagem de erro, valor e minimo permitido e endereco de valor real;
-//Retorno: Nenhum;
-void leValidaFloat(char *mens,char *topo,char *msgErro,int min, int max, float *valorF){
-	//Variaveis
-	int flag;
-	
-	//Desenvolvimento
-	do{
-		//Mensagem de leitura e tabela
-		system("cls"); 
-		janelaMenu();
-		imprimeCentralizado(topo,POS_Y_TOPO);
-		gotoxy(2,POS_Y_TOPO+2);
-		printf("%s",mens);
-		
-		//leitura de dados
-		fflush(stdin);
-		flag = scanf("%f",valorF);
-		fflush(stdin);
-		
 		//Verificando dados
-		if(*valorF< min || *valorF > max || flag == 0){
-			gotoxy(2,POS_Y_TOPO+3);
-			printf("%s",msgErro);
+		if( *valorF < valorMin || *valorF > valorMax){
+			printf("\n %c>>>ERRO:O valor deve ter tamanho minimo %d e maximo %d...",BARRA_LATERAL,valorMin,valorMax);
 			getch();
-			
 			flag = 0;
 		}
+		
 	}while(flag == 0);
+	
+	//finalizacao com sucesso
+	return 1;
 }
 
 

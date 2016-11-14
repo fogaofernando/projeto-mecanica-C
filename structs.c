@@ -5,7 +5,7 @@
 typedef struct Proprietario{
 	char nome[TAM_NOME+1];			
 	char cpf[TAM_CPF+1];
-	char descricao[TAM_DESCRICAO+1];
+	char descricao[TAM_DESCRICAO_END+1];
 	char cidade[TAM_CIDADE+1];
 	char estado[TAM_ESTADO+1];
 	char telefone[TAM_TELEFONE+1];
@@ -22,11 +22,11 @@ typedef struct Veiculo{
 }Veiculo;
 
 typedef struct Manutencao{
-	char idVeiculo[TAM_PLACA];
-	char idPropietario[TAM_CPF];
-	char descricao[TAM_DESCRICAO];
-	float valorPecas[TAM_VALOR];
-	float maodeObra[TAM_MAODEOBRA];
+	char idVeiculo[TAM_PLACA+1];
+	char idPropietario[TAM_CPF+1];
+	char descricao[TAM_DESCRICAO_MANUTENCAO+1];
+	float valorPecas;
+	float maodeObra;
 }Manutencao;
 
 //OBS: o +1 nas structs sao para o espaco extra para o '\0'

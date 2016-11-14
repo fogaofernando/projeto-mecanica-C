@@ -99,6 +99,11 @@ int main(){
 			if(opMenu == 1){
 				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdePropetario,prop,veic,manu,"Cadastrar Manutencao");
 			}
+			
+			for(cont =0;cont<qtdeManutencoes;cont++){
+				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n\n\n",manu[cont].idVeiculo,manu[cont].idPropietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra);
+			}
+			getch();
 		
 		//Relatorio____________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 4){
