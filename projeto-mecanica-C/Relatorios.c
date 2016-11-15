@@ -6,13 +6,15 @@
 #include <windows.h>
 #include "structs.c"
 #include "defines.c"
-//Prototipos
-void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
+//Prototipos________________________________________________________________________________________________
+void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
+
+//Funcoes_____________________________________________________________________________________________________
 
 //Objetivo: Apresentar todos os cadastros 
 //Parametros: referencias as structs prop
 //Retorno: Nenhum;
-void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
+void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
 {
 	//variaveis
 
@@ -32,7 +34,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,Proprietario *prop,Ve
 		if(qtdeCadastros==0)
 		{
 			gotoxy(coluna,10);
-			printf(">>>Erro: Nao existem veicrietarios Cadastros...");
+			printf(">>>Erro: Nao existem Proprietarios Cadastros...");
 		}
 		else
 		{		
@@ -75,7 +77,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,Proprietario *prop,Ve
 		if(qtdeVeiculos==0)
 		{
 			gotoxy(coluna,10);
-			printf(">>>Erro: Nao existem Veiculos Cadastros...");
+			printf(">>>Erro: Nao existem Veiculos Cadastrados...");
 		}
 		else
 		{		
@@ -112,6 +114,48 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,Proprietario *prop,Ve
 			}
 		}
 		getch();
+	}else if(opMenu == 3)
+	// Apresenta Manutenções
+	{
+				if(qtdeManutencoes==0)
+		{
+			gotoxy(coluna,10);
+			printf(">>>Erro: Nao existem Manutencoes Cadastradas...");
+		}
+		else
+		{		
+			for(contador=0;contador<qtdeVeiculos;contador++)
+			{
+				if(aux==1)
+				{
+					menuOpcoes(0,"","Cadastros");
+					gotoxy(3,5);
+				}
+				if(aux==3)
+				{
+					coluna=30;
+					linha=6;
+				}
+				gotoxy(coluna,linha);
+				printf(">Placa do Veiculo : %s",manu[contador].idVeiculo);
+				gotoxy(coluna,linha+1);
+				printf(">CPF do Proprietario: %s",manu[contador].idPropietario);
+				gotoxy(coluna,linha+2);
+				printf(">Descricao: %s",manu[contador].descricao);
+				gotoxy(coluna,linha+3);
+				printf(">Valor das Pecas: %f",manu[contador].valorPecas);
+				gotoxy(coluna,linha+4);
+				printf(">Valor da Mao de obra : %f",manu[contador].maodeObra);
+				linha=linha+6;
+				aux++;
+				if(aux==5){
+					aux=1;
+					coluna=3;
+					linha=6;
+					getch();
+				}
+			}
+		}
+		getch();
 	}
-
 }

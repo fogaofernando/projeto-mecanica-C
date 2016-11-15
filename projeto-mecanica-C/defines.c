@@ -61,6 +61,7 @@
 #define MIN_VALOR 1
 #define TAM_MAODEOBRA 100000
 #define MIN_MAODEOBRA 10
+#define MAX_DATA 12
 
 
 

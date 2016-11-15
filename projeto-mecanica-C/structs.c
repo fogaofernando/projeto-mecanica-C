@@ -27,6 +27,7 @@ typedef struct Manutencao{
 	char descricao[TAM_DESCRICAO_MANUTENCAO+1];
 	float valorPecas;
 	float maodeObra;
+	char data[MAX_DATA];
 }Manutencao;
 
 //OBS: o +1 nas structs sao para o espaco extra para o '\0'

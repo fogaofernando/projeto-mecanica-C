@@ -18,7 +18,7 @@ int main(){
 	//Variaveis
 	
 	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[2][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
-	int opMenu, teste,qtdePropetario=0,flag,qtdeVeiculos=0,qtdeManutencoes=0,cont;
+	int opMenu, teste,qtdeProprietarios=0,flag,qtdeVeiculos=0,qtdeManutencoes=0,cont;
 	float testeF;
 
 //	Proprietario prop[TAM_PROPRIETARIOS];
@@ -50,7 +50,8 @@ int main(){
 	
 	//configuração inicial da tela
 	configTela();
-	
+	//Leitura dos Arquivos 
+	leArquivo(&qtdeProprietarios,prop);
 	//menu principal______________________________________________________________________________________________________________________________________
 	do{	
 		opMenu = menuOpcoes(4,menuPrincipal,"Menu Principal");
@@ -61,14 +62,16 @@ int main(){
 			
 			//Cadastro do cliente
 			if(opMenu == 1){
-				if( cadastraProprietario(&qtdePropetario,prop,"Cadastrar Proprietario") == 1){
-					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdePropetario-1].nome,prop[qtdePropetario-1].cpf,prop[qtdePropetario-1].descricao,prop[qtdePropetario-1].cidade,prop[qtdePropetario-1].estado,prop[qtdePropetario-1].telefone);
+
+				if( cadastraProprietario(&qtdeProprietarios,prop,"Cadastrar Proprietario") == 1){
+					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdeProprietarios-1].nome,prop[qtdeProprietarios-1].cpf,prop[qtdeProprietarios-1].descricao,prop[qtdeProprietarios-1].cidade,prop[qtdeProprietarios-1].estado,prop[qtdeProprietarios-1].telefone);
+					gravaArquivo(qtdeProprietarios,prop);
 					getch();
 				}
 			
 			//Alteracao do cliente
 			}else if(opMenu == 2){
-				alteraProprietario(qtdePropetario,prop,"Alterar Proprietario");
+				alteraProprietario(qtdeProprietarios,prop,"Alterar Proprietario");
 			}else if(opMenu == 3){
 				
 			}
@@ -97,11 +100,11 @@ int main(){
 			opMenu = menuOpcoes(2,menuManutencao,"Manutencao");
 			//Cadastrar Manudenção
 			if(opMenu == 1){
-				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdePropetario,prop,veic,manu,"Cadastrar Manutencao");
+				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdeProprietarios,prop,veic,manu,"Cadastrar Manutencao");
 			}
 			
 			for(cont =0;cont<qtdeManutencoes;cont++){
-				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n\n\n",manu[cont].idVeiculo,manu[cont].idPropietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra);
+				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n >Data : %s\n\n",manu[cont].idVeiculo,manu[cont].idPropietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra,manu[cont].data);
 			}
 			getch();
 		
@@ -110,7 +113,7 @@ int main(){
 			opMenu = menuOpcoes(5,menuRelatorios,"Relatorios");
 			//Apresenta todos os cadastros
 			if(opMenu == 1){
-				apresentaCadastros(qtdePropetario,qtdeVeiculos,prop,veic,manu,"Cadastros Existentes");
+				apresentaCadastros(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Cadastros Existentes");
 			}
 		}
 		else{

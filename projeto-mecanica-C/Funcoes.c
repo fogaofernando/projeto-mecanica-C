@@ -20,11 +20,12 @@ char * formataCPF (char *cpf);
 int validaPlaca(char *placa);
 int verificaIntRepetido(int qtde,int *valor,char *msgErro);
 int verificaStringRepetida(int *qtde,Proprietario *prop,char *msgErro);
-
 //int leValidaInt(char *mens,char *topo,int valorMin, int valorMax, int *valorI);
 int leituraDadosChar(char *valor,int tamMax,int posInicial,int opEntrada,int opEspaco);
 void apagaCaracter(int posX, int posY);
 int verificaCharEspecifico(int op,int espaco,char valorC);
+void leArquivo(int *qtdeProprietarios,Proprietario *prop);
+void gravaArquivo(int qtdeProprietarios,Proprietario *prop);
 
 //Funcoes_____________________________________________________________________________________________________
 
@@ -546,4 +547,39 @@ int verificaCharEspecifico(int op,int espaco,char valorC){
 	//caso de invalidade do caracter
 	return 0;
 	
+}
+//objetivo : grava os dados nos arquivos
+//paramentro: referencia a qtde de Proprietarios e a struct  Proprietario
+//retorno : nenhum
+void leArquivo(int *qtdeProprietarios,Proprietario *prop)
+{
+	FILE *arq;
+	
+	if((arq=fopen("Proprietarios.txt","ab"))!=NULL)
+	{
+		fread(&prop,sizeof(struct Proprietario),1,arq);
+		*qtdeProprietarios=*qtdeProprietarios+1;
+	}
+	else
+	{
+		printf("Arquivo Proprietarios.txt nao existe");
+	}
+	fclose(arq);
+}
+
+//objetivo : grava os dados nos arquivo Binario Proprietarios.txt
+//paramentro: referencia a qtde de Proprietarios e a struct  Proprietario
+//retorno : nenhum
+void gravaArquivo(int qtdeProprietarios,Proprietario *prop)
+{
+	FILE *arq;
+	int cont=0;
+	if((arq=fopen("Proprietarios.txt","wb"))!=NULL)
+	{
+		printf("Arquivo Existe ");
+		getch();
+		fwrite(&prop,sizeof(struct Proprietario),1,arq);
+			
+	}
+	fclose(arq);	
 }
