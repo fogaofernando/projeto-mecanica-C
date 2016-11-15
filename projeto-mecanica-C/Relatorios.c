@@ -8,6 +8,7 @@
 #include "defines.c"
 //Prototipos________________________________________________________________________________________________
 void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
+void pesquisaProprietario(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
 
 //Funcoes_____________________________________________________________________________________________________
 
@@ -18,7 +19,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 {
 	//variaveis
 
-	int contador,contador2,coluna=3,linha=6,aux=1,opMenu;
+	int contador,coluna=3,linha=6,aux=1,opMenu;
 	char menuCadastros[3][NOME_OPCOES];
 		
 	//Desenvolvimento
@@ -159,3 +160,68 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 		getch();
 	}
 }
+
+//Objetivo: Apresentar todos os veiculos de um proprietario que ja tenha feito manutencao
+//Parametros: referencias as structs prop
+//Retorno: Nenhum;
+void pesquisaProprietario(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
+{
+	//variaveis
+	char pesquisaCpf[TAM_CPF+1];		
+	int flag,cont,coluna=3,linha=6,aux=1;
+	
+	//desenvolvimento
+	do{
+		flag=0;
+		leValidaString(pesquisaCpf,"Insira o CPF: ",topo,TAM_CPF,TAM_CPF,TIPO_INTEIRO,NAO);
+		if(validaCPF(pesquisaCpf)==0){
+			flag=1;
+			gotoxy(2,POS_Y_TOPO+3);
+			printf(">>>ERRO: CPF INVALIDO....");
+			getch();
+		}									
+	}while(flag==1);
+	for(cont=0;cont<qtdeCadastros;cont++)
+	{
+		if(strcmp(veic[cont].idProprietario,pesquisaCpf)==0)
+		{
+			if(prop[cont].servRealizado==0)
+			{
+				printf(">>>Erro :Cliente  não fez nenhuma Manutencao");
+			}
+			else 
+			{
+				if(aux==1)
+				{
+					menuOpcoes(0,"","Veiculos que Sofreram Manutencao");
+					gotoxy(3,5);
+				}
+				if(aux==3)
+				{
+					coluna=30;
+					linha=6;
+				}
+				gotoxy(coluna,linha);
+				printf(">Placa do Veiculo : %s",manu[cont].idVeiculo);
+				gotoxy(coluna,linha+1);
+				printf(">CPF do Proprietario: %s",manu[cont].idPropietario);
+				gotoxy(coluna,linha+2);
+				printf(">Descricao: %s",manu[cont].descricao);
+				gotoxy(coluna,linha+3);
+				printf(">Valor das Pecas: %f",manu[cont].valorPecas);
+				gotoxy(coluna,linha+4);
+				printf(">Valor da Mao de obra : %f",manu[cont].maodeObra);
+				linha=linha+6;
+				aux++;
+				if(aux==5){
+					aux=1;
+					coluna=3;
+					linha=6;
+					getch();
+				}
+				
+			}
+		}
+	}
+}
+

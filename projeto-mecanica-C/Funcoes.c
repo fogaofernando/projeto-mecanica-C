@@ -555,10 +555,10 @@ void leArquivo(int *qtdeProprietarios,Proprietario *prop)
 {
 	FILE *arq;
 	
-	if((arq=fopen("Proprietarios.txt","ab"))!=NULL)
+	if((arq=fopen("Proprietarios.txt","rb"))!=NULL)
 	{
-		fread(&prop,sizeof(struct Proprietario),1,arq);
-		*qtdeProprietarios=*qtdeProprietarios+1;
+////		fread(&prop,sizeof(struct Proprietario),1,arq);
+//		*qtdeProprietarios=*qtdeProprietarios+1;
 	}
 	else
 	{
@@ -576,10 +576,10 @@ void gravaArquivo(int qtdeProprietarios,Proprietario *prop)
 	int cont=0;
 	if((arq=fopen("Proprietarios.txt","wb"))!=NULL)
 	{
-		printf("Arquivo Existe ");
-		getch();
 		fwrite(&prop,sizeof(struct Proprietario),1,arq);
-			
+		printf("Arquivo Gravado ");
+		getch();
+
 	}
 	fclose(arq);	
 }

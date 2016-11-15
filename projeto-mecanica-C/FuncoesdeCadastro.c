@@ -350,6 +350,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		//	flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);
 			strcpy(manu[*qtdeManutencoes].data,"");
 			strcat(manu[*qtdeManutencoes].data,__DATE__);
+			strcpy(veic[*qtdeManutencoes].idProprietario,manu[*qtdeManutencoes].idPropietario);
 			gotoxy(3,6);
 			printf(">ID veiculo: %s",manu[*qtdeManutencoes].idVeiculo);
 			gotoxy(3,7);

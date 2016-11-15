@@ -19,6 +19,7 @@ typedef struct Veiculo{
 	char chassi[TAM_CHASSI+1];
 	char ano[TAM_ANO];
 	int manutRealizada; 		//0 nao e 1 sim
+	char idProprietario[TAM_CPF+1];
 }Veiculo;
 
 typedef struct Manutencao{

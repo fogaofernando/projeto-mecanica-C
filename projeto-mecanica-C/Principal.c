@@ -114,6 +114,8 @@ int main(){
 			//Apresenta todos os cadastros
 			if(opMenu == 1){
 				apresentaCadastros(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Cadastros Existentes");
+			}else if(opMenu ==2){
+				pesquisaProprietario(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos de um Proprietario");
 			}
 		}
 		else{
