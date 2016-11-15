@@ -51,8 +51,7 @@
 #define TAM_FABRICANTE 20
 #define MIN_FABRICANTE 2
 #define TAM_CHASSI 17
-#define MIN_ANO 1970
-#define TAM_ANO 2016
+#define TAM_ANO 4
 
 
 //TERCEIRA STRUCT
