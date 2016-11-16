@@ -47,13 +47,13 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 		//ALTERA NOME
 		if( leValidaString(pesquisaNome,"Informe o Nome para Pesquisa: ",topo,MIN_PESQUISA,TAM_NOME,TIPO_LETRAS,SIM) == 1 ){
 			
-			//Pesquisa por nome
+			//Pesquisa por nome/verificando dados
 			for(contador=0;contador<qtdeCadastros+1;contador++)
-			{
+			{  
 				if(strstr(prop[contador].nome,pesquisaNome))
 				{
-					strcpy(copiaNome[qtdeEncontrada+1],prop[contador].nome);
 					qtdeEncontrada++;
+					strcpy(copiaNome[qtdeEncontrada],prop[contador].nome);
 				}
 			}
 			if(qtdeEncontrada==0) 

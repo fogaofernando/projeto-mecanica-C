@@ -548,6 +548,8 @@ int verificaCharEspecifico(int op,int espaco,char valorC){
 	return 0;
 	
 }
+
+/*
 //objetivo : grava os dados nos arquivos
 //paramentro: referencia a qtde de Proprietarios e a struct  Proprietario
 //retorno : nenhum
@@ -582,4 +584,4 @@ void gravaArquivo(int qtdeProprietarios,Proprietario *prop)
 
 	}
 	fclose(arq);	
-}
+}*/

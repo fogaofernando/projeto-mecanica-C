@@ -17,7 +17,8 @@ typedef struct Veiculo{
 	char modelo[TAM_MODELO+1];
 	char fabricante[TAM_FABRICANTE+1];
 	char chassi[TAM_CHASSI+1];
-	char ano[TAM_ANO];
+	//char ano[TAM_ANO];
+	int ano;
 	int manutRealizada; 		//0 nao e 1 sim
 	char idProprietario[TAM_CPF+1];
 }Veiculo;

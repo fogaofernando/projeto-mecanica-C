@@ -84,7 +84,7 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		
 		//finalizacao
 		if(cont == 6){
-			prop[*qtdeCadastros].servRealizado=1;
+			prop[*qtdeCadastros].servRealizado=NAO;
 			*qtdeCadastros=*qtdeCadastros+1;
 			gotoxy(3,5);
 			printf(">>>Dados salvos com sucesso...");
@@ -180,24 +180,24 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		
 		//modelo
 		if(cont == 1){
-//			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,TAM_MODELO,TIPO_LETRAS_NUMEROS,SIM);
+			flag = leValidaString(veic[*qtdeVeiculos].modelo,"Insira o Modelo: ",topo,MIN_MODELO,TAM_MODELO,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
-		
+	
 		//fabricante
 		if(cont == 2){
-	//		flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,TAM_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
+			flag = leValidaString(veic[*qtdeVeiculos].fabricante,"Insira o Fabricante: ",topo,MIN_FABRICANTE,TAM_FABRICANTE,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		//chassi
 		if(cont ==3){
-//			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
+			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		//ano de fabricacao
 		if(cont == 4){
-//			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
+			leValidaInt(&veic[*qtdeVeiculos].ano,"Insira o Ano de Fabricacao: ",topo,MIN_ANO,TAM_ANO);
 			CALCULA_CONT
 		}
 		
@@ -257,7 +257,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 	//Desenvolvimento
 	do{
 		//ID do Veiculo
-		/*
+		
 		if(qtdeVeiculos==0 && qtdeCadastros==0)
 		{
 			gotoxy(3,10);
@@ -276,7 +276,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			printf(">>>Erro :Nao existem Proprietarios Cadastrados");
 			return 0;
 		}
-			*/
+			
 		if(cont == 0){
 			flag2=0;
 			flag = leValidaString(manu[*qtdeManutencoes].idVeiculo,"Informe a placa do veiculo: ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO);
@@ -288,7 +288,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 					flag3=cont;   // Posição da placa
 				}
 			}
-			/*
+			
 			if(flag2 == 0) //Placa Não existe
 			{
 				gotoxy(3,10);
@@ -296,7 +296,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				getch();
 				return 0;
 			}
-			*/
+			
 			if(flag == 1){
 				cont++;
 			}else{
@@ -308,8 +308,8 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		
 		//ID do propetario
 		if(cont == 1){
-//			flag = leituraIdProprietario(manu[*qtdeManutencoes].idPropietario,topo,qtdeManutencoes,manu);
-			/*
+			flag = leituraIdProprietario(manu[*qtdeManutencoes].idPropietario,topo,qtdeManutencoes,manu);
+			
 			for(cont=0;cont<qtdeCadastros;cont++)
 			{
 					
@@ -327,27 +327,27 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				getch();
 				return 0;
 			}
-			*/
+			
 			CALCULA_CONT
 		}
 		if(cont == 2){
-	//		flag = leValidaString(manu[*qtdeManutencoes].descricao,"Informe a descricao do conserto: ",topo,MIN_DESCRICAO_MANUTENCAO,TAM_DESCRICAO_MANUTENCAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
+			flag = leValidaString(manu[*qtdeManutencoes].descricao,"Informe a descricao do conserto: ",topo,MIN_DESCRICAO_MANUTENCAO,TAM_DESCRICAO_MANUTENCAO,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM);
 			CALCULA_CONT
 		}
 		
 		if(cont == 3){
-//			flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);	
+			flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);	
 			CALCULA_CONT
 		}
 				
 		if(cont == 4){
-//			flag = leValidaFloat(&manu[*qtdeManutencoes].maodeObra,"Informe o valor da mao de obra: R$ ",topo,MIN_MAODEOBRA,TAM_MAODEOBRA);
+			flag = leValidaFloat(&manu[*qtdeManutencoes].maodeObra,"Informe o valor da mao de obra: R$ ",topo,MIN_MAODEOBRA,TAM_MAODEOBRA);
 			CALCULA_CONT
 		}
-	//	printf("\nValor = %f   - %d ",manu[0].valorPecas,*qtdeManutencoes);
-	//	getch();	
+		printf("\nValor = %f   - %d ",manu[0].valorPecas,*qtdeManutencoes);
+		getch();	
 		if(cont == 5){
-		//	flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);
+			flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);
 			strcpy(manu[*qtdeManutencoes].data,"");
 			strcat(manu[*qtdeManutencoes].data,__DATE__);
 			strcpy(veic[*qtdeManutencoes].idProprietario,manu[*qtdeManutencoes].idPropietario);
@@ -369,8 +369,8 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			{
 				case'S':
 				{
-			//		prop[flag4].servRealizado=1;
-//					veic[flag3].manutRealizada=1;
+					prop[flag4].servRealizado=1;
+					veic[flag3].manutRealizada=1;
 					*qtdeManutencoes=*qtdeManutencoes+1;
 					gotoxy(3,20);
 					printf(">>>Dados salvos com sucesso...");

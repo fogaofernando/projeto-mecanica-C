@@ -4,16 +4,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-//#include <locale.h>
 #include "structs.c"
 #include "defines.c"
 
 
-
-
 //Principal
 int main(){
-	//setlocale(LC_ALL,"portuguese");
+	//configuração inicial da tela
+	configTela();
+	
 	
 	//Variaveis
 	
@@ -48,10 +47,9 @@ int main(){
 	strcpy(menuRelatorios[3],"R4-Apresentar todas as Manutencoes em um periodo");
 	strcpy(menuRelatorios[4],"R5-Pesquisar Proprietario");
 	
-	//configuração inicial da tela
-	configTela();
 	//Leitura dos Arquivos 
-	leArquivo(&qtdeProprietarios,prop);
+//	leArquivo(&qtdeProprietarios,prop);
+	
 	//menu principal______________________________________________________________________________________________________________________________________
 	do{	
 		opMenu = menuOpcoes(4,menuPrincipal,"Menu Principal");
@@ -65,7 +63,7 @@ int main(){
 
 				if( cadastraProprietario(&qtdeProprietarios,prop,"Cadastrar Proprietario") == 1){
 					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdeProprietarios-1].nome,prop[qtdeProprietarios-1].cpf,prop[qtdeProprietarios-1].descricao,prop[qtdeProprietarios-1].cidade,prop[qtdeProprietarios-1].estado,prop[qtdeProprietarios-1].telefone);
-					gravaArquivo(qtdeProprietarios,prop);
+//					gravaArquivo(qtdeProprietarios,prop);
 					getch();
 				}
 			
@@ -73,7 +71,7 @@ int main(){
 			}else if(opMenu == 2){
 				alteraProprietario(qtdeProprietarios,prop,"Alterar Proprietario");
 			}else if(opMenu == 3){
-				
+				excluiProp(&qtdeProprietarios,prop,"Excluir Proprietario");
 			}
 			
 		//Veiculo__________________________________________________________________________________________________________________________________________
@@ -84,7 +82,7 @@ int main(){
 			if(opMenu == 1){
 				if(cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo") == 1){
 					for(cont =0;cont<qtdeVeiculos;cont++){
-						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano);
+						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\nQTcadastro: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano,cont);
 					}
 					getch();
 				}
