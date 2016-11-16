@@ -48,13 +48,6 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		//CPF
 		if(cont == 1){
 			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
-			
-			/*if(flag == 1){
-				cont++;
-			}else{
-				cont--;
-			}*/
-			
 			CALCULA_CONT
 		}
 		
