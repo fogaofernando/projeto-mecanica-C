@@ -48,6 +48,13 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		//CPF
 		if(cont == 1){
 			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
+			
+			/*if(flag == 1){
+				cont++;
+			}else{
+				cont--;
+			}*/
+			
 			CALCULA_CONT
 		}
 		
@@ -140,10 +147,11 @@ int leituraIdProprietario(char *CPF,char *topo,int *qtdeCadastros,Manutencao *ma
 			printf(">>>ERRO: CPF INVALIDO....");
 			getch();
 		}									
-		
+		/*
 		if(verificaStringRepetida(qtdeCadastros,manu,">>>ERRO: CPF Repetido")==0){
 			flag=1;
-		}	
+		}
+		*/	
 	}while(flag==1);
 	
 	return 1;
@@ -244,7 +252,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 	
 	//variaveis
 	
-	int flag, cont=0,flag2,flag3,flag4;   
+	int flag, cont=0,cont2,flag2,flag3,flag4;   
 	char opcao;
 	
 	//Desenvolvimento
@@ -273,12 +281,12 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		if(cont == 0){
 			flag2=0;
 			flag = leValidaString(manu[*qtdeManutencoes].idVeiculo,"Informe a placa do veiculo: ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO);
-			for(cont=0;cont<qtdeVeiculos;cont++)
+			for(cont2=0;cont2<qtdeVeiculos;cont2++)
 			{
-				if(stricmp(manu[*qtdeManutencoes].idVeiculo,veic[cont].placa)==0) // Verificar se a placa Existe
+				if(stricmp(manu[*qtdeManutencoes].idVeiculo,veic[cont2].placa)==0) // Verificar se a placa Existe
 				{
 					flag2=1;
-					flag3=cont;   // Posição da placa
+					flag3=cont2;   // Posição da placa
 				}
 			}
 			
@@ -301,15 +309,15 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		
 		//ID do propetario
 		if(cont == 1){
-			flag = leituraIdProprietario(manu[*qtdeManutencoes].idPropietario,topo,qtdeManutencoes,manu);
+			flag = leituraIdProprietario(manu[*qtdeManutencoes].idProprietario,topo,qtdeManutencoes,manu);
 			
-			for(cont=0;cont<qtdeCadastros;cont++)
+			for(cont2=0;cont2<qtdeCadastros;cont2++)
 			{
 					
-				if(stricmp(manu[*qtdeManutencoes].idPropietario,prop[cont].cpf)==0) // Verificar se o CPF Existe
+				if(stricmp(manu[*qtdeManutencoes].idProprietario,prop[cont2].cpf)==0) // Verificar se o CPF Existe
 				{
 					flag2=1;
-					flag4=cont;      //posição do CPF
+					flag4=cont2;      //posição do CPF
 				}			
 			}
 			
@@ -320,7 +328,6 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				getch();
 				return 0;
 			}
-			
 			CALCULA_CONT
 		}
 		if(cont == 2){
@@ -337,17 +344,16 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			flag = leValidaFloat(&manu[*qtdeManutencoes].maodeObra,"Informe o valor da mao de obra: R$ ",topo,MIN_MAODEOBRA,TAM_MAODEOBRA);
 			CALCULA_CONT
 		}
-		printf("\nValor = %f   - %d ",manu[0].valorPecas,*qtdeManutencoes);
-		getch();	
+		//printf("\nValor = %f   - %d ",manu[0].valorPecas,*qtdeManutencoes);
+	//	getch();	
 		if(cont == 5){
-			flag = leValidaFloat(&manu[*qtdeManutencoes].valorPecas,"Informe o valor das pecas: R$ ",topo,MIN_VALOR,TAM_VALOR);
 			strcpy(manu[*qtdeManutencoes].data,"");
 			strcat(manu[*qtdeManutencoes].data,__DATE__);
-			strcpy(veic[*qtdeManutencoes].idProprietario,manu[*qtdeManutencoes].idPropietario);
+			strcpy(veic[*qtdeManutencoes].idProprietario,manu[*qtdeManutencoes].idProprietario);
 			gotoxy(3,6);
 			printf(">ID veiculo: %s",manu[*qtdeManutencoes].idVeiculo);
 			gotoxy(3,7);
-			printf(">ID propetario: %s",manu[*qtdeManutencoes].idPropietario);
+			printf(">ID propetario: %s",manu[*qtdeManutencoes].idProprietario);
 			gotoxy(3,8);
 			printf(">Descricao: %s",manu[*qtdeManutencoes].descricao);
 			gotoxy(3,9);
@@ -362,6 +368,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			{
 				case'S':
 				{
+
 					prop[flag4].servRealizado=1;
 					veic[flag3].manutRealizada=1;
 					*qtdeManutencoes=*qtdeManutencoes+1;

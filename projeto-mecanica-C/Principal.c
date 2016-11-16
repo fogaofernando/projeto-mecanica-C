@@ -60,7 +60,6 @@ int main(){
 			
 			//Cadastro do cliente
 			if(opMenu == 1){
-
 				if( cadastraProprietario(&qtdeProprietarios,prop,"Cadastrar Proprietario") == 1){
 					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdeProprietarios-1].nome,prop[qtdeProprietarios-1].cpf,prop[qtdeProprietarios-1].descricao,prop[qtdeProprietarios-1].cidade,prop[qtdeProprietarios-1].estado,prop[qtdeProprietarios-1].telefone);
 //					gravaArquivo(qtdeProprietarios,prop);
@@ -82,7 +81,7 @@ int main(){
 			if(opMenu == 1){
 				if(cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo") == 1){
 					for(cont =0;cont<qtdeVeiculos;cont++){
-						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\nQTcadastro: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano,cont);
+						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\nQTcadastro: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano,qtdeVeiculos);
 					}
 					getch();
 				}
@@ -114,6 +113,8 @@ int main(){
 				apresentaCadastros(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Cadastros Existentes");
 			}else if(opMenu ==2){
 				pesquisaProprietario(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos de um Proprietario");
+			}else if(opMenu == 3){
+				 pesquisaVeiculo(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos");
 			}
 		}
 		else{

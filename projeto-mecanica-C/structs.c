@@ -25,7 +25,7 @@ typedef struct Veiculo{
 
 typedef struct Manutencao{
 	char idVeiculo[TAM_PLACA+1];
-	char idPropietario[TAM_CPF+1];
+	char idProprietario[TAM_CPF+1];
 	char descricao[TAM_DESCRICAO_MANUTENCAO+1];
 	float valorPecas;
 	float maodeObra;
