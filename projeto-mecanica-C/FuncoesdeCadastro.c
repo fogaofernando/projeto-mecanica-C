@@ -257,35 +257,43 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 	
 	//variaveis
 	
-	int flag, cont=0,cont2,flag2,flag3,flag4;   
+	int flag, cont=0,cont2,cont3,flag2,flag3,flag4;   
 	char opcao;
+	
+	//verificacao inicial
+	if(qtdeVeiculos==0 && qtdeCadastros==0)
+	{
+		gotoxy(3,10);
+		printf(">>>Erro : Nao existem Carros e Proprietarios Cadastrados");
+		return 0;	
+	}
+	if(qtdeVeiculos==0)
+	{
+		gotoxy(3,10);
+		printf(">>>Erro : Nao existem Carros Cadastrados");
+		return 0;	
+	}
+	if(qtdeCadastros==0)
+	{
+		gotoxy(3.10);
+		printf(">>>Erro :Nao existem Proprietarios Cadastrados");
+		return 0;
+	}
 	
 	//Desenvolvimento
 	do{
 		//ID do Veiculo
-		
-		if(qtdeVeiculos==0 && qtdeCadastros==0)
-		{
-			gotoxy(3,10);
-			printf(">>>Erro : Nao existem Carros e Proprietarios Cadastrados");
-			return 0;	
-		}
-		if(qtdeVeiculos==0)
-		{
-			gotoxy(3,10);
-			printf(">>>Erro : Nao existem Carros Cadastrados");
-			return 0;	
-		}
-		if(qtdeCadastros==0)
-		{
-			gotoxy(3.10);
-			printf(">>>Erro :Nao existem Proprietarios Cadastrados");
-			return 0;
-		}
-		
 		if(cont == 0){
 			flag2=0;
 			flag = leValidaString(manu[*qtdeManutencoes].idVeiculo,"Informe a placa do veiculo: ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO);
+			
+			//maiusculo caracter
+			for(cont3 =0;cont3<strlen(manu[*qtdeManutencoes].idVeiculo);cont3++){
+				manu[*qtdeManutencoes].idVeiculo[cont3] = toupper(manu[*qtdeManutencoes].idVeiculo[cont3]);
+			}
+			
+			//verificando existencia da placa
+			flag2=0;
 			for(cont2=0;cont2<qtdeVeiculos;cont2++)
 			{
 				if(stricmp(manu[*qtdeManutencoes].idVeiculo,veic[cont2].placa)==0) // Verificar se a placa Existe
@@ -316,6 +324,8 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		if(cont == 1){
 			flag = leituraIdProprietario(manu[*qtdeManutencoes].idProprietario,topo,qtdeManutencoes,manu);
 			
+			//verificando existencia de proprietario
+			flag2=0;
 			for(cont2=0;cont2<qtdeCadastros;cont2++)
 			{
 					

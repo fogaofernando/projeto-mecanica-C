@@ -100,13 +100,12 @@ int main(){
 			opMenu = menuOpcoes(2,menuManutencao,"Manutencao");
 			//Cadastrar Manudenção
 			if(opMenu == 1){
-				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdeProprietarios,prop,veic,manu,"Cadastrar Manutencao");
+				cadastraManutencao(&qtdeManutencoes,qtdeVeiculos,qtdeProprietarios,prop,veic,manu,"Cadastrar Manutencao");		
+			}else if(opMenu == 2){
+				excluiManu(&qtdeManutencoes,manu,"Excluir Manutencao");
 			}
 			
-			for(cont =0;cont<qtdeManutencoes;cont++){
-				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n >Data : %s\n\n",manu[cont].idVeiculo,manu[cont].idProprietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra,manu[cont].data);
-			}
-			getch();
+			
 		
 		//Relatorio____________________________________________________________________________________________________________________________________________
 		}else if(opMenu == 4){
