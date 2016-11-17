@@ -562,11 +562,11 @@ void leArquivo(int *qtdeProprietarios,Proprietario *prop)
 ////		fread(&prop,sizeof(struct Proprietario),1,arq);
 //		*qtdeProprietarios=*qtdeProprietarios+1;
 	}
-	else
+	else 
 	{
 		printf("Arquivo Proprietarios.txt nao existe");
 	}
-	fclose(arq);
+	fclose(arq); 
 }
 
 //objetivo : grava os dados nos arquivo Binario Proprietarios.txt

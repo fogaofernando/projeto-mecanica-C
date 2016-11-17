@@ -140,7 +140,7 @@ void janelaMenu(){
 	
 	printf("\n%c",BARRA_DIG03);
 	//printf("%c",BARRA_DIG03);
-	for(cont = 1;cont < (TELA_X-1);cont++){
+	for(cont = 1;cont < (TELA_X-1);cont++){  
 		printf("%c",BARRA_HORIZONTAL);
 	}
 	printf("%c",BARRA_DIG04);

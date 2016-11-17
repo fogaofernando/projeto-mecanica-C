@@ -8,8 +8,7 @@
 
 //Prototipos______________________________________________________________________________________________________
 int excluiProp(int *qtdeProp,Proprietario *prop,char *topo);
-
-
+int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo);
 
 //Funcoes__________________________________________________________________________________________________________
 
@@ -20,21 +19,15 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 	//variaveis
 	
 	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont,cont2,posPesquisadas[*qtdeProp],posFinal;  //AUXILIARES   /*pos = posicao da estrutura dos dados */
-	char menuAlterar[3][NOME_OPCOES],menuEndereco[3][NOME_OPCOES];  // Menu 
-	char copiaNome [*qtdeProp][NOME_OPCOES],novoNome[TAM_NOME],pesquisaNome[TAM_NOME]; // ALTERA NOME
-	char copiaDescricao [*qtdeProp][NOME_OPCOES],novaDescricao[TAM_NOME],pesquisaDescricao[TAM_DESCRICAO_END]; // ALTERA DESCRICAO
-	char copiaEstado [*qtdeProp][NOME_OPCOES],novoEstado[TAM_ESTADO],pesquisaEstado[TAM_ESTADO]; // ALTERA ESTADO
-	char copiaCidade [*qtdeProp][NOME_OPCOES],novaCidade[TAM_CIDADE],pesquisaCidade[TAM_CIDADE];
-	char copiaTelefone [*qtdeProp][NOME_OPCOES],novoTelefone[TAM_TELEFONE],pesquisaTelefone[TAM_TELEFONE]; // ALTERA CIDADE
-	char opSimNao[2][NOME_OPCOES]; 
+	char menuAlterar[3][NOME_OPCOES];  // Menu 
+	char copiaNome [*qtdeProp][NOME_OPCOES],pesquisaNome[TAM_NOME]; // pesquisa por  NOME
+	char copiaCPF [*qtdeProp][NOME_OPCOES],pesquisaCPF[TAM_CPF+1]; // pesquisa por CPF
+	char opSimNao[*qtdeProp][NOME_OPCOES]; 
+	char apresentaMenu[50];
 	
 	//Opcoes de menu
 	strcpy(menuAlterar[0],"1-Nome");
-	strcpy(menuAlterar[1],"2-Endereco");
-	strcpy(menuAlterar[2],"3-Telefone");
-	strcpy(menuEndereco[0],"1-Descricao");
-	strcpy(menuEndereco[1],"2-Estado");
-	strcpy(menuEndereco[2],"3-Cidade");
+	strcpy(menuAlterar[1],"2-CPF");
 	strcpy(opSimNao[0],"SIM");		
 	strcpy(opSimNao[1],"NAO");		
 
@@ -48,9 +41,10 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 	}	
 
 	//Opcao de pesquisa
-	opMenu = menuOpcoes(3,menuAlterar,"Alterar");
+	opMenu = menuOpcoes(2,menuAlterar,topo);
+	
 	if(opMenu==1){
-		//Pesquisa por NOME
+		//Pesquisa por NOME_______________________________________________________________________________________________________
 		if( leValidaString(pesquisaNome,"Informe o Nome para Pesquisa: ",topo,MIN_PESQUISA,TAM_NOME,TIPO_LETRAS,SIM) == 1 ){
 			
 			//Pesquisa por nome/verificando pesquisa
@@ -59,7 +53,7 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 				if(strstr(prop[contador].nome,pesquisaNome))
 				{
 					posPesquisadas[qtdeEncontrada] = contador;
-					strcpy(copiaNome[qtdeEncontrada],prop[contador].nome);
+					sprintf(copiaNome[qtdeEncontrada],"%s - %s",prop[contador].nome,prop[contador].cpf);
 					qtdeEncontrada++;
 				}
 				
@@ -70,9 +64,8 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 			{			
 				printf(">>>Erro: Nome não Encontrado...");
 				getch();
-			}		
-			else
-			{
+				return 0;
+			}else{
 				//Escolhendo entre opcoes pesquisadas
 				printf("Nome Pesquisado : %s",pesquisaNome);
 				opMenu = menuOpcoes(qtdeEncontrada,copiaNome,"Nome Pesquisado : %s");  //Menu de Nomes Encontrados
@@ -80,21 +73,22 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 				if(opMenu != 0){
 					
 					//posicao da estrutura do proprietario escolhido
-					posPesquisadas[opMenu-1] = posFinal;
-					printf("nome %s",prop[0].nome);
-					getch();
+					posFinal = posPesquisadas[opMenu-1];
+					
 					//Confirmando exclusao
 					if(prop[posFinal].servRealizado == NAO){
-						char apresentaMenu[50];
-						sprintf(apresentaMenu,"%s%s%s","Voce deseja Excluir os dados do proprietario: ",prop[posFinal].nome," ?");
+						
+						sprintf(apresentaMenu,"%s %s %s","Voce deseja Excluir os dados do proprietario:",prop[posFinal].nome," ?");
 						
 						opMenu = menuOpcoes(2,opSimNao,apresentaMenu);
 						
 						//excluindo dados
 						if(opMenu == 1){
 							
-							for(cont = posFinal;cont<qtdeEncontrada;cont++){
-								for(cont2 = cont+1;cont2<qtdeEncontrada;cont2++){
+							//Movendo os dados uma casa 
+							for(cont = posFinal;cont < (*qtdeProp-1);cont++){
+									cont2 = cont+1;
+															
 									strcpy(prop[cont].nome,prop[cont2].nome);
 									strcpy(prop[cont].cpf,prop[cont2].cpf);
 									strcpy(prop[cont].descricao,prop[cont2].descricao);
@@ -102,20 +96,110 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 									strcpy(prop[cont].estado,prop[cont2].estado);
 									strcpy(prop[cont].telefone,prop[cont2].telefone);
 									prop[cont].servRealizado = prop[cont2].servRealizado;
-								}
 							}
-							*qtdeProp = *qtdeProp -1;
-							
+							*qtdeProp = *qtdeProp - 1;
 							
 							//apresentando dados
 							for(contador=0;contador<*qtdeProp;contador++)
 							{
 								printf("NOME %s \n",prop[contador].nome);
 							}
+							
+							//finalizacao com sucesso
 							getch();
+							return 1;
+						
 						}else{
 							printf(">>>opcao cancelada...");
 							getch();
+							return 0;
+						}
+					}else{
+						printf(">>>ERRO:O proprietario nao pode ser apagado pois ja realizou servico nessa oficina...");
+						getch();
+						return 0;
+					}
+					 
+				}else{
+					return 0;
+				}
+			}
+		}else{
+			printf(">>>abortado...");
+			getch();
+			return 0;
+		}
+		
+
+	}else if(opMenu == 2){
+		
+		//Pesquisa por CPF_______________________________________________________________________________________________________
+		if( leValidaString(pesquisaCPF,"Informe o CPF para Pesquisa: ",topo,MIN_PESQUISA,TAM_CPF,TIPO_INTEIRO,NAO) == 1 ){
+			
+			//Pesquisa por CPF/verificando pesquisa
+			for(contador=0;contador<*qtdeProp;contador++)
+			{  
+				if(strstr(prop[contador].cpf,pesquisaCPF))
+				{
+					posPesquisadas[qtdeEncontrada] = contador;
+					sprintf(copiaCPF[qtdeEncontrada],"%s - %s",prop[contador].cpf,prop[contador].nome);
+					qtdeEncontrada++;
+				}
+				
+			}
+			
+			//verificando/manupulando dados encontrados
+			if(qtdeEncontrada==0)
+			{			
+				printf(">>>Erro: Nome não Encontrado...");
+				getch();
+			}else{
+				//Escolhendo entre opcoes pesquisadas
+				sprintf(apresentaMenu,"%s %s","CPF Pesquisado: ",pesquisaCPF);
+				opMenu = menuOpcoes(qtdeEncontrada,copiaCPF,apresentaMenu);  //Menu de Nomes Encontrados
+				
+				if(opMenu != 0){
+					
+					//posicao da estrutura do proprietario escolhido
+					posFinal = posPesquisadas[opMenu-1];
+					
+					//Confirmando exclusao
+					if(prop[posFinal].servRealizado == NAO){
+						
+						sprintf(apresentaMenu,"%s%s%s","Voce deseja Excluir os dados do proprietario: ",prop[posFinal].nome," ?");
+						
+						opMenu = menuOpcoes(2,opSimNao,apresentaMenu);
+						
+						//excluindo dados
+						if(opMenu == 1){
+							
+							//Movendo os dados uma casa 
+							for(cont = posFinal;cont < (*qtdeProp-1);cont++){
+									cont2 = cont+1;
+															
+									strcpy(prop[cont].nome,prop[cont2].nome);
+									strcpy(prop[cont].cpf,prop[cont2].cpf);
+									strcpy(prop[cont].descricao,prop[cont2].descricao);
+									strcpy(prop[cont].cidade,prop[cont2].cidade);
+									strcpy(prop[cont].estado,prop[cont2].estado);
+									strcpy(prop[cont].telefone,prop[cont2].telefone);
+									prop[cont].servRealizado = prop[cont2].servRealizado;
+							}
+							*qtdeProp = *qtdeProp - 1;
+							
+							//apresentando dados
+							for(contador=0;contador<*qtdeProp;contador++){
+								printf("NOME %s - CPF %s \n",prop[contador].nome,prop[contador].cpf);
+							}
+							
+							//finalizacao com sucesso
+							getch();
+							return 1;
+						
+						}else{
+							printf(">>>opcao cancelada...");
+							getch();
+							return 0;
 						}
 					}else{
 						printf(">>>ERRO:O proprietario nao pode ser apagado pois ja realizou servico nessa oficina...");
@@ -127,230 +211,218 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 			}
 		}else{
 			printf(">>>abortado...");
+			getch();
+			return 0;
 		}
-		getch();
-	}else if(opMenu == 2)
-	
-	//ALTERA ENDERECO
-	{
-		opMenu = menuOpcoes(3,menuEndereco,"Alterar");
-		if(opMenu==1) // ALTERA DESCRICAO
-		{
-			//pesquisar por descricao
-			if( leValidaString(pesquisaDescricao,"Informe a Descricao para Pesquisa: ",topo,MIN_PESQUISA,TAM_DESCRICAO_END,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) ==1 ){
-	
-				for(contador=0;contador<*qtdeProp+1;contador++)
-				{
-					if(strstr(prop[contador].descricao,pesquisaDescricao))
-					{
-						strcpy(copiaDescricao[qtdeEncontrada+1],prop[contador].descricao);
-						qtdeEncontrada++;
-					}
-				}
-				if(qtdeEncontrada==0) 
-				{			
-					printf(">>>Erro: Descricao não Encontrado...");
-					getch();
-				}		
-				else
-				{
-					opMenu = menuOpcoes(qtdeEncontrada,copiaDescricao+1,"Descricoes encontrados");  //Menu de Nomes Encontrados
-					for(contador=1;contador<qtdeEncontrada+1;contador++)
-					{
-						if(opMenu==contador)
-						{
-							
-							//alteracao da descricao
-							if(leValidaString(novaDescricao,"Informe a nova Descricao: ",topo,MIN_DESCRICAO_END,TAM_DESCRICAO_END,TIPO_LETRAS_ESPECIAIS_NUMEROS,SIM) == 1 ){
-								for(contador2=0;contador2<*qtdeProp;contador2++)
-								{
-									if(strcmp(copiaDescricao[opMenu],prop[contador2].descricao)==0)
-									{						
-										strcpy(prop[contador2].descricao,novaDescricao);  
-									}
-								}
-							}else{
-								printf("\n>>>Abortado...");
-							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
-						}
-					}
-					//TESTE 
-					for(contador=0;contador<*qtdeProp;contador++)
-					{
-						printf("Descricoes Cadastradas %s \n",prop[contador].descricao);
-					}
-				}
-			}else{
-				printf("\n>>>Abortado...");
-			}
-				getch();
+		
 			
-		//ALTERA ESTADO
-		}else if(opMenu == 2) 
-		{
-			if( leValidaString(pesquisaEstado,"Informe o Estado para Pesquisa: ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS,SIM) == 1){
-				for(contador=0;contador<*qtdeProp+1;contador++)
+	}
+}
+
+
+
+//Objetivo:	Excluir o cadastro de um veiculo;
+//Entrada:	Referencia a quantidade de veiculos, estrutura veiculos e mensage do topo;
+//Saida:	1 em caso de exclusao com sucesso;
+int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo){
+	//variaveis
+	
+	int opMenu,contador,contador2=0,qtdeEncontrada=0,qtdeLetras,cont,cont2,posPesquisadas[*qtdeVeic],posFinal;  //AUXILIARES   /*pos = posicao da estrutura dos dados */
+	char menuAlterar[3][NOME_OPCOES];  // Menu 
+	char copiaPlaca [*qtdeVeic][NOME_OPCOES],pesquisaPlaca[TAM_PLACA+1]; // pesquisa por  placa
+	char copiaChassi [*qtdeVeic][NOME_OPCOES],pesquisaChassi[TAM_CHASSI+1]; // pesquisa por chassi
+	char opSimNao[*qtdeVeic][NOME_OPCOES]; 
+	char apresentaMenu[50];
+	
+	//Opcoes de menu
+	strcpy(menuAlterar[0],"1-Placa");
+	strcpy(menuAlterar[1],"2-Chassi");
+	strcpy(opSimNao[0],"SIM");		
+	strcpy(opSimNao[1],"NAO");		
+
+	//Desenvolvimento______________________________________________________________________________________________
+	
+	//verificar quantidade de proprietarios
+	if(*qtdeVeic == 0){
+		printf(">>>Nao ha veiculos cadastrados...");
+		getch();
+		return 0;
+	}	
+
+	//Opcao de pesquisa
+	opMenu = menuOpcoes(2,menuAlterar,topo);
+	
+	if(opMenu==1){
+		//Pesquisa por Placa_______________________________________________________________________________________________________
+		if( leValidaString(pesquisaPlaca,"Informe a placa para Pesquisa: ",topo,MIN_PESQUISA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO) == 1 ){
+			
+			//Pesquisa por nome/verificando pesquisa
+			for(contador=0;contador<*qtdeVeic;contador++)
+			{  
+				if(strstr(veic[contador].placa,pesquisaPlaca))
 				{
-					if(strstr(prop[contador].estado,pesquisaEstado))
-					{
-						strcpy(copiaEstado[qtdeEncontrada+1],prop[contador].estado);
-						qtdeEncontrada++;
-					}
+					posPesquisadas[qtdeEncontrada] = contador;
+					sprintf(copiaPlaca[qtdeEncontrada],"%s - %s",veic[contador].placa,veic[contador].modelo);
+					qtdeEncontrada++;
 				}
-				if(qtdeEncontrada==0) 
-				{			
-					printf(">>>Erro: Estado não Encontrado...");
-					getch();
-				}		
-				else
-				{
-					opMenu = menuOpcoes(qtdeEncontrada,copiaEstado+1,"Estados encontrados");  //Menu de Nomes Encontrados
-					for(contador=1;contador<qtdeEncontrada+1;contador++)
-					{
-						if(opMenu==contador)
-						{
-							leValidaString(novoEstado,"Informe o novo Estado : ",topo,MIN_ESTADO,TAM_ESTADO,TIPO_LETRAS,SIM); // Novo nome para a opcao escolhida
-							for(contador2=0;contador2<*qtdeProp;contador2++)
-							{
-								if(strcmp(copiaEstado[opMenu],prop[contador2].estado)==0)
-								{
-									strcpy(prop[contador2].estado,novoEstado);  
-								}
+				
+			}
+			
+			//verificando/manupulando dados encontrados
+			if(qtdeEncontrada==0)
+			{			
+				printf(">>>Erro: Nome não Encontrado...");
+				getch();
+				return 0;
+			}else{
+				//Escolhendo entre opcoes pesquisadas
+				printf("Nome Pesquisado : %s",pesquisaPlaca);
+				opMenu = menuOpcoes(qtdeEncontrada,copiaPlaca,"Nome Pesquisado : %s");  //Menu de Nomes Encontrados
+				
+				if(opMenu != 0){
+					
+					//posicao da estrutura do proprietario escolhido
+					posFinal = posPesquisadas[opMenu-1];
+					
+					//Confirmando exclusao
+					if(veic[posFinal].manutRealizada == NAO){
+						
+						sprintf(apresentaMenu,"%s %s %s","Voce deseja Excluir os dados do veiculo:",veic[posFinal].placa," ?");
+						
+						opMenu = menuOpcoes(2,opSimNao,apresentaMenu);
+						
+						//excluindo dados
+						if(opMenu == 1){
+							
+							//Movendo os dados uma casa 
+							for(cont = posFinal;cont < (*qtdeVeic-1);cont++){
+									cont2 = cont+1;
+															
+									strcpy(veic[cont].placa,veic[cont2].placa);
+									strcpy(veic[cont].modelo,veic[cont2].modelo);
+									strcpy(veic[cont].fabricante,veic[cont2].fabricante);
+									strcpy(veic[cont].chassi,veic[cont2].chassi);
+									veic[cont].ano = veic[cont2].ano;
+									veic[cont].manutRealizada = veic[cont2].manutRealizada;
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+							*qtdeVeic = *qtdeVeic - 1;
+							
+							//apresentando dados
+							for(contador=0;contador<*qtdeVeic;contador++)
+							{
+								printf("placa: %s / modelo: %s/ chassi:  %s\n",veic[contador].placa,veic[contador].modelo,veic[contador].chassi);
+							}
+							
+							//finalizacao com sucesso
+							getch();
+							return 1;
+						
+						}else{
+							printf(">>>opcao cancelada...");
+							getch();
+							return 0;
 						}
+					}else{
+						printf(">>>ERRO:O proprietario nao pode ser apagado pois ja realizou servico nessa oficina...");
+						getch();
+						return 0;
 					}
-					//TESTE 
-					for(contador=0;contador<*qtdeProp;contador++)
-					{
-						printf("Estados %s \n",prop[contador].estado);
-					}
+					 
+				}else{
+					return 0;
 				}
+			}
+		}else{
+			printf(">>>abortado...");
+			getch();
+			return 0;
+		}
+		
+
+	}else if(opMenu == 2){
+		
+		//Pesquisa por Chassi_______________________________________________________________________________________________________
+		if( leValidaString(pesquisaChassi,"Informe o Chassi para Pesquisa: ",topo,MIN_PESQUISA,TAM_CHASSI,TIPO_LETRAS_NUMEROS,NAO) == 1 ){
+			
+			//Pesquisa por CPF/verificando pesquisa
+			for(contador=0;contador<*qtdeVeic;contador++)
+			{  
+				if(strstr(veic[contador].chassi,pesquisaChassi))
+				{
+					posPesquisadas[qtdeEncontrada] = contador;
+					sprintf(copiaChassi[qtdeEncontrada],"%s - %s",veic[contador].chassi,veic[contador].modelo);
+					qtdeEncontrada++;
+				}
+				
+			}
+			
+			//verificando/manupulando dados encontrados
+			if(qtdeEncontrada==0)
+			{			
+				printf(">>>Erro: Nome não Encontrado...");
 				getch();
 			}else{
-				printf("\n%c >>>Abortado...",BARRA_LATERAL);
-			}
-		// ALTERA CIDADE
-		}else if(opMenu == 3)
-		{
-			//pesquisando por nome da cidade
-			if(leValidaString(pesquisaCidade,"Informe a Cidade para Pesquisa: ",topo,MIN_PESQUISA,TAM_CIDADE,TIPO_LETRAS,SIM)==1){
-				for(contador=0;contador<*qtdeProp+1;contador++)
-				{
-					if(strstr(prop[contador].cidade,pesquisaCidade))
-					{
-						strcpy(copiaCidade[qtdeEncontrada+1],prop[contador].cidade);
-						qtdeEncontrada++;
-					}
-				}
-				if(qtdeEncontrada==0) 
-				{			
-					printf("\n%c >>>Erro: Cidade não Encontrada...",BARRA_LATERAL);
-					getch();
-				}		
-				else
-				{
-					opMenu = menuOpcoes(qtdeEncontrada,copiaCidade+1,"Cidades encontrados");  //Menu de Nomes Encontrados
-					for(contador=1;contador<qtdeEncontrada+1;contador++)
-					{
-						if(opMenu==contador)
-						{	
-							//Novo nome da cidade
-							if( leValidaString(novaCidade,"Informe a nova Cidade : ",topo,MIN_CIDADE,TAM_CIDADE,TIPO_LETRAS,SIM) == 1){
-								for(contador2=0;contador2<*qtdeProp;contador2++)
-								{
-									if(strcmp(copiaCidade[opMenu],prop[contador2].cidade)==0)
-									{
-										strcpy(prop[contador2].cidade,novaCidade);  
-									}
-								}
-							}else{
-								printf("\n%c >>>Abortado...",BARRA_LATERAL);
+				//Escolhendo entre opcoes pesquisadas
+				sprintf(apresentaMenu,"%s %s","Chassi Pesquisado: ",pesquisaChassi);
+				opMenu = menuOpcoes(qtdeEncontrada,copiaChassi,apresentaMenu);  //Menu de Nomes Encontrados
+				
+				if(opMenu != 0){
+					
+					//posicao da estrutura do proprietario escolhido
+					posFinal = posPesquisadas[opMenu-1];
+					
+					//Confirmando exclusao
+					if(veic[posFinal].manutRealizada == NAO){
+						
+						sprintf(apresentaMenu,"%s%s%s","Voce deseja Excluir os dados do veiculo de chassi: ",veic[posFinal].chassi," ?");
+						opMenu = menuOpcoes(2,opSimNao,apresentaMenu);
+						
+						//excluindo dados
+						if(opMenu == 1){
+							
+							//Movendo os dados uma casa 
+							for(cont = posFinal;cont < (*qtdeVeic-1);cont++){
+									cont2 = cont+1;
+															
+									strcpy(veic[cont].placa,veic[cont2].placa);
+									strcpy(veic[cont].modelo,veic[cont2].modelo);
+									strcpy(veic[cont].fabricante,veic[cont2].fabricante);
+									strcpy(veic[cont].chassi,veic[cont2].chassi);
+									veic[cont].ano = veic[cont2].ano;
+									veic[cont].manutRealizada = veic[cont2].manutRealizada;
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
-						}
-					}
-					//TESTE 
-					for(contador=0;contador<*qtdeProp;contador++)
-					{
-						printf("Cidades Cadastradas %s \n",prop[contador].cidade);
-					}
-				}
-			}else{
-				printf("\n%c >>>Abortado...",BARRA_LATERAL);
-			}
-			getch();
-		}		
-	}else if(opMenu == 3) // ALTERA TELEFONE
-	//ALTERA TELEFONE
-	{
-			if(leValidaString(pesquisaTelefone,"Informe o Telefone para Pesquisa: ",topo,MIN_PESQUISA,TAM_TELEFONE,TIPO_INTEIRO,NAO)==1){
-				for(contador=0;contador<*qtdeProp+1;contador++)
-				{
-					if(strstr(prop[contador].telefone,pesquisaTelefone))
-					{
-						strcpy(copiaTelefone[qtdeEncontrada+1],prop[contador].telefone);
-						qtdeEncontrada++;
-					}
-				}
-				if(qtdeEncontrada==0) 
-				{			
-					printf("\n%c>>>Erro: Telefone não Encontrado...",BARRA_LATERAL);
-					getch();
-				}		
-				else
-				{
-					opMenu = menuOpcoes(qtdeEncontrada,copiaTelefone+1,"Telefones encontrados");  //Menu de Nomes Encontrados
-					for(contador=1;contador<qtdeEncontrada+1;contador++)
-					{
-						if(opMenu==contador)
-						{
-							// Novo nome para a opcao escolhida
-							if(leValidaString(novoTelefone,"Informe a novo Telefone : ",topo,MIN_PESQUISA,TAM_TELEFONE,TIPO_INTEIRO,NAO) == 1){
-								for(contador2=0;contador2<*qtdeProp;contador2++)
-								{
-									if(strcmp(copiaTelefone[opMenu],prop[contador2].telefone)==0)
-									{
-										strcpy(prop[contador2].telefone,novoTelefone);  
-									}
-								}
-							}else{
-								printf("\n%c >>>Abortado...",BARRA_LATERAL);
+							*qtdeVeic = *qtdeVeic - 1;
+							
+							//apresentando dados
+							for(contador=0;contador<*qtdeVeic;contador++)
+							{
+								printf("placa: %s / modelo: %s/ chassi:  %s\n",veic[contador].placa,veic[contador].modelo,veic[contador].chassi);
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+							
+							//finalizacao com sucesso
+							getch();
+							return 1;
+						
+						}else{
+							printf(">>>opcao cancelada...");
+							getch();
+							return 0;
 						}
+					}else{
+						printf(">>>ERRO:O proprietario nao pode ser apagado pois ja realizou servico nessa oficina...");
+						getch();
+						return 0;
 					}
-					//TESTE 
-					for(contador=0;contador<*qtdeProp;contador++)
-					{
-						printf("Telefones Cadastrados %s \n",prop[contador].telefone);
-					}
+					
 				}
-			}else{
-				printf("\n%c >>>Abortado...",BARRA_LATERAL);
 			}
+		}else{
+			printf(">>>abortado...");
 			getch();
+			return 0;
+		}
+		
+			
 	}
 }
 

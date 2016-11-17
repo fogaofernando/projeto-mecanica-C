@@ -13,7 +13,7 @@ typedef struct Proprietario{
 }Proprietario;		
 
 typedef struct Veiculo{
-	char placa[TAM_PLACA+1];
+	char placa[TAM_PLACA+1]; 
 	char modelo[TAM_MODELO+1];
 	char fabricante[TAM_FABRICANTE+1];
 	char chassi[TAM_CHASSI+1];

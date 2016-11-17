@@ -3,13 +3,14 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <windows.h> 
 #include "structs.c"
 #include "defines.c"
 //Prototipos________________________________________________________________________________________________
 void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
 int pesquisaProprietario(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
 int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
+
 //Funcoes_____________________________________________________________________________________________________
 
 //Objetivo: Apresentar todos os cadastros 

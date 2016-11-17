@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "structs.c"
+#include "structs.c" 
 #include "defines.c"
 
 
@@ -16,7 +16,7 @@ int main(){
 	
 	//Variaveis
 	
-	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[2][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES];
+	char testeC[20],menuPrincipal[4][NOME_OPCOES],menuProprietario[3][NOME_OPCOES],menuVeiculo[3][NOME_OPCOES],menuManutencao[2][NOME_OPCOES],menuRelatorios[5][NOME_OPCOES],opFinalizacao[2][NOME_OPCOES];
 	int opMenu, teste,qtdeProprietarios=0,flag,qtdeVeiculos=0,qtdeManutencoes=0,cont;
 	float testeF;
 
@@ -46,6 +46,9 @@ int main(){
 	strcpy(menuRelatorios[2],"R3-Pesquisar Veiculo");
 	strcpy(menuRelatorios[3],"R4-Apresentar todas as Manutencoes em um periodo");
 	strcpy(menuRelatorios[4],"R5-Pesquisar Proprietario");
+	strcpy(opFinalizacao[0],"Sim");
+	strcpy(opFinalizacao[1],"Nao");
+	
 	
 	//Leitura dos Arquivos 
 //	leArquivo(&qtdeProprietarios,prop);
@@ -89,10 +92,10 @@ int main(){
 			//Alterar veiculo	
 			}else if(opMenu ==2){
 					alteraVeiculo(qtdeVeiculos,veic,"Alterar Veiculo");
-			}else{
-				
+			}else if(opMenu == 3){
+				excluiVeic(&qtdeVeiculos,veic,"Excluir Veiculo");
 			}
-		//Manutenção__________________________________________________________________________________________________________________________________________
+		//Manutenção__________________________________________________________________________________________________________________________________________ 
 		}else if(opMenu == 3){
 			opMenu = menuOpcoes(2,menuManutencao,"Manutencao");
 			//Cadastrar Manudenção
@@ -101,7 +104,7 @@ int main(){
 			}
 			
 			for(cont =0;cont<qtdeManutencoes;cont++){
-				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n >Data : %s\n\n",manu[cont].idVeiculo,manu[cont].idPropietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra,manu[cont].data);
+				printf("\n>ID veiculo: %s\n>ID propetario: %s\n>descricao: %s\n>valor pecas: %f\n>mao de obra %f\n >Data : %s\n\n",manu[cont].idVeiculo,manu[cont].idProprietario,manu[cont].descricao,manu[cont].valorPecas,manu[cont].maodeObra,manu[cont].data);
 			}
 			getch();
 		
@@ -116,10 +119,13 @@ int main(){
 			}else if(opMenu == 3){
 				 pesquisaVeiculo(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos");
 			}
-		}
-		else{
+		}else{
+			
 			//Para finalizacao do programa
-			opMenu = -1;
+			opMenu = menuOpcoes(2,opFinalizacao,"DESEJA FINALIZAR O PROGRAMA ?");
+			if(opMenu == 1){
+				opMenu = -1;
+			}
 		}	
 	
 	}while(opMenu != -1);
