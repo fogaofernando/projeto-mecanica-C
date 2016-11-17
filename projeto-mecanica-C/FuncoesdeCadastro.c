@@ -282,7 +282,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			printf(">>>Erro :Nao existem Proprietarios Cadastrados");
 			return 0;
 		}
-			
+		
 		if(cont == 0){
 			flag2=0;
 			flag = leValidaString(manu[*qtdeManutencoes].idVeiculo,"Informe a placa do veiculo: ",topo,TAM_PLACA,TAM_PLACA,TIPO_LETRAS_NUMEROS,NAO);
@@ -333,6 +333,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				getch();
 				return 0;
 			}
+			
 			CALCULA_CONT
 		}
 		if(cont == 2){
@@ -349,8 +350,6 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			flag = leValidaFloat(&manu[*qtdeManutencoes].maodeObra,"Informe o valor da mao de obra: R$ ",topo,MIN_MAODEOBRA,TAM_MAODEOBRA);
 			CALCULA_CONT
 		}
-		//printf("\nValor = %f   - %d ",manu[0].valorPecas,*qtdeManutencoes);
-	//	getch();	
 		if(cont == 5){
 			strcpy(manu[*qtdeManutencoes].data,"");
 			strcat(manu[*qtdeManutencoes].data,__DATE__);

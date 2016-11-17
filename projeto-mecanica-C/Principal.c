@@ -118,6 +118,8 @@ int main(){
 				pesquisaProprietario(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos de um Proprietario");
 			}else if(opMenu == 3){
 				 pesquisaVeiculo(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Veiculos");
+			}else if(opMenu == 5){
+				 pesquisaNome(qtdeProprietarios,qtdeVeiculos,qtdeManutencoes,prop,veic,manu,"Pesquisar Nome"); //R5
 			}
 		}else{
 			
