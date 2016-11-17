@@ -163,7 +163,7 @@ int leituraIdProprietario(char *CPF,char *topo,int *qtdeCadastros,Manutencao *ma
 int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 	
 	//variaveis
-	int flag,cont = 0;
+	int flag,cont = 0,cont2 = 0;
 	
 	//Desenvolvimento
 	do{	
@@ -193,6 +193,10 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		//chassi
 		if(cont ==3){
 			flag= leValidaString(veic[*qtdeVeiculos].chassi,"Insira o Chassi : ",topo,TAM_CHASSI,TAM_CHASSI,TIPO_LETRAS_NUMEROS,SIM);
+			for(cont2=0;cont2<strlen(veic[*qtdeVeiculos].chassi);cont2++){
+				veic[*qtdeVeiculos].chassi[cont2] = toupper(veic[*qtdeVeiculos].chassi[cont2]);
+			}
+			
 			CALCULA_CONT
 		}
 		
