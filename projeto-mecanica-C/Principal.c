@@ -65,7 +65,7 @@ int main(){
 			if(opMenu == 1){
 				if( cadastraProprietario(&qtdeProprietarios,prop,"Cadastrar Proprietario") == 1){
 					printf("\n>Nome: %s\n>CPF: %s\n>Descricao: %s\n>Cidade: %s\n>Estado: %s\n>Telefone: %s",prop[qtdeProprietarios-1].nome,prop[qtdeProprietarios-1].cpf,prop[qtdeProprietarios-1].descricao,prop[qtdeProprietarios-1].cidade,prop[qtdeProprietarios-1].estado,prop[qtdeProprietarios-1].telefone);
-//					gravaArquivo(qtdeProprietarios,prop);
+					gravaArquivo(qtdeProprietarios,prop);
 					getch();
 				}
 			

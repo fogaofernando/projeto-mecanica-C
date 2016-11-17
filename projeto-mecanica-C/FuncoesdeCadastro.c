@@ -259,27 +259,30 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 	
 	int flag, cont=0,cont2,cont3,flag2,flag3,flag4;   
 	char opcao;
-	
+	/*
 	//verificacao inicial
 	if(qtdeVeiculos==0 && qtdeCadastros==0)
 	{
 		gotoxy(3,10);
 		printf(">>>Erro : Nao existem Carros e Proprietarios Cadastrados");
+		getch();
 		return 0;	
 	}
 	if(qtdeVeiculos==0)
 	{
 		gotoxy(3,10);
 		printf(">>>Erro : Nao existem Carros Cadastrados");
+		getch();
 		return 0;	
 	}
 	if(qtdeCadastros==0)
 	{
 		gotoxy(3.10);
 		printf(">>>Erro :Nao existem Proprietarios Cadastrados");
+		getch();
 		return 0;
 	}
-	
+	*/
 	//Desenvolvimento
 	do{
 		//ID do Veiculo
@@ -302,7 +305,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 					flag3=cont2;   // Posição da placa
 				}
 			}
-			
+			/*
 			if(flag2 == 0) //Placa Não existe
 			{
 				gotoxy(3,10);
@@ -310,7 +313,7 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				getch();
 				return 0;
 			}
-			
+			*/
 			if(flag == 1){
 				cont++;
 			}else{
@@ -371,9 +374,9 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 			gotoxy(3,8);
 			printf(">Descricao: %s",manu[*qtdeManutencoes].descricao);
 			gotoxy(3,9);
-			printf(">Valor pecas: %f",manu[*qtdeManutencoes].valorPecas);
+			printf(">Valor pecas: %.2f",manu[*qtdeManutencoes].valorPecas);
 			gotoxy(3,10);
-			printf(">mao de obra %f",manu[*qtdeManutencoes].maodeObra);
+			printf(">mao de obra %.2f",manu[*qtdeManutencoes].maodeObra);
 			gotoxy(3,11);
 			printf(">Data : %s",manu[*qtdeManutencoes].data);
 			gotoxy(3,14);
@@ -383,8 +386,8 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				case'S':
 				{
 
-					prop[flag4].servRealizado=1;
-					veic[flag3].manutRealizada=1;
+//					prop[flag4].servRealizado=1;
+//					veic[flag3].manutRealizada=1;
 					*qtdeManutencoes=*qtdeManutencoes+1;
 					gotoxy(3,20);
 					printf(">>>Dados salvos com sucesso...");
@@ -398,10 +401,8 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 					getch();
 					return 0;	//leitura abortada
 				}	
-
-
+			}
 		}
-	}
 	}while(flag == 0);
 }
 

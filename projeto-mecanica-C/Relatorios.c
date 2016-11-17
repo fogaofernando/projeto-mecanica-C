@@ -264,7 +264,7 @@ int pesquisaProprietario(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,
 int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
 {
 	//Variaveis
-	int flag,flag1,flag2=1,flag3=0,cont=0,cont2,cont3,cont4,aux=1,coluna=3,linha=6,flagaux[100],qtdeEncontrada=0;
+	int flag,flag1,flag2=1,flag3=0,cont=0,cont2,cont3,cont4,aux=1,coluna=3,linha=6,flagAux[100],flagAux2[100],qtdeEncontrada=0,qtdePropEncontrados=0;
 	char pesquisaPlaca[TAM_PLACA+1],pesquisaCpf[TAM_CPF+1];
 	
 	//Desenvolvimento
@@ -304,7 +304,131 @@ int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propr
 				return 0;	//leitura abortada
 			}
 		}
-		if( cont == 1){
+		if( cont == 1)
+		{
+			for(cont2=0;cont2<qtdeManutencoes;cont2++)
+			{
+				if(strcmp(manu[cont2].idVeiculo,pesquisaPlaca)==0) // Verificar se existe placa
+				{
+					flagAux[cont2]=cont2;    //posições entronctradas
+					flag1=1;   //Existe
+					qtdeEncontrada++;
+						
+				}		
+			}
+			for(cont3=0;cont3<qtdeEncontrada;cont3++)
+			{							
+				for(cont2=0;cont2<qtdeCadastros;cont2++)
+				{							
+					if(strcmp(prop[cont2].cpf,manu[cont2].idProprietario)==0)
+					{
+						qtdePropEncontrados++;
+						flagAux2[cont2]=cont2;
+	//					for(cont3=0;cont3<qtdePropEncontrados;cont3++)
+	//					{					
+	//					if(strcmp(prop[cont2].cpf,prop[flagAux2[cont3]].cpf)==0)
+	//						{	
+	//						qtdePropEncontrados=qtdePropEncontrados-1;
+	//						}
+	//					}			
+					}
+				}				
+			}
+		for(cont2=0;cont2<qtdePropEncontrados;cont2++)
+		{			
+				
+					menuOpcoes(0,"","Proprietario");
+					gotoxy(3,5);
+					getch();
+					gotoxy(coluna,linha);
+					printf(">Nome: %s",prop[flagAux2[cont2]].nome);
+					gotoxy(coluna,linha+1);	
+					printf(">CPF: %s",prop[flagAux2[cont2]].cpf);
+					gotoxy(coluna,linha+2);
+					printf(">Descricao: %s",prop[flagAux2[cont2]].descricao);
+					gotoxy(coluna,linha+3);
+					printf(">Cidade: %s",prop[flagAux2[cont2]].cidade);
+					gotoxy(coluna,linha+4);
+					printf(">Telefone: %s",prop[flagAux2[cont2]].telefone);
+					getch();	
+										
+				for(cont3=0;cont3<qtdeManutencoes;cont3++)
+				{						
+					if(strcmp(manu[cont3].idProprietario,prop[flagAux2[cont2]].cpf)==0)
+					{				
+					menuOpcoes(0,"","Veiculos que Sofreram Manutencao");
+					gotoxy(3,5);
+					gotoxy(coluna,linha);
+					printf(">Placa do Veiculo : %s",manu[cont3].idVeiculo);
+					gotoxy(coluna,linha+1);
+					printf(">Descricao: %s",manu[cont3].descricao);
+					gotoxy(coluna,linha+2);
+					printf(">Valor das Pecas: %.2f",manu[cont3].valorPecas);
+					gotoxy(coluna,linha+3);
+					printf(">Valor da Mao de obra : %.2f",manu[cont3].maodeObra);
+	//				linha=linha+5;
+					getch();
+				}
+			}
+		}								
+		}
+	}while(flag == 0);
+	if(flag1 == 0)
+	{
+		gotoxy(3,5);
+		printf(">>>Erro :Nao existem Manutencoes nesse carro");
+		getch();
+	}
+}
+/*
+//Objetivo: Apresentar todos os veiculos de um proprietario que ja tenha feito manutencao
+//Parametros: referencias a qtde de Proprietarios , veiculos e manutenções ,  referencias as strcuts Proprietario , Veiculo e Manutencao e ao topo 
+//Retorno: 0 para abortado e 1 para sucesso 
+int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
+{
+	//Variaveis
+	int flag,flag1,flag2=1,flag3=0,cont=0,cont2,cont3,cont4,aux=1,coluna=3,linha=6,flagAux[100],qtdeEncontrada=0;
+	char pesquisaPlaca[TAM_PLACA+1],pesquisaCpf[TAM_CPF+1];
+	
+	//Desenvolvimento
+	do{
+		
+		if(qtdeVeiculos==0 && qtdeCadastros==0)
+		{
+			gotoxy(3,12);
+			printf(">>>Erro : Nao existem Carros e Proprietarios Cadastrados");
+			getch();
+			return 0;	
+		}
+		if(qtdeVeiculos==0)
+		{
+			gotoxy(3,12);
+			printf(">>>Erro : Nao existem Carros Cadastrados");
+			getch();
+			return 0;	
+		}
+		if(qtdeCadastros==0)
+		{
+			gotoxy(3.12);
+			printf(">>>Erro :Nao existem Proprietarios Cadastrados");
+			getch();
+			return 0;
+		}
+		
+		flag=1;
+		flag1=0;
+		if(cont == 0){
+			flag = leituraPlaca(pesquisaPlaca,topo,qtdeVeiculos);
+			if(flag == 1){
+				cont++;
+			}else{
+				printf("\n >>>Operacao abortada...");
+				getch();
+				return 0;	//leitura abortada
+			}
+		}
+		if( cont == 1)
+		{
 			for(cont2=0;cont2<qtdeManutencoes;cont2++)
 			{
 				if(strcmp(manu[cont2].idVeiculo,pesquisaPlaca)==0) // Verificar se existe placa
@@ -315,8 +439,8 @@ int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propr
 					{
 						if(strcmp(prop[cont3].cpf,manu[cont2].idProprietario)==0)
 						{
-					
-																	
+							flagAux[cont2]=cont2;
+								if(strcmp(prop[cont3].cpf,)==0)										
 								menuOpcoes(0,"","Proprietario");
 								gotoxy(3,5);
 								getch();
@@ -340,13 +464,13 @@ int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propr
 									menuOpcoes(0,"","Veiculos que Sofreram Manutencao");
 									gotoxy(3,5);
 									gotoxy(coluna,linha);
-									printf(">Placa do Veiculo : %s",manu[flagaux[cont4]].idVeiculo);
+									printf(">Placa do Veiculo : %s",manu[cont4].idVeiculo);
 									gotoxy(coluna,linha+1);
-									printf(">Descricao: %s",manu[flagaux[cont4]].descricao);
+									printf(">Descricao: %s",manu[cont4].descricao);
 									gotoxy(coluna,linha+2);
-									printf(">Valor das Pecas: %.2f",manu[flagaux[cont4]].valorPecas);
+									printf(">Valor das Pecas: %.2f",manu[cont4].valorPecas);
 									gotoxy(coluna,linha+3);
-									printf(">Valor da Mao de obra : %.2f",manu[flagaux[cont4]].maodeObra);
+									printf(">Valor da Mao de obra : %.2f",manu[cont4].maodeObra);
 			//						linha=linha+5;
 									getch();
 								}
@@ -354,10 +478,7 @@ int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propr
 						}
 					}		
 				}
-			}
-				
-				
-									
+			}																	
 		}
 	}while(flag == 0);
 	if(flag1 == 0)
@@ -367,7 +488,7 @@ int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propr
 		getch();
 	}
 }
-
+*/
 //Objetivo: Pesquisa dos dados de todos dos proprietários cadastrados pelo nome
 //Parametros: referencias a qtde de Proprietarios , veiculos e manutenções ,  referencias as strcuts Proprietario , Veiculo e Manutencao e ao topo 
 //Retorno: 0 para abortado e 1 para sucesso 

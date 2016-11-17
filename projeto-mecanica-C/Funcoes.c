@@ -549,7 +549,7 @@ int verificaCharEspecifico(int op,int espaco,char valorC){
 	
 }
 
-/*
+
 //objetivo : grava os dados nos arquivos
 //paramentro: referencia a qtde de Proprietarios e a struct  Proprietario
 //retorno : nenhum
@@ -559,8 +559,8 @@ void leArquivo(int *qtdeProprietarios,Proprietario *prop)
 	
 	if((arq=fopen("Proprietarios.txt","rb"))!=NULL)
 	{
-////		fread(&prop,sizeof(struct Proprietario),1,arq);
-//		*qtdeProprietarios=*qtdeProprietarios+1;
+		fread(&prop,sizeof(struct Proprietario),6,arq);
+		*qtdeProprietarios=*qtdeProprietarios+1;
 	}
 	else 
 	{
@@ -578,10 +578,34 @@ void gravaArquivo(int qtdeProprietarios,Proprietario *prop)
 	int cont=0;
 	if((arq=fopen("Proprietarios.txt","wb"))!=NULL)
 	{
-		fwrite(&prop,sizeof(struct Proprietario),1,arq);
+		fwrite(&prop,sizeof(struct Proprietario),6,arq);
 		printf("Arquivo Gravado ");
 		getch();
 
 	}
 	fclose(arq);	
-}*/
+}
+
+
+
+void obtemDataHoraAtual(int *dia, int * mes, int *ano){
+
+time_t t;
+
+struct tm *dataAtual;
+
+t = time(NULL);
+
+dataAtual = localtime(&t);
+
+*dia      = dataAtual->tm_mday;
+
+*mes      = dataAtual->tm_mon+1;
+
+*ano      = 1900+dataAtual->tm_year;
+
+
+
+
+}
+

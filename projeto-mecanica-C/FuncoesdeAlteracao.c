@@ -9,14 +9,14 @@
 //Prototipos________________________________________________________________________________________________
 
 //Proprietario
-void alteraVeiculo(int qtdeVeiculos,Veiculo *veic,char *topo);
-void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo);
-void AlteraDado(int qtdeCadastros,char *titulo,char *titulo2,char *titulo3,char *valor[][NOME_OPCOES],char *topo,char *msgErro,char *msgErro2,int MIN_TAM,int TAM_TAM);
+int alteraVeiculo(int qtdeVeiculos,Veiculo *veic,char *topo);
+int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo);
+
 
 //Altera um dado do Propeitario
 //Entrada : referencia a quantidade de cadastros e a struct
 //Retorno : NULO
-void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
+int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 {
 	//variaveis
 	
@@ -38,15 +38,19 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 	strcpy(menuEndereco[2],"3-Cidade");
 	
 
-	system("pause");
 	
+		if(qtdeCadastros == 0){
+		printf(">>>Nenhuma Proprietario foi cadastrado...");
+		getch();
+		return 0;
+	}	
 	//Opcao de pesquisa
+	
 	opMenu = menuOpcoes(3,menuAlterar,"Alterar");
 
 	if(opMenu==1){
 		//ALTERA NOME
 		if( leValidaString(pesquisaNome,"Informe o Nome para Pesquisa: ",topo,MIN_PESQUISA,TAM_NOME,TIPO_LETRAS,SIM) == 1 ){
-			
 			//Pesquisa por nome/verificando dados
 			for(contador=0;contador<qtdeCadastros+1;contador++)
 			{  
@@ -327,7 +331,7 @@ void alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 //Altera um dado do Veiculo
 //Entrada : referencia a quantidade de cadastros e a struct
 //Retorno : NULO
-void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
+int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 {
 	//variaveis
 	
@@ -348,8 +352,12 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 	strcpy(menuAlterar[4],"5-Ano");
 	
 
-	system("pause");
 	
+		if(qtdeCadastros == 0){
+		printf(">>>Nao ha veiculos cadastrados...");
+		getch();
+		return 0;
+	}	
 	//Opcao de pesquisa
 	opMenu = menuOpcoes(5,menuAlterar,"Alterar");
 	
