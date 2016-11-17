@@ -104,7 +104,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 				gotoxy(coluna,linha+3);
 				printf(">Chassi : %s",veic[contador].chassi);
 				gotoxy(coluna,linha+4);
-				printf(">Ano : %i",veic[contador].ano);
+				printf(">Ano : %s",veic[contador].anoS);
 				linha=linha+6;
 				aux++;
 				if(aux==5){

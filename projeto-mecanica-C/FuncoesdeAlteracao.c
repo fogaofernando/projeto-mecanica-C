@@ -599,15 +599,16 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 			for(contador=0;contador<qtdeCadastros+1;contador++)
 			{
-				if(strstr(veic[contador].ano,pesquisaAno))
+				
+				if(strstr(veic[contador].anoS,pesquisaAno))
 				{
-					strcpy(copiaAno[qtdeEncontrada+1],veic[contador].ano);
+					strcpy(copiaAno[qtdeEncontrada+1],veic[contador].anoS);
 					qtdeEncontrada++;
 				}
 			}
 			if(qtdeEncontrada==0) 
 			{			
-				printf("\n%c >>>Erro: Ano não Encontrada...",BARRA_LATERAL);
+				printf("\n%c >>>Erro: Ano nao Encontrada...",BARRA_LATERAL);
 				getch();
 			}		
 			else
@@ -618,13 +619,13 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 				{
 					if(opMenu==contador)
 					{						
-						// Novo Ano para a opcao escolhida
-						if(leValidaString(novoAno,"Informe o novo Ano : ",topo,TAM_ANO,TAM_ANO,TIPO_LETRAS_NUMEROS,NAO) == 1){ 
+						// Novo Ano para a opcao escolhida 
+						if(leValidaString(novoAno,"Informe o novo Ano : ",topo,TAM_ANO_STRING,TAM_ANO_STRING,TIPO_LETRAS_NUMEROS,NAO) == 1){ 
 							for(contador2=0;contador2<qtdeCadastros;contador2++)
 							{
-								if(strcmp(copiaAno[opMenu],veic[contador2].ano)==0)
+								if(strcmp(copiaAno[opMenu],veic[contador2].anoS)==0)
 								{
-									strcpy(veic[contador2].ano,novoAno);  
+									strcpy(veic[contador2].anoS,novoAno);  
 								}
 							}
 						}else{
@@ -640,7 +641,7 @@ void alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
 				{
-					printf("Anos %s \n",veic[contador].ano);
+					printf("Anos %s \n",veic[contador].anoS);
 				}
 			}
 		}else{

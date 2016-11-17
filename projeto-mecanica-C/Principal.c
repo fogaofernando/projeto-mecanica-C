@@ -84,7 +84,7 @@ int main(){
 			if(opMenu == 1){
 				if(cadastraVeiculo(&qtdeVeiculos,veic,"Cadastrar veiculo") == 1){
 					for(cont =0;cont<qtdeVeiculos;cont++){
-						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %d\nQTcadastro: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].ano,qtdeVeiculos);
+						printf("\n>Placa: %s\n>Modelo: %s\n>Fabricante: %s\n>Chassi: %s\n>Anon de fabricacao: %s\nQTcadastro: %d\n\n\n",veic[cont].placa,veic[cont].modelo,veic[cont].fabricante,veic[cont].chassi,veic[cont].anoS,qtdeVeiculos);
 					}
 					getch();
 				}

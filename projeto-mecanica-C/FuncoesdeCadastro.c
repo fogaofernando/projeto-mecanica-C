@@ -199,6 +199,7 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 		//ano de fabricacao
 		if(cont == 4){
 			leValidaInt(&veic[*qtdeVeiculos].ano,"Insira o Ano de Fabricacao: ",topo,MIN_ANO,TAM_ANO);
+			sprintf(veic[*qtdeVeiculos].anoS,"%i",veic[*qtdeVeiculos].ano);
 			CALCULA_CONT
 		}
 		
