@@ -14,7 +14,7 @@ int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo);
 
 //Objetivo:	Excluir o cadastro de um proprietario;
 //Entrada:	Referencia a quantidade de proprietarios e a estrutura propetarios;
-//Saida:	1 em caso de exclusao com sucesso;
+//Saida:	1 em caso de exclusao com sucesso, 0 por retorno por esq e -1 em caso de erro ao salvar arquivo;
 int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 	//variaveis
 	
@@ -105,9 +105,18 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 								printf("NOME %s \n",prop[contador].nome);
 							}
 							
-							//finalizacao com sucesso
-							getch();
-							return 1;
+							//salvando dados
+							if(gravarProp(*qtdeProp,prop)==1){
+								gotoxy(3,5);
+								printf(">>>Dados salvos com sucesso...");
+								getch();
+								
+								//finalizacao com sucesso				
+								return 1;
+				      		}else{
+				      			//finalizando por erro
+				      			return -1;
+							}
 						
 						}else{
 							printf(">>>opcao cancelada...");
@@ -192,9 +201,18 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 								printf("NOME %s - CPF %s \n",prop[contador].nome,prop[contador].cpf);
 							}
 							
-							//finalizacao com sucesso
-							getch();
-							return 1;
+							//salvando dados
+							if(gravarProp(*qtdeProp,prop)==1){
+								gotoxy(3,5);
+								printf(">>>Dados salvos com sucesso...");
+								getch();
+								
+								//finalizacao com sucesso				
+								return 1;
+				      		}else{
+				      			//finalizando por erro
+				      			return -1;
+							}
 						
 						}else{
 							printf(">>>opcao cancelada...");
@@ -223,7 +241,7 @@ int excluiProp(int *qtdeProp,Proprietario *prop,char *topo){
 
 //Objetivo:	Excluir o cadastro de um veiculo;
 //Entrada:	Referencia a quantidade de veiculos, estrutura veiculos e mensage do topo;
-//Saida:	1 em caso de exclusao com sucesso;
+//Saida:	1 em caso de exclusao com sucesso,0 em caso de retorno com ESC e -1 em caso de erro de arquivo;
 int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo){
 	//variaveis
 	
@@ -318,9 +336,18 @@ int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo){
 								printf("placa: %s / modelo: %s/ chassi:  %s\n",veic[contador].placa,veic[contador].modelo,veic[contador].chassi);
 							}
 							
-							//finalizacao com sucesso
-							getch();
-							return 1;
+							//salvando dados
+							if(gravarVeic(*qtdeVeic,veic)==1){
+								gotoxy(3,5);
+								printf(">>>Dados salvos com sucesso...");
+								getch();
+								
+								//finalizacao com sucesso				
+								return 1;
+				      		}else{
+				      			//finalizando por erro
+				      			return -1;
+							}   
 						
 						}else{
 							printf(">>>opcao cancelada...");
@@ -408,9 +435,18 @@ int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo){
 								printf("placa: %s / modelo: %s/ chassi:  %s\n",veic[contador].placa,veic[contador].modelo,veic[contador].chassi);
 							}
 							
-							//finalizacao com sucesso
-							getch();
-							return 1;
+							//salvando dados
+							if(gravarVeic(*qtdeVeic,veic)==1){
+								gotoxy(3,5);
+								printf(">>>Dados salvos com sucesso...");
+								getch();
+								
+								//finalizacao com sucesso				
+								return 1;
+				      		}else{
+				      			//finalizando por erro
+				      			return -1;
+							}
 						
 						}else{
 							printf(">>>opcao cancelada...");
@@ -436,11 +472,9 @@ int excluiVeic(int *qtdeVeic,Veiculo *veic,char *topo){
 }
 
 
-
-
 //Objetivo:	Excluir os dados de manutencao ;
 //Entrada:	Referencia a quantidade de manutencoes, estrutura manutencao e mensage do topo;
-//Saida:	1 em caso de exclusao com sucesso;
+//Saida:	1 em caso de exclusao com sucesso,0 em caso de retorno com ESC e -1 em caso de erro de arquivo;
 int excluiManu(int *qtdeManu,Manutencao *manu,char *topo){
 	//variaveis
 	
@@ -529,10 +563,18 @@ int excluiManu(int *qtdeManu,Manutencao *manu,char *topo){
 							printf("CPF %s - Placa %s \n",manu[contador].idProprietario,manu[contador].idVeiculo);
 						}
 						
-						//finalizacao com sucesso
-						getch();
-						return 1;
-					
+						//salvando dados
+						if(gravarManu(*qtdeManu,manu)==1){
+							gotoxy(3,5);
+							printf(">>>Dados salvos com sucesso...");
+							getch();
+							
+							//finalizacao com sucesso				
+							return 1;
+			      		}else{
+			      			//finalizando por erro
+			      			return -1;
+						}
 					}else{
 						printf(">>>opcao cancelada...");
 						getch();

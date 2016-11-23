@@ -64,6 +64,7 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 			{			
 				printf(">>>Erro: Nome não Encontrado...");
 				getch();
+				return 0;
 			}		
 			else
 			{
@@ -82,17 +83,14 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 									strcpy(prop[contador2].nome,novoNome);  
 								}
 							}
+							
 						}else{
 							printf(">>>Abortado...");
 							getch();
+							return 0;
 						}
 						
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+						
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -102,8 +100,9 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 			}
 		}else{
 			printf(">>>abortado...");
-		}
-		getch();
+			getch();
+			return 0;
+		}	
 	}else if(opMenu == 2)
 	
 	//ALTERA ENDERECO
@@ -126,6 +125,7 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				{			
 					printf(">>>Erro: Descricao não Encontrado...");
 					getch();
+					return 0;
 				}		
 				else
 				{
@@ -146,13 +146,10 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 								}
 							}else{
 								printf("\n>>>Abortado...");
+								getch();
+								return 0;
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+						
 						}
 					}
 					//TESTE 
@@ -163,8 +160,8 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				}
 			}else{
 				printf("\n>>>Abortado...");
+				return 0;
 			}
-				getch();
 			
 		//ALTERA ESTADO
 		}else if(opMenu == 2) 
@@ -182,6 +179,7 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				{			
 					printf(">>>Erro: Estado não Encontrado...");
 					getch();
+					return 0;
 				}		
 				else
 				{
@@ -198,12 +196,6 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 									strcpy(prop[contador2].estado,novoEstado);  
 								}
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
 						}
 					}
 					//TESTE 
@@ -215,6 +207,8 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				getch();
 			}else{
 				printf("\n%c >>>Abortado...",BARRA_LATERAL);
+				getch();
+				return 0;
 			}
 		// ALTERA CIDADE
 		}else if(opMenu == 3)
@@ -233,6 +227,7 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				{			
 					printf("\n%c >>>Erro: Cidade não Encontrada...",BARRA_LATERAL);
 					getch();
+					return 0;
 				}		
 				else
 				{
@@ -252,13 +247,9 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 								}
 							}else{
 								printf("\n%c >>>Abortado...",BARRA_LATERAL);
+								getch();
+								return 0;
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
 						}
 					}
 					//TESTE 
@@ -269,8 +260,10 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				}
 			}else{
 				printf("\n%c >>>Abortado...",BARRA_LATERAL);
+				getch();
+				return 0;
 			}
-			getch();
+		
 		}		
 	}else if(opMenu == 3) // ALTERA TELEFONE
 	//ALTERA TELEFONE
@@ -288,6 +281,7 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				{			
 					printf("\n%c>>>Erro: Telefone não Encontrado...",BARRA_LATERAL);
 					getch();
+					return 0;
 				}		
 				else
 				{
@@ -307,13 +301,10 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 								}
 							}else{
 								printf("\n%c >>>Abortado...",BARRA_LATERAL);
+								getch();
+								return 0;
 							}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+					
 						}
 					}
 					//TESTE 
@@ -324,9 +315,25 @@ int alteraProprietario(int qtdeCadastros,Proprietario *prop,char *topo)
 				}
 			}else{
 				printf("\n%c >>>Abortado...",BARRA_LATERAL);
+				getch();
+				return 0;
 			}
 			getch();
 	}
+	
+	//salvando dados
+	if(gravarProp(qtdeCadastros,prop)==1){
+		gotoxy(3,TELA_Y-3);
+		printf(">>>Dados salvos com sucesso...");
+		getch();
+		
+		//finalizacao com sucesso				
+		return 1;
+	}else{
+		//finalizando por erro
+		return -1;
+	}
+	
 }
 //Altera um dado do Veiculo
 //Entrada : referencia a quantidade de cadastros e a struct
@@ -382,6 +389,7 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			{			
 				printf("\n%c >>>Erro: Placa não Encontrada...",BARRA_LATERAL);
 				getch();
+				return 0;
 			}		
 			else
 			{
@@ -402,13 +410,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 							}
 						}else{
 							printf("\n%c >>>Abortado...",IMG_OP);
+							getch();
+							return 0;
 						}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+					
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -418,8 +423,9 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}else{
 			printf("\n%c >>Abortado...",IMG_OP);
+			getch();
+			return 0;
 		}
-		getch();
 	}else if(opMenu == 2)
 	{
 			
@@ -441,6 +447,7 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			{			
 				printf("\n%c >>>Erro: Modelo não Encontrada...",BARRA_LATERAL);
 				getch();
+				return 0;
 			}		
 			else
 			{
@@ -461,13 +468,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 							}
 						}else{
 							printf("\n%c >>>Abortado...",IMG_OP);
+							getch();
+							return 0;
 						}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+						
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -477,8 +481,9 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}else{
 			printf("\n%c >>Abortado...",IMG_OP);
+			getch();
+			return 0;
 		}
-		getch();
 		
 	}else if(opMenu == 3)
 	{
@@ -501,6 +506,7 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			{			
 				printf("\n%c >>>Erro: Fabricantenão Encontrada...",BARRA_LATERAL);
 				getch();
+				return 0;
 			}		
 			else
 			{
@@ -521,13 +527,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 							}
 						}else{
 							printf("\n%c >>>Abortado...",IMG_OP);
+							getch();
+							return 0;
 						}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+					
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -537,8 +540,9 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}else{
 			printf("\n%c >>Abortado...",IMG_OP);
+			getch();
+			return 0;
 		}
-		getch();
 	}else if(opMenu == 4){
 							
 		//Pesquisa por Chassi
@@ -559,6 +563,7 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			{			
 				printf("\n%c >>>Erro: Chassi não Encontrada...",BARRA_LATERAL);
 				getch();
+				return 0;
 			}		
 			else
 			{
@@ -579,13 +584,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 							}
 						}else{
 							printf("\n%c >>>Abortado...",IMG_OP);
+							getch();
+							return 0;
 						}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+						
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -595,8 +597,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}else{
 			printf("\n%c >>Abortado...",IMG_OP);
+			getch();
+			return 0;
 		}
-		getch();
+		
 	}else if(opMenu ==5){
 									
 		//Pesquisa por Ano
@@ -618,9 +622,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			{			
 				printf("\n%c >>>Erro: Ano nao Encontrada...",BARRA_LATERAL);
 				getch();
+				return 0;  
 			}		
 			else
-			{
+			{ 
 				opMenu = menuOpcoes(qtdeEncontrada,copiaAno+1,"Anos Encontradas ");  //Menu de Nomes Encontrados
 
 				for(contador=1;contador<qtdeEncontrada+1;contador++)
@@ -638,13 +643,10 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 							}
 						}else{
 							printf("\n%c >>>Abortado...",IMG_OP);
+							getch();
+							return 0;
 						}
-						/*				
-					}else{
-						printf("erro");
-						getch();
-					}
-					*/
+						
 					}
 				}
 				for(contador=0;contador<qtdeCadastros;contador++)
@@ -654,8 +656,22 @@ int alteraVeiculo(int qtdeCadastros,Veiculo *veic,char *topo)
 			}
 		}else{
 			printf("\n%c >>Abortado...",IMG_OP);
+			getch();
+			return 0;
 		}
+	}
+	
+	//salvando dados
+	if(gravarVeic(qtdeCadastros,veic)==1){
+		gotoxy(3,5);
+		printf(">>>Dados salvos com sucesso...");
 		getch();
+		
+		//finalizacao com sucesso				
+		return 1;
+	}else{
+		//finalizando por erro
+		return -1;
 	}
 	
 }

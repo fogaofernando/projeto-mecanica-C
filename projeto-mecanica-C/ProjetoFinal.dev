@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=5
 CompilerSettings=0000000100000000100000000
-UnitCount=9
+UnitCount=10
 
 [VersionInfo]
 Major=1
@@ -132,6 +132,16 @@ BuildCmd=
 
 [Unit9]
 FileName=FuncoesDeExclusao.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit10]
+FileName=FuncoesDeArquivo.c
 CompileCpp=0
 Folder=
 Compile=1

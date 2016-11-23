@@ -8,7 +8,7 @@
 
 //Calcular o valor do "cont" de acordo com o valor da "flag"
 #define CALCULA_CONT flag == 1 ? cont++ : cont--;
-
+#define APRES_MSG 1
 //Prototipos________________________________________________________________________________________________
 
 //Proprietario
@@ -23,12 +23,11 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeProprietari
 
 //Cadastra o proprietario;
 //Entrada : referencia a quantidade de cadastros, a struct propetario e a mensagem do topo;
-//Retorno : 1 em caso de sucesso na leitura e 0 caso abortado a operacao;
+//Retorno : 1 em caso de sucesso na leitura e 0 caso abortado a operacao e -1 em caso de erro o salvar os dados;
 int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 {
-	//variaveis
+	//variavies
 	int flag,cont = 0;
-
 	//Desenvolvimento
 	do{
 		flag=1;
@@ -48,13 +47,6 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		//CPF
 		if(cont == 1){
 			flag = leituraCpf(prop[*qtdeCadastros].cpf,topo,qtdeCadastros,prop);			
-			
-			/*if(flag == 1){
-				cont++;
-			}else{
-				cont--;
-			}*/
-			
 			CALCULA_CONT
 		}
 		
@@ -86,12 +78,20 @@ int cadastraProprietario(int *qtdeCadastros,Proprietario *prop,char *topo)
 		if(cont == 6){
 			prop[*qtdeCadastros].servRealizado=NAO;
 			*qtdeCadastros=*qtdeCadastros+1;
-			gotoxy(3,5);
-			printf(">>>Dados salvos com sucesso...");
-			getch();
-			return 1;	//finalizacao com sucesso
-		}
-	
+			
+			//salvando dados
+			if(gravarProp(*qtdeCadastros,prop)==1){
+				gotoxy(3,TELA_Y-3);
+				printf(">>>Dados salvos com sucesso...");
+				getch();
+				
+				//finalizacao com sucesso				
+				return 1;
+      		}else{
+      			//finalizando por erro
+      			return -1;
+			}
+	  }
 	}while(flag == 0);
 }
 
@@ -206,13 +206,23 @@ int cadastraVeiculo(int *qtdeVeiculos,Veiculo *veic,char *topo){
 			sprintf(veic[*qtdeVeiculos].anoS,"%i",veic[*qtdeVeiculos].ano);
 			CALCULA_CONT
 		}
-		
+		 
 		//finalizacao
 		if(cont == 5){
 			*qtdeVeiculos = *qtdeVeiculos + 1;
-			printf("\n >>>leitura de dados feita com sucesso..");
-			getch();
-			return 1;
+			
+			//salvando dados  
+			if(gravarVeic(*qtdeVeiculos,veic)==1){
+				gotoxy(3,5);
+				printf(">>>Dados salvos com sucesso...");
+				getch();
+				
+				//finalizacao com sucesso				
+				return 1;
+      		}else{
+      			//finalizando por erro
+      			return -1;
+			}
 		}
 		
 	}while(flag == 0);
@@ -386,13 +396,21 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 				case'S':
 				{
 
-//					prop[flag4].servRealizado=1;
-//					veic[flag3].manutRealizada=1;
+					prop[flag4].servRealizado=1;
+					veic[flag3].manutRealizada=1;
 					*qtdeManutencoes=*qtdeManutencoes+1;
-					gotoxy(3,20);
-					printf(">>>Dados salvos com sucesso...");
-					getch();
-					return 1;	//finalizacao com sucesso
+					//salvando dados
+					if(gravarManu(*qtdeManutencoes,manu)==1 && gravarVeic(qtdeVeiculos,veic) == 1 && gravarProp(qtdeCadastros,prop) ==1){
+						gotoxy(3,5);
+						printf(">>>Dados salvos com sucesso...");
+						getch();
+					
+						//finalizacao com sucesso				
+						return 1;
+      				}else{
+      					//finalizando por erro
+      					return -1;
+					}
 				
 				}
 				case'N':
@@ -405,18 +423,4 @@ int cadastraManutencao(int *qtdeManutencoes,int qtdeVeiculos,int qtdeCadastros,P
 		}
 	}while(flag == 0);
 }
-
-
-/*
-//Objetivo: Faz a leitura do ID do veiculo
-//Entrada:	
-//Saida:		
-int leituraIdVeiculo(){
-	//Vaiaveis
-	int op;
-	
-	//Desenvolvimento
-	op = menuOpcoes(2,)
-	
-}*/
 

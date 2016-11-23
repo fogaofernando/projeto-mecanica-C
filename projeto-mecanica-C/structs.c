@@ -7,7 +7,7 @@ typedef struct Proprietario{
 	char cpf[TAM_CPF+1];
 	char descricao[TAM_DESCRICAO_END+1];
 	char cidade[TAM_CIDADE+1];
-	char estado[TAM_ESTADO+1];
+	char estado[TAM_ESTADO+1];   
 	char telefone[TAM_TELEFONE+1];
 	int  servRealizado; 		//0 nao e 1 sim		
 }Proprietario;		

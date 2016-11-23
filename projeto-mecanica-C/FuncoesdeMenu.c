@@ -4,13 +4,13 @@
 #include<windows.h>
 #include "defines.c"
 
-
+ 
 //PROTOTIPOS__________________________________________________________________________________________________________
 int menuOpcoes(int qtOp,char opcoes[][NOME_OPCOES],char *apresentaMenu);
 void imprimeSeta(int opAtual,int totalOp);
 void imprimeCentralizado(char *texto,int y);
 void janelaMenu();
-void configTela();
+void configTela();  
 void gotoxy(int x, int y);
 
 
@@ -152,7 +152,7 @@ void janelaMenu(){
 
 //Objetivo:	Configurações basicas da tela de tamanho e cor
 //Entrada:	NULO; 
-//Saída: 	NULO;
+//Saída: 	NULO;   
 void configTela(){
 	//Tamanho da tela
 	COORD outbuff;												//estrutura que define as coordenadas de uma célula de caracteres em um buffer de tela do console(x e y)

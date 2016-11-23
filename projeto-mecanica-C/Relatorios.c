@@ -7,7 +7,7 @@
 #include "structs.c"
 #include "defines.c"
 //Prototipos________________________________________________________________________________________________
-void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
+void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop2,Veiculo *veic,Manutencao *manu,char *topo);
 int pesquisaProprietario(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
 int pesquisaVeiculo(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
 int pesquisaNome(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo);
@@ -16,11 +16,9 @@ int pesquisaNome(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Propriet
 //Objetivo: Apresentar todos os cadastros 
 //Parametros: referencias a qtde de Proprietarios , veiculos e manutenções ,  referencias as strcuts Proprietario , Veiculo e Manutencao e ao topo 
 //Retorno: Nenhum;
-void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo)
-{
+void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,Proprietario *prop,Veiculo *veic,Manutencao *manu,char *topo){
 	//variaveis
-
-	int contador,coluna=3,linha=6,aux=1,opMenu;
+	int contador,coluna=3,linha=6,aux=1,opMenu,cont;
 	char menuCadastros[3][NOME_OPCOES];
 		
 	//Desenvolvimento
@@ -46,24 +44,35 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 				{
 					menuOpcoes(0,"","Cadastros");
 					gotoxy(3,5);
-				}
+				}  
 				if(aux==3)
 				{
-					coluna=20;
+					coluna=42;
 					linha=6;
 				}
+				
 				gotoxy(coluna,linha);
 				printf(">Nome: %s",prop[contador].nome);
 				gotoxy(coluna,linha+1);
 				printf(">CPF: %s",prop[contador].cpf);
 				gotoxy(coluna,linha+2);
-				printf(">Descricao: %s",prop[contador].descricao);
+				printf(">Descricao:%s",prop[contador].descricao);
 				gotoxy(coluna,linha+3);
 				printf(">Cidade: %s",prop[contador].cidade);
 				gotoxy(coluna,linha+4);
+				printf(">Estado: %s",prop[contador].estado);
+				gotoxy(coluna,linha+5);
 				printf(">Telefone: %s",prop[contador].telefone);
-				linha=linha+6;
+				gotoxy(coluna,linha+6);
+				if(prop[contador].servRealizado == 1){
+					printf(">Servico ja realizado: Sim");
+				}else{
+					printf(">Servico ja realizado: Nao");
+				}
+				
+				linha=linha+8;
 				aux++;
+				
 				if(aux==5){
 					aux=1;
 					coluna=3;
@@ -72,7 +81,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 				}
 			}
 		}
-		getch();
+		getch();	   
 	}else if(opMenu == 2)
 	//Apresenta Veiculos
 	{
@@ -119,7 +128,7 @@ void apresentaCadastros(int qtdeCadastros,int qtdeVeiculos,int qtdeManutencoes,P
 	}else if(opMenu == 3)
 	// Apresenta Manutenções
 	{
-				if(qtdeManutencoes==0)
+		if(qtdeManutencoes==0)
 		{
 			gotoxy(coluna,10);
 			printf(">>>Erro: Nao existem Manutencoes Cadastradas...");

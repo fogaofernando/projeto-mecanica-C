@@ -29,11 +29,11 @@
 
 
 #define MIN_PESQUISA 1
-//PRIMEIRA STRUCT
-#define TAM_NOME 40
+//PRIMEIRA STRUCT 
+#define TAM_NOME 30
 #define MIN_NOME 1
 #define TAM_CPF 11
-#define TAM_DESCRICAO_END 50	
+#define TAM_DESCRICAO_END 30	
 #define MIN_DESCRICAO_END 3
 #define MIN_CIDADE 2
 #define TAM_CIDADE 20
@@ -93,10 +93,15 @@
 #define TIPO_LETRAS_NUMEROS 3
 #define TIPO_LETRAS_ESPECIAIS_NUMEROS 4
 #define TIPO_INTEIRO 5
-#define TIPO_REAL 6
+#define TIPO_REAL 6 
 
 
 //deseja aceitar espaco ?
 #define SIM 1
 #define NAO 0
+
+//Nome dos arquivos
+#define ARQ_PROP "proprietario.txt"
+#define ARQ_VEIC "veiculo.txt"
+#define ARQ_MANU "manutencao.txt"
 

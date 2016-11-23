@@ -25,7 +25,7 @@ int leituraDadosChar(char *valor,int tamMax,int posInicial,int opEntrada,int opE
 void apagaCaracter(int posX, int posY);
 int verificaCharEspecifico(int op,int espaco,char valorC);
 void leArquivo(int *qtdeProprietarios,Proprietario *prop);
-void gravaArquivo(int qtdeProprietarios,Proprietario *prop);
+
 
 //Funcoes_____________________________________________________________________________________________________
 
@@ -36,10 +36,10 @@ referencia a mensagem de erro, tipo de string que sera lidoe se vai aceitar espa
 // Retorno : 1 letura com sucesso(ENTER) e 0 leitura cancelada(ESC);
 int leValidaString(char *valorS,char *titulo,char *topo,int tamanhoMin,int tamanhoMax,int tipoString,int aceitaEspaco){
 	//variaveis
-	int flag,cont,tecla,tamTxt;
+	int flag,cont,tecla,tamTxt; 
 	
-	//desenvolvimento
-	do{
+	//desenvolvimento 
+	do{ 
 		//Mensagem de leitura e tabela
 		system("cls"); 
 		janelaMenu();
@@ -569,24 +569,6 @@ void leArquivo(int *qtdeProprietarios,Proprietario *prop)
 	fclose(arq); 
 }
 
-//objetivo : grava os dados nos arquivo Binario Proprietarios.txt
-//paramentro: referencia a qtde de Proprietarios e a struct  Proprietario
-//retorno : nenhum
-void gravaArquivo(int qtdeProprietarios,Proprietario *prop)
-{
-	FILE *arq;
-	int cont=0;
-	if((arq=fopen("Proprietarios.txt","wb"))!=NULL)
-	{
-		fwrite(&prop,sizeof(struct Proprietario),6,arq);
-		printf("Arquivo Gravado ");
-		getch();
-
-	}
-	fclose(arq);	
-}
-
-
 
 void obtemDataHoraAtual(int *dia, int * mes, int *ano){
 
@@ -603,9 +585,6 @@ dataAtual = localtime(&t);
 *mes      = dataAtual->tm_mon+1;
 
 *ano      = 1900+dataAtual->tm_year;
-
-
-
 
 }
 
